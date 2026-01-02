@@ -3,7 +3,6 @@ module github.com/kyverno/api
 go 1.25.5
 
 require (
-	github.com/kyverno/kyverno v1.16.1
 	github.com/stretchr/testify v1.11.1
 	k8s.io/api v0.34.3
 	k8s.io/apimachinery v0.34.3

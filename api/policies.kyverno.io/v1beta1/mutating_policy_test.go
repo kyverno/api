@@ -163,7 +163,7 @@ func TestMutatingPolicy_GetFailurePolicy(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			result := tt.policy.GetFailurePolicy()
+			result := tt.policy.GetFailurePolicy(false)
 			if result != tt.expected {
 				t.Errorf("GetFailurePolicy() = %v, want %v", result, tt.expected)
 			}
@@ -666,7 +666,7 @@ func TestNamespacedMutatingPolicy_GetFailurePolicy(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			result := tt.policy.GetFailurePolicy()
+			result := tt.policy.GetFailurePolicy(false)
 			if result != tt.expected {
 				t.Errorf("GetFailurePolicy() = %v, want %v", result, tt.expected)
 			}

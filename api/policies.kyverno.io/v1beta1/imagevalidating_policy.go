@@ -1,14 +1,12 @@
 package v1beta1
 
 import (
-	"context"
 	"fmt"
 	"reflect"
 
 	"github.com/google/cel-go/cel"
 	"github.com/google/cel-go/common/types"
 	"github.com/google/cel-go/common/types/ref"
-	"github.com/kyverno/kyverno/pkg/toggle"
 	admissionregistrationv1 "k8s.io/api/admissionregistration/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -113,8 +111,8 @@ func (s *ImageValidatingPolicy) GetTimeoutSeconds() *int32 {
 	return s.Spec.WebhookConfiguration.TimeoutSeconds
 }
 
-func (s *ImageValidatingPolicy) GetFailurePolicy() admissionregistrationv1.FailurePolicyType {
-	if toggle.FromContext(context.TODO()).ForceFailurePolicyIgnore() {
+func (s *ImageValidatingPolicy) GetFailurePolicy(forceFailurePolicyIgnore bool) admissionregistrationv1.FailurePolicyType {
+	if forceFailurePolicyIgnore {
 		return admissionregistrationv1.Ignore
 	}
 	if s.Spec.FailurePolicy == nil {
@@ -180,8 +178,8 @@ func (s *NamespacedImageValidatingPolicy) GetWebhookConfiguration() *WebhookConf
 	return s.Spec.WebhookConfiguration
 }
 
-func (s *NamespacedImageValidatingPolicy) GetFailurePolicy() admissionregistrationv1.FailurePolicyType {
-	if toggle.FromContext(context.TODO()).ForceFailurePolicyIgnore() {
+func (s *NamespacedImageValidatingPolicy) GetFailurePolicy(forceFailurePolicyIgnore bool) admissionregistrationv1.FailurePolicyType {
+	if forceFailurePolicyIgnore {
 		return admissionregistrationv1.Ignore
 	}
 	if s.Spec.FailurePolicy == nil {

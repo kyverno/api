@@ -104,7 +104,7 @@ func TestValidatingPolicy_GetFailurePolicy(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := tt.policy.GetFailurePolicy()
+			got := tt.policy.GetFailurePolicy(false)
 			assert.Equal(t, tt.want, got)
 		})
 	}
