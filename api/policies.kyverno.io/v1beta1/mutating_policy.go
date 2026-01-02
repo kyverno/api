@@ -1,9 +1,6 @@
 package v1beta1
 
 import (
-	"context"
-
-	"github.com/kyverno/kyverno/pkg/toggle"
 	admissionregistrationv1 "k8s.io/api/admissionregistration/v1"
 	admissionregistrationv1alpha1 "k8s.io/api/admissionregistration/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -76,8 +73,8 @@ func (s *NamespacedMutatingPolicy) GetMatchConditions() []admissionregistrationv
 	return s.Spec.MatchConditions
 }
 
-func (s *NamespacedMutatingPolicy) GetFailurePolicy() admissionregistrationv1.FailurePolicyType {
-	if toggle.FromContext(context.TODO()).ForceFailurePolicyIgnore() {
+func (s *NamespacedMutatingPolicy) GetFailurePolicy(forceFailurePolicyIgnore bool) admissionregistrationv1.FailurePolicyType {
+	if forceFailurePolicyIgnore {
 		return admissionregistrationv1.Ignore
 	}
 	if s.Spec.FailurePolicy == nil {
@@ -165,8 +162,8 @@ func (s *MutatingPolicy) GetMatchConditions() []admissionregistrationv1.MatchCon
 	return s.Spec.MatchConditions
 }
 
-func (s *MutatingPolicy) GetFailurePolicy() admissionregistrationv1.FailurePolicyType {
-	if toggle.FromContext(context.TODO()).ForceFailurePolicyIgnore() {
+func (s *MutatingPolicy) GetFailurePolicy(forceFailurePolicyIgnore bool) admissionregistrationv1.FailurePolicyType {
+	if forceFailurePolicyIgnore {
 		return admissionregistrationv1.Ignore
 	}
 	if s.Spec.FailurePolicy == nil {
