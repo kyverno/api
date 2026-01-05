@@ -5,9 +5,11 @@ go 1.25.5
 require (
 	github.com/stretchr/testify v1.11.1
 	k8s.io/api v0.34.3
-	k8s.io/apimachinery v0.34.3
-	k8s.io/utils v0.0.0-20250820121507-0af2bda4dd1d
+	k8s.io/apimachinery v0.35.0
+	k8s.io/utils v0.0.0-20251002143259-bc988d571ff4
 )
+
+require k8s.io/kube-openapi v0.0.0-20250910181357-589584f1c912 // indirect
 
 require (
 	cel.dev/expr v0.24.0 // indirect
