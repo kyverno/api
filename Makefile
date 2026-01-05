@@ -72,10 +72,10 @@ codegen: controller-gen
 
 .PHONY: codegen
 verify-codegen: ## Verify all generated code and docs are up to date
-verify-codegen: codegen-all
+verify-codegen: codegen
 	@echo Checking git diff... >&2
-	@echo 'If this test fails, it is because the git diff is non-empty after running "make codegen-fix-tests".' >&2
-	@echo 'To correct this, locally run "make codegen-fix-tests", commit the changes, and re-run tests.' >&2
+	@echo 'If this test fails, it is because the git diff is non-empty after running "make codegen".' >&2
+	@echo 'To correct this, locally run "make codegen", commit the changes, and re-run tests.' >&2
 	@git diff --exit-code
 
 ########
