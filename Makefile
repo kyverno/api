@@ -35,7 +35,8 @@ clean-tools: ## Remove installed tools
 # CODEGEN #
 ###########
 
-CRDS_PATH := ./config/crds
+CONFIG_PATH := ./config
+CRDS_PATH := $(CONFIG_PATH)/crds
 
 .PHONY: register-gen
 register-gen: ## Generate API types registrations
@@ -55,10 +56,10 @@ controller-gen: $(CONTROLLER_GEN)
 	@echo Generate policies crds... >&2
 	@rm -rf $(CRDS_PATH) && mkdir -p $(CRDS_PATH)
 	@$(CONTROLLER_GEN) \
-		paths=./api/policies.kyverno.io/v1alpha1/... \
-		paths=./api/policies.kyverno.io/v1beta1/... \
+		paths=./api/policies.kyverno.io/... \
 		crd:crdVersions=v1,ignoreUnexportedFields=true,generateEmbeddedObjectMeta=false \
 		output:dir=$(CRDS_PATH)
+	@cat $(CRDS_PATH)/*.yaml > $(CONFIG_PATH)/crds.yaml
 
 .PHONY: codegen
 codegen: ## Generate all generated code
