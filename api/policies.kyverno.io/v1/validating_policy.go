@@ -1,10 +1,42 @@
-package v1alpha1
+package v1
 
 import (
 	admissionregistrationv1 "k8s.io/api/admissionregistration/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
+
+const (
+	ValidatingPolicyKind           = "ValidatingPolicy"
+	NamespacedValidatingPolicyKind = "NamespacedValidatingPolicy"
+)
+
+// +genclient
+// +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:resource:scope="Namespaced",shortName=nvpol,categories=kyverno
+// +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
+// +kubebuilder:printcolumn:name="READY",type=string,JSONPath=`.status.conditionStatus.ready`
+// +kubebuilder:selectablefield:JSONPath=`.spec.evaluation.mode`
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
+type NamespacedValidatingPolicy struct {
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+	Spec              ValidatingPolicySpec `json:"spec"`
+	// Status contains policy runtime data.
+	// +optional
+	Status ValidatingPolicyStatus `json:"status,omitempty"`
+}
+
+// +kubebuilder:object:root=true
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
+// NamespacedValidatingPolicyList is a list of NamespacedValidatingPolicy instances
+type NamespacedValidatingPolicyList struct {
+	metav1.TypeMeta `json:",inline"`
+	metav1.ListMeta `json:"metadata"`
+	Items           []NamespacedValidatingPolicy `json:"items"`
+}
 
 // +genclient
 // +genclient:nonNamespaced
@@ -15,7 +47,6 @@ import (
 // +kubebuilder:printcolumn:name="READY",type=string,JSONPath=`.status.conditionStatus.ready`
 // +kubebuilder:selectablefield:JSONPath=`.spec.evaluation.mode`
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-// +kubebuilder:deprecatedversion
 
 type ValidatingPolicy struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -24,22 +55,6 @@ type ValidatingPolicy struct {
 	// Status contains policy runtime data.
 	// +optional
 	Status ValidatingPolicyStatus `json:"status,omitempty"`
-}
-
-// ValidatingPolicyLike captures the common behaviour shared by validating policies regardless of scope.
-// +k8s:deepcopy-gen=false
-type ValidatingPolicyLike interface {
-	metav1.Object
-	runtime.Object
-	GetSpec() *ValidatingPolicySpec
-	GetStatus() *ValidatingPolicyStatus
-	GetFailurePolicy() admissionregistrationv1.FailurePolicyType
-	GetMatchConstraints() admissionregistrationv1.MatchResources
-	GetMatchConditions() []admissionregistrationv1.MatchCondition
-	GetVariables() []admissionregistrationv1.Variable
-	GetValidatingPolicySpec() *ValidatingPolicySpec
-	BackgroundEnabled() bool
-	GetKind() string
 }
 
 type ValidatingPolicyStatus struct {

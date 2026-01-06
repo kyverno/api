@@ -1,4 +1,4 @@
-package v1alpha1
+package v1
 
 import (
 	admissionregistrationv1 "k8s.io/api/admissionregistration/v1"
@@ -13,10 +13,28 @@ import (
 // +kubebuilder:resource:path=mutatingpolicies,scope="Cluster",shortName=mpol,categories=kyverno
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:printcolumn:name="READY",type=string,JSONPath=`.status.conditionStatus.ready`
+// +kubebuilder:selectablefield:JSONPath=`.spec.evaluation.mode`
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-// +kubebuilder:deprecatedversion
 
 type MutatingPolicy struct {
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+	Spec              MutatingPolicySpec `json:"spec"`
+	// Status contains policy runtime data.
+	// +optional
+	Status MutatingPolicyStatus `json:"status,omitempty"`
+}
+
+// +genclient
+// +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:resource:scope="Namespaced",shortName=nmpol,categories=kyverno
+// +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
+// +kubebuilder:printcolumn:name="READY",type=string,JSONPath=`.status.conditionStatus.ready`
+// +kubebuilder:selectablefield:JSONPath=`.spec.evaluation.mode`
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
+type NamespacedMutatingPolicy struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	Spec              MutatingPolicySpec `json:"spec"`
@@ -37,12 +55,32 @@ type MutatingPolicyStatus struct {
 	Generated bool `json:"generated"`
 }
 
+// +kubebuilder:object:root=true
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
+// MutatingPolicyList is a list of MutatingPolicy instances
+type MutatingPolicyList struct {
+	metav1.TypeMeta `json:",inline"`
+	metav1.ListMeta `json:"metadata"`
+	Items           []MutatingPolicy `json:"items"`
+}
+
+// +kubebuilder:object:root=true
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
+// NamespacedMutatingPolicyList is a list of NamespacedMutatingPolicy instances
+type NamespacedMutatingPolicyList struct {
+	metav1.TypeMeta `json:",inline"`
+	metav1.ListMeta `json:"metadata"`
+	Items           []NamespacedMutatingPolicy `json:"items"`
+}
+
 // MutatingPolicySpec is the specification of the desired behavior of the MutatingPolicy.
 type MutatingPolicySpec struct {
 	// MatchConstraints specifies what resources this policy is designed to evaluate.
 	// The AdmissionPolicy cares about a request if it matches _all_ Constraints.
 	// Required.
-	MatchConstraints *admissionregistrationv1alpha1.MatchResources `json:"matchConstraints,omitempty"`
+	MatchConstraints *admissionregistrationv1.MatchResources `json:"matchConstraints,omitempty"`
 
 	// failurePolicy defines how to handle failures for the admission policy. Failures can
 	// occur from CEL expression parse errors, type check errors, runtime errors and invalid
@@ -55,7 +93,11 @@ type MutatingPolicySpec struct {
 	// Allowed values are Ignore or Fail. Defaults to Fail.
 	// +optional
 	// +kubebuilder:validation:Enum=Ignore;Fail
-	FailurePolicy *admissionregistrationv1alpha1.FailurePolicyType `json:"failurePolicy,omitempty"`
+	FailurePolicy *admissionregistrationv1.FailurePolicyType `json:"failurePolicy,omitempty"`
+
+	// TargetMatchConstraints specifies what target mutation resources this policy is designed to evaluate.
+	// +optional
+	TargetMatchConstraints *TargetMatchConstraints `json:"targetMatchConstraints,omitempty"`
 
 	// MatchConditions is a list of conditions that must be met for a request to be validated.
 	// Match conditions filter requests that have already been matched by the rules,
@@ -74,7 +116,7 @@ type MutatingPolicySpec struct {
 	// +listType=map
 	// +listMapKey=name
 	// +optional
-	MatchConditions []admissionregistrationv1alpha1.MatchCondition `json:"matchConditions,omitempty" patchStrategy:"merge" patchMergeKey:"name"`
+	MatchConditions []admissionregistrationv1.MatchCondition `json:"matchConditions,omitempty" patchStrategy:"merge" patchMergeKey:"name"`
 
 	// Variables contain definitions of variables that can be used in composition of other expressions.
 	// Each variable is defined as a named CEL expression.
@@ -88,15 +130,11 @@ type MutatingPolicySpec struct {
 	// +listType=map
 	// +listMapKey=name
 	// +optional
-	Variables []admissionregistrationv1alpha1.Variable `json:"variables,omitempty" patchStrategy:"merge" patchMergeKey:"name"`
+	Variables []admissionregistrationv1.Variable `json:"variables,omitempty" patchStrategy:"merge" patchMergeKey:"name"`
 
 	// AutogenConfiguration defines the configuration for the generation controller.
 	// +optional
 	AutogenConfiguration *MutatingPolicyAutogenConfiguration `json:"autogen,omitempty"`
-
-	// TargetMatchConstraints specifies what target mutation resources this policy is designed to evaluate.
-	// +optional
-	TargetMatchConstraints *TargetMatchConstraints `json:"targetMatchConstraints,omitempty"`
 
 	// mutations contain operations to perform on matching objects.
 	// mutations may not be empty; a minimum of one mutation is required.
@@ -127,13 +165,32 @@ type MutatingPolicySpec struct {
 	// order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only
 	// reinvoked when mutations change the object after this mutation is invoked.
 	// Required.
-	ReinvocationPolicy admissionregistrationv1alpha1.ReinvocationPolicyType `json:"reinvocationPolicy,omitempty" protobuf:"bytes,7,opt,name=reinvocationPolicy,casttype=ReinvocationPolicyType"`
+	ReinvocationPolicy admissionregistrationv1.ReinvocationPolicyType `json:"reinvocationPolicy,omitempty" protobuf:"bytes,7,opt,name=reinvocationPolicy,casttype=ReinvocationPolicyType"`
+}
+
+type TargetMatchConstraints struct {
+	// +optional
+	Expression string `json:"expression,omitempty"`
+
+	// TargetMatchConstraints specifies what target mutation resources this policy is designed to evaluate.
+	// +optional
+	admissionregistrationv1.MatchResources `json:",inline"`
 }
 
 type MutatingPolicyEvaluationConfiguration struct {
+	// Mode is the mode of policy evaluation.
+	// Allowed values are "Kubernetes" or "JSON".
+	// Optional. Default value is "Kubernetes".
+	// +optional
+	Mode EvaluationMode `json:"mode,omitempty"`
+
 	// Admission controls policy evaluation during admission.
 	// +optional
 	Admission *AdmissionConfiguration `json:"admission,omitempty"`
+
+	// Background controls policy evaluation during background scan.
+	// +optional
+	Background *BackgroundConfiguration `json:"background,omitempty"`
 
 	// MutateExisting controls whether existing resources are mutated.
 	// +optional
@@ -153,15 +210,6 @@ type MAPGenerationConfiguration struct {
 	Enabled *bool `json:"enabled,omitempty"`
 }
 
-type TargetMatchConstraints struct {
-	// +optional
-	Expression string `json:"expression,omitempty"`
-
-	// TargetMatchConstraints specifies what target mutation resources this policy is designed to evaluate.
-	// +optional
-	admissionregistrationv1.MatchResources `json:",inline"`
-}
-
 type MutateExistingConfiguration struct {
 	// Enabled enables mutation of existing resources. Default is false.
 	// When spec.targetMatchConstraints is not defined, Kyverno mutates existing resources matched in spec.matchConstraints.
@@ -170,12 +218,21 @@ type MutateExistingConfiguration struct {
 	Enabled *bool `json:"enabled,omitempty"`
 }
 
-// +kubebuilder:object:root=true
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// MutationTarget specifies the target of the mutation.
+type MutationTarget struct {
+	// Group specifies the API group of the target resource.
+	// +optional
+	Group string `json:"group,omitempty"`
 
-// MutatingPolicyList is a list of MutatingPolicy instances
-type MutatingPolicyList struct {
-	metav1.TypeMeta `json:",inline"`
-	metav1.ListMeta `json:"metadata"`
-	Items           []MutatingPolicy `json:"items"`
+	// Version specifies the API version of the target resource.
+	// +optional
+	Version string `json:"version,omitempty"`
+
+	// Resource specifies the resource name of the target resource.
+	// +optional
+	Resource string `json:"resource,omitempty"`
+
+	// Kind specifies the kind of the target resource.
+	// +optional
+	Kind string `json:"kind,omitempty"`
 }

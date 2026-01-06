@@ -19,6 +19,7 @@ const (
 // +kubebuilder:printcolumn:name="READY",type=string,JSONPath=`.status.conditionStatus.ready`
 // +kubebuilder:selectablefield:JSONPath=`.spec.evaluation.mode`
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:storageversion
 
 type NamespacedValidatingPolicy struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -64,6 +65,7 @@ type ValidatingPolicyLike interface {
 // +kubebuilder:printcolumn:name="READY",type=string,JSONPath=`.status.conditionStatus.ready`
 // +kubebuilder:selectablefield:JSONPath=`.spec.evaluation.mode`
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:storageversion
 
 type ValidatingPolicy struct {
 	metav1.TypeMeta   `json:",inline"`

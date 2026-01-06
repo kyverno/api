@@ -1,4 +1,4 @@
-package v1alpha1
+package v1
 
 import (
 	admissionregistrationv1 "k8s.io/api/admissionregistration/v1"
@@ -8,7 +8,6 @@ import (
 // +genclient
 // +kubebuilder:object:root=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-// +kubebuilder:deprecatedversion
 
 // PolicyException declares resources to be excluded from specified policies.
 type PolicyException struct {
