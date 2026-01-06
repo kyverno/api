@@ -33,7 +33,7 @@ type ValidatingPolicyLike interface {
 	runtime.Object
 	GetSpec() *ValidatingPolicySpec
 	GetStatus() *ValidatingPolicyStatus
-	GetFailurePolicy() admissionregistrationv1.FailurePolicyType
+	GetFailurePolicy(bool) admissionregistrationv1.FailurePolicyType
 	GetMatchConstraints() admissionregistrationv1.MatchResources
 	GetMatchConditions() []admissionregistrationv1.MatchCondition
 	GetVariables() []admissionregistrationv1.Variable

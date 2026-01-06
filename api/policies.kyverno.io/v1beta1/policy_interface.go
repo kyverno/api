@@ -10,7 +10,7 @@ type GenericPolicy interface {
 	metav1.Object
 	GetMatchConstraints() admissionregistrationv1.MatchResources
 	GetMatchConditions() []admissionregistrationv1.MatchCondition
-	GetFailurePolicy() admissionregistrationv1.FailurePolicyType
+	GetFailurePolicy(bool) admissionregistrationv1.FailurePolicyType
 	GetTimeoutSeconds() *int32
 	GetVariables() []admissionregistrationv1.Variable
 }

@@ -72,7 +72,7 @@ type ImageValidatingPolicyLike interface {
 	runtime.Object
 	GetSpec() *ImageValidatingPolicySpec
 	GetStatus() *ImageValidatingPolicyStatus
-	GetFailurePolicy() admissionregistrationv1.FailurePolicyType
+	GetFailurePolicy(bool) admissionregistrationv1.FailurePolicyType
 	GetMatchConstraints() admissionregistrationv1.MatchResources
 	GetMatchConditions() []admissionregistrationv1.MatchCondition
 	GetVariables() []admissionregistrationv1.Variable

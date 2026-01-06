@@ -231,7 +231,7 @@ type MutatingPolicyLike interface {
 	runtime.Object
 	GetSpec() *MutatingPolicySpec
 	GetStatus() *MutatingPolicyStatus
-	GetFailurePolicy() admissionregistrationv1.FailurePolicyType
+	GetFailurePolicy(bool) admissionregistrationv1.FailurePolicyType
 	GetMatchConstraints() admissionregistrationv1.MatchResources
 	GetTargetMatchConstraints() TargetMatchConstraints
 	GetMatchConditions() []admissionregistrationv1.MatchCondition
