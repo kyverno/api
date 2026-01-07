@@ -57,7 +57,7 @@ func (s *GeneratingPolicy) GetMatchConditions() []admissionregistrationv1.MatchC
 	return s.Spec.MatchConditions
 }
 
-func (s *GeneratingPolicy) GetFailurePolicy() admissionregistrationv1.FailurePolicyType {
+func (s *GeneratingPolicy) GetFailurePolicy(bool) admissionregistrationv1.FailurePolicyType {
 	return admissionregistrationv1.Ignore
 }
 
@@ -114,7 +114,7 @@ func (s *NamespacedGeneratingPolicy) GetMatchConditions() []admissionregistratio
 	return s.Spec.MatchConditions
 }
 
-func (s *NamespacedGeneratingPolicy) GetFailurePolicy() admissionregistrationv1.FailurePolicyType {
+func (s *NamespacedGeneratingPolicy) GetFailurePolicy(bool) admissionregistrationv1.FailurePolicyType {
 	return admissionregistrationv1.Ignore
 }
 

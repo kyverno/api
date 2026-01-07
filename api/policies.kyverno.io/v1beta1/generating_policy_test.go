@@ -70,7 +70,7 @@ func TestGetMatchConditionsGpol(t *testing.T) {
 }
 
 func TestGetFailurePolicyGpol(t *testing.T) {
-	res := gpol.GetFailurePolicy()
+	res := gpol.GetFailurePolicy(false)
 	assert.Equal(t, res, v1.Ignore, "result should be 'Ignore")
 }
 
@@ -358,7 +358,7 @@ func TestNamespacedGeneratingPolicy_GetMatchConditions(t *testing.T) {
 
 func TestNamespacedGeneratingPolicy_GetFailurePolicy(t *testing.T) {
 	policy := &NamespacedGeneratingPolicy{}
-	res := policy.GetFailurePolicy()
+	res := policy.GetFailurePolicy(false)
 	assert.Equal(t, v1.Ignore, res, "result should be 'Ignore'")
 }
 
