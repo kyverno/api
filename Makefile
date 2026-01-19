@@ -73,10 +73,10 @@ controller-gen: $(CONTROLLER_GEN)
 		output:dir=$(CRDS_PATH)
 	@cat $(CRDS_PATH)/*.yaml > $(CONFIG_PATH)/crds.yaml
 
-.PHONY: codegen-api-docs
-codegen-api-docs: ## Generate API docs
-codegen-api-docs: $(GEN_CRD_API_REFERENCE_DOCS)
-codegen-api-docs: $(GENREF)
+.PHONY: api-docs
+api-docs: ## Generate API docs
+api-docs: $(GEN_CRD_API_REFERENCE_DOCS)
+api-docs: $(GENREF)
 	@echo Generate api docs... >&2
 	@rm -rf docs/user/crd && mkdir -p docs/user/crd
 	@$(GEN_CRD_API_REFERENCE_DOCS) \
@@ -94,6 +94,7 @@ codegen: ## Generate all generated code
 codegen: register-gen
 codegen: deepcopy-gen
 codegen: controller-gen
+codegen: api-docs
 
 ##################
 # VERIFY CODEGEN #
