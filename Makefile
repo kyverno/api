@@ -8,7 +8,11 @@ CONTROLLER_GEN_VERSION             ?= v0.18.0
 REGISTER_GEN                       ?= $(TOOLS_DIR)/register-gen
 DEEPCOPY_GEN                       ?= $(TOOLS_DIR)/deepcopy-gen
 CODE_GEN_VERSION                   ?= v0.34.1
-TOOLS                              := $(CONTROLLER_GEN) $(REGISTER_GEN) $(DEEPCOPY_GEN)
+GEN_CRD_API_REFERENCE_DOCS         ?= $(TOOLS_DIR)/gen-crd-api-reference-docs
+GEN_CRD_API_REFERENCE_DOCS_VERSION ?= latest
+GENREF                             ?= $(TOOLS_DIR)/genref
+GENREF_VERSION                     ?= master
+TOOLS                              := $(CONTROLLER_GEN) $(REGISTER_GEN) $(DEEPCOPY_GEN) $(GEN_CRD_API_REFERENCE_DOCS) $(GENREF)
 
 $(CONTROLLER_GEN):
 	@echo Install controller-gen... >&2
@@ -21,6 +25,14 @@ $(REGISTER_GEN):
 $(DEEPCOPY_GEN):
 	@echo Install deepcopy-gen... >&2
 	@GOBIN=$(TOOLS_DIR) go install k8s.io/code-generator/cmd/deepcopy-gen@$(CODE_GEN_VERSION)
+
+$(GEN_CRD_API_REFERENCE_DOCS):
+	@echo Install gen-crd-api-reference-docs... >&2
+	@GOBIN=$(TOOLS_DIR) go install github.com/ahmetb/gen-crd-api-reference-docs@$(GEN_CRD_API_REFERENCE_DOCS_VERSION)
+
+$(GENREF):
+	@echo Install genref... >&2
+	@GOBIN=$(TOOLS_DIR) go install github.com/kubernetes-sigs/reference-docs/genref@$(GENREF_VERSION)
 
 .PHONY: install-tools
 install-tools: ## Install tools
@@ -60,6 +72,22 @@ controller-gen: $(CONTROLLER_GEN)
 		crd:crdVersions=v1,ignoreUnexportedFields=true,generateEmbeddedObjectMeta=false \
 		output:dir=$(CRDS_PATH)
 	@cat $(CRDS_PATH)/*.yaml > $(CONFIG_PATH)/crds.yaml
+
+.PHONY: codegen-api-docs
+codegen-api-docs: ## Generate API docs
+codegen-api-docs: $(GEN_CRD_API_REFERENCE_DOCS)
+codegen-api-docs: $(GENREF)
+	@echo Generate api docs... >&2
+	@rm -rf docs/user/crd && mkdir -p docs/user/crd
+	@$(GEN_CRD_API_REFERENCE_DOCS) \
+		-api-dir github.com/kyverno/api/api \
+		-config docs/user/config.json \
+		-template-dir docs/user/template \
+		-out-file docs/user/crd/index.html
+	@cd ./docs/user && $(GENREF) \
+		-c config-api.yaml \
+		-o crd \
+		-f html
 
 .PHONY: codegen
 codegen: ## Generate all generated code
