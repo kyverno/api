@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-issue-config.json
+
+blank_issues_enabled: true
+
+contact_links:
+  - name: Discussions
+    url: https://github.com/kyverno/api/discussions
+    about: Please ask and answer questions here.
+  - name: Documentation
+    url: https://kyverno.github.io/api
+    about: Browse documentation here.
+  - name: Slack channel
+    url: https://kubernetes.slack.com/archives/C067LUFL43U
+    about: Please ask and answer any usage questions here.
