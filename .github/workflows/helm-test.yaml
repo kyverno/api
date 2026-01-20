@@ -1,0 +1,59 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: helm-test
+
+permissions: {}
+
+on:
+  pull_request:
+    branches:
+      - main
+      - release*
+    paths:
+      - charts/**
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  helm-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        k8s-version: [v1.33.7, v1.34.2, v1.35.0]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - name: Install helm
+        id: helm
+        uses: azure/setup-helm@1a275c3b69536ee54be43f2070a358922e12c8d4 # v4.3.1
+      - name: Create kind cluster
+        uses: helm/kind-action@92086f6be054225fa813e0a4b13787fc9088faab # v1.13.0
+        with:
+          node_image: kindest/node:${{ matrix.k8s-version }}
+          cluster_name: kind
+      - name: Install kyverno
+        shell: bash
+        run: |
+          set -e
+          export HELM=${{ steps.helm.outputs.helm-path }}
+          make helm-install
+      # - name: Helm test
+      #   run: |
+      #     set -e
+      #     export HELM=${{ steps.helm.outputs.helm-path }}
+      #     make helm-test
+
+  linter-artifacthub:
+    runs-on: ubuntu-latest
+    container:
+      image: artifacthub/ah
+      options: --user root
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - name: Run ah lint
+        working-directory: ./charts/
+        run: ah lint

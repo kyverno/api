@@ -2,8 +2,8 @@
 # DEFAULTS #
 ############
 
-GOOS                 ?= $(shell go env GOOS)
-GOARCH               ?= $(shell go env GOARCH)
+GOOS   ?= $(shell go env GOOS)
+GOARCH ?= $(shell go env GOARCH)
 
 #########
 # TOOLS #
@@ -11,7 +11,6 @@ GOARCH               ?= $(shell go env GOARCH)
 
 TOOLS_DIR                          ?= $(PWD)/.tools
 CONTROLLER_GEN                     := $(TOOLS_DIR)/controller-gen
-CONTROLLER_GEN_VERSION             ?= v0.20.0
 REGISTER_GEN                       ?= $(TOOLS_DIR)/register-gen
 DEEPCOPY_GEN                       ?= $(TOOLS_DIR)/deepcopy-gen
 CODE_GEN_VERSION                   ?= v0.35.0
@@ -19,7 +18,9 @@ GEN_CRD_API_REFERENCE_DOCS         ?= $(TOOLS_DIR)/gen-crd-api-reference-docs
 GEN_CRD_API_REFERENCE_DOCS_VERSION ?= latest
 GENREF                             ?= $(TOOLS_DIR)/genref
 GENREF_VERSION                     ?= master
-TOOLS                              := $(CONTROLLER_GEN) $(REGISTER_GEN) $(DEEPCOPY_GEN) $(GEN_CRD_API_REFERENCE_DOCS) $(GENREF)
+HELM                               ?= $(TOOLS_DIR)/helm
+HELM_VERSION                       ?= v4.0.5
+TOOLS                              := $(CONTROLLER_GEN) $(REGISTER_GEN) $(DEEPCOPY_GEN) $(GEN_CRD_API_REFERENCE_DOCS) $(GENREF) $(HELM)
 ifeq ($(GOOS), darwin)
 SED                                := gsed
 else
@@ -45,6 +46,10 @@ $(GEN_CRD_API_REFERENCE_DOCS):
 $(GENREF):
 	@echo Install genref... >&2
 	@GOBIN=$(TOOLS_DIR) go install github.com/kubernetes-sigs/reference-docs/genref@$(GENREF_VERSION)
+
+$(HELM):
+	@echo Install helm... >&2
+	@GOBIN=$(TOOLS_DIR) go install helm.sh/helm/v4/cmd/helm@$(HELM_VERSION)
 
 .PHONY: install-tools
 install-tools: ## Install tools
@@ -119,6 +124,16 @@ codegen: deepcopy-gen
 codegen: controller-gen
 codegen: api-docs
 codegen: helm-chart
+
+########
+# HELM #
+########
+
+.PHONY: helm-install
+helm-install: $(HELM) ## Install helm chart
+	@echo Install kyverno chart... >&2
+	@$(HELM) template --namespace kyverno charts/kyverno-api | kubectl apply --server-side -f -
+# 	@$(HELM) upgrade --install kyverno-api --namespace kyverno --create-namespace --server-side --wait ./charts/kyverno-api
 
 ##################
 # VERIFY CODEGEN #
