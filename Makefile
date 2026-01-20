@@ -20,7 +20,9 @@ GENREF                             ?= $(TOOLS_DIR)/genref
 GENREF_VERSION                     ?= master
 HELM                               ?= $(TOOLS_DIR)/helm
 HELM_VERSION                       ?= v4.0.5
-TOOLS                              := $(CONTROLLER_GEN) $(REGISTER_GEN) $(DEEPCOPY_GEN) $(GEN_CRD_API_REFERENCE_DOCS) $(GENREF) $(HELM)
+HELM_DOCS                          ?= $(TOOLS_DIR)/helm-docs
+HELM_DOCS_VERSION                  ?= v1.14.2
+TOOLS                              := $(CONTROLLER_GEN) $(REGISTER_GEN) $(DEEPCOPY_GEN) $(GEN_CRD_API_REFERENCE_DOCS) $(GENREF) $(HELM) $(HELM_DOCS)
 ifeq ($(GOOS), darwin)
 SED                                := gsed
 else
@@ -50,6 +52,10 @@ $(GENREF):
 $(HELM):
 	@echo Install helm... >&2
 	@GOBIN=$(TOOLS_DIR) go install helm.sh/helm/v4/cmd/helm@$(HELM_VERSION)
+
+$(HELM_DOCS):
+	@echo Install helm-docs... >&2
+	@GOBIN=$(TOOLS_DIR) go install -ldflags "-X main.version=$(HELM_DOCS_VERSION:v%=%)" github.com/norwoodj/helm-docs/cmd/helm-docs@$(HELM_DOCS_VERSION)
 
 .PHONY: install-tools
 install-tools: ## Install tools
@@ -117,6 +123,11 @@ helm-chart: controller-gen
 	@$(SED) -i '/^  labels:/a \ \ \ \ {{- include "kyverno-api.labels" . | nindent 4 }}' charts/kyverno-api/templates/crds/*
 	@$(SED) -i '/controller-gen.kubebuilder.io/d' charts/kyverno-api/templates/crds/*
 
+.PHONY: helm-docs
+helm-docs: helm-chart $(HELM_DOCS) ## Generate helm docs
+	@echo Generate helm docs... >&2
+	@$(HELM_DOCS) -s file --chart-search-root charts
+
 .PHONY: codegen
 codegen: ## Generate all generated code
 codegen: register-gen
@@ -124,6 +135,7 @@ codegen: deepcopy-gen
 codegen: controller-gen
 codegen: api-docs
 codegen: helm-chart
+codegen: helm-docs
 
 ########
 # HELM #
