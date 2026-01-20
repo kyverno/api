@@ -1,18 +1,30 @@
+############
+# DEFAULTS #
+############
+
+GOOS                 ?= $(shell go env GOOS)
+GOARCH               ?= $(shell go env GOARCH)
+
 #########
 # TOOLS #
 #########
 
 TOOLS_DIR                          ?= $(PWD)/.tools
 CONTROLLER_GEN                     := $(TOOLS_DIR)/controller-gen
-CONTROLLER_GEN_VERSION             ?= v0.18.0
+CONTROLLER_GEN_VERSION             ?= v0.20.0
 REGISTER_GEN                       ?= $(TOOLS_DIR)/register-gen
 DEEPCOPY_GEN                       ?= $(TOOLS_DIR)/deepcopy-gen
-CODE_GEN_VERSION                   ?= v0.34.1
+CODE_GEN_VERSION                   ?= v0.35.0
 GEN_CRD_API_REFERENCE_DOCS         ?= $(TOOLS_DIR)/gen-crd-api-reference-docs
 GEN_CRD_API_REFERENCE_DOCS_VERSION ?= latest
 GENREF                             ?= $(TOOLS_DIR)/genref
 GENREF_VERSION                     ?= master
 TOOLS                              := $(CONTROLLER_GEN) $(REGISTER_GEN) $(DEEPCOPY_GEN) $(GEN_CRD_API_REFERENCE_DOCS) $(GENREF)
+ifeq ($(GOOS), darwin)
+SED                                := gsed
+else
+SED                                := sed
+endif
 
 $(CONTROLLER_GEN):
 	@echo Install controller-gen... >&2
@@ -89,12 +101,24 @@ api-docs: $(GENREF)
 		-o crd \
 		-f html
 
+.PHONY: helm-chart
+helm-chart: ## Generate helm CRDs
+helm-chart: controller-gen
+	@echo Generate helm crds... >&2
+	@rm -rf charts/kyverno-api/templates/crds && mkdir -p charts/kyverno-api/templates/crds
+	@cp $(CRDS_PATH)/*.yaml charts/kyverno-api/templates/crds/
+	@$(SED) -i '/^  annotations:/a \ \ \ \ {{- include "kyverno-api.annotations" . | nindent 4 }}' charts/kyverno-api/templates/crds/*
+	@$(SED) -i '/^  annotations:/i \ \ labels:' charts/kyverno-api/templates/crds/*
+	@$(SED) -i '/^  labels:/a \ \ \ \ {{- include "kyverno-api.labels" . | nindent 4 }}' charts/kyverno-api/templates/crds/*
+	@$(SED) -i '/controller-gen.kubebuilder.io/d' charts/kyverno-api/templates/crds/*
+
 .PHONY: codegen
 codegen: ## Generate all generated code
 codegen: register-gen
 codegen: deepcopy-gen
 codegen: controller-gen
 codegen: api-docs
+codegen: helm-chart
 
 ##################
 # VERIFY CODEGEN #
