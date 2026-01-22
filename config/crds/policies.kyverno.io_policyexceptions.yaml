@@ -47,6 +47,12 @@ spec:
                 items:
                   type: string
                 type: array
+              expiresAt:
+                description: |-
+                  ExpiresAt specifies the time when the policy exception expires.
+                  Once expired, the exception will no longer be applied to incoming requests.
+                format: date-time
+                type: string
               images:
                 description: |-
                   Images specifies container images to be excluded from policy evaluation.
@@ -161,6 +167,12 @@ spec:
                 items:
                   type: string
                 type: array
+              expiresAt:
+                description: |-
+                  ExpiresAt specifies the time when the policy exception expires.
+                  Once expired, the exception will no longer be applied to incoming requests.
+                format: date-time
+                type: string
               images:
                 description: |-
                   Images specifies container images to be excluded from policy evaluation.
@@ -274,6 +286,12 @@ spec:
                 items:
                   type: string
                 type: array
+              expiresAt:
+                description: |-
+                  ExpiresAt specifies the time when the policy exception expires.
+                  Once expired, the exception will no longer be applied to incoming requests.
+                format: date-time
+                type: string
               images:
                 description: |-
                   Images specifies container images to be excluded from policy evaluation.

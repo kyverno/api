@@ -1394,6 +1394,10 @@ func (in *PolicyExceptionSpec) DeepCopyInto(out *PolicyExceptionSpec) {
 		*out = make([]string, len(*in))
 		copy(*out, *in)
 	}
+	if in.ExpiresAt != nil {
+		in, out := &in.ExpiresAt, &out.ExpiresAt
+		*out = (*in).DeepCopy()
+	}
 	return
 }
 

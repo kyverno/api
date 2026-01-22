@@ -1,6 +1,8 @@
 package v1beta1
 
 import (
+	"time"
+
 	admissionregistrationv1 "k8s.io/api/admissionregistration/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/validation/field"
@@ -22,6 +24,14 @@ type PolicyException struct {
 
 func (p *PolicyException) GetKind() string {
 	return "PolicyException"
+}
+
+// IsExpired checks if the policy exception has expired based on the expiresAt field.
+func (p *PolicyException) IsExpired() bool {
+	if p.Spec.ExpiresAt == nil {
+		return false
+	}
+	return time.Now().After(p.Spec.ExpiresAt.Time)
 }
 
 // Validate implements programmatic validation
@@ -55,6 +65,11 @@ type PolicyExceptionSpec struct {
 	// +kubebuilder:validation:Enum=skip;pass
 	// +kubebuilder:default=skip
 	ReportResult string `json:"reportResult,omitempty"`
+
+	// ExpiresAt specifies the time when the policy exception expires.
+	// Once expired, the exception will no longer be applied to incoming requests.
+	// +optional
+	ExpiresAt *metav1.Time `json:"expiresAt,omitempty"`
 }
 
 // Validate implements programmatic validation
