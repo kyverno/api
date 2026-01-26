@@ -404,6 +404,16 @@ func (s MutatingPolicySpec) MutateExistingEnabled() bool {
 	return *s.EvaluationConfiguration.MutateExistingConfiguration.Enabled
 }
 
+// SkipBackgroundRequestsEnabled returns whether background requests should be skipped.
+// Returns true by default.
+func (s MutatingPolicySpec) SkipBackgroundRequestsEnabled() bool {
+	const defaultValue = true
+	if s.EvaluationConfiguration == nil || s.EvaluationConfiguration.SkipBackgroundRequests == nil {
+		return defaultValue
+	}
+	return *s.EvaluationConfiguration.SkipBackgroundRequests
+}
+
 type MutatingPolicyEvaluationConfiguration struct {
 	// Mode is the mode of policy evaluation.
 	// Allowed values are "Kubernetes" or "JSON".
@@ -422,6 +432,13 @@ type MutatingPolicyEvaluationConfiguration struct {
 	// MutateExisting controls whether existing resources are mutated.
 	// +optional
 	MutateExistingConfiguration *MutateExistingConfiguration `json:"mutateExisting,omitempty"`
+
+	// SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+	// The default value is set to "true", it must be set to "false" to apply
+	// mutateExisting rules to those requests.
+	// +kubebuilder:default=true
+	// +kubebuilder:validation:Optional
+	SkipBackgroundRequests *bool `json:"skipBackgroundRequests,omitempty"`
 }
 
 type MutatingPolicyAutogenConfiguration struct {

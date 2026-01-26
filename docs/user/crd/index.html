@@ -13958,6 +13958,19 @@ OrphanDownstreamOnPolicyDeleteConfiguration
 <p>OrphanDownstreamOnPolicyDelete defines the configuration for orphaning downstream resources on policy delete.</p>
 </td>
 </tr>
+<tr>
+<td>
+<code>skipBackgroundRequests</code><br/>
+<em>
+bool
+</em>
+</td>
+<td>
+<p>SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+The default value is set to &ldquo;true&rdquo;, it must be set to &ldquo;false&rdquo; to apply
+generate rules to those requests.</p>
+</td>
+</tr>
 </tbody>
 </table>
 <hr />
@@ -15147,6 +15160,19 @@ MutateExistingConfiguration
 <td>
 <em>(Optional)</em>
 <p>MutateExisting controls whether existing resources are mutated.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>skipBackgroundRequests</code><br/>
+<em>
+bool
+</em>
+</td>
+<td>
+<p>SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+The default value is set to &ldquo;true&rdquo;, it must be set to &ldquo;false&rdquo; to apply
+mutateExisting rules to those requests.</p>
 </td>
 </tr>
 </tbody>
