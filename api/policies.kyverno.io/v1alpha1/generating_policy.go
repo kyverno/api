@@ -85,6 +85,12 @@ type GeneratingPolicySpec struct {
 	// Required.
 	// +kubebuilder:validation:MinItems=1
 	Generation []Generation `json:"generate"`
+
+	// UseServerSideApply controls whether to use server-side apply for generate rules.
+	// If set to "true", create & update for generated resources will use apply instead of create/update.
+	// Defaults to "false" if not specified.
+	// +optional
+	UseServerSideApply bool `json:"useServerSideApply,omitempty"`
 }
 
 type GeneratingPolicyEvaluationConfiguration struct {
