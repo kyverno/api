@@ -261,6 +261,16 @@ func (s GeneratingPolicySpec) AdmissionEnabled() bool {
 	return *s.EvaluationConfiguration.Admission.Enabled
 }
 
+// SkipBackgroundRequestsEnabled returns whether background requests should be skipped.
+// Returns true by default.
+func (s GeneratingPolicySpec) SkipBackgroundRequestsEnabled() bool {
+	const defaultValue = true
+	if s.EvaluationConfiguration == nil || s.EvaluationConfiguration.SkipBackgroundRequests == nil {
+		return defaultValue
+	}
+	return *s.EvaluationConfiguration.SkipBackgroundRequests
+}
+
 type GeneratingPolicyEvaluationConfiguration struct {
 	// Admission controls policy evaluation during admission.
 	// +optional
@@ -276,6 +286,13 @@ type GeneratingPolicyEvaluationConfiguration struct {
 
 	// OrphanDownstreamOnPolicyDelete defines the configuration for orphaning downstream resources on policy delete.
 	OrphanDownstreamOnPolicyDelete *OrphanDownstreamOnPolicyDeleteConfiguration `json:"orphanDownstreamOnPolicyDelete,omitempty"`
+
+	// SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+	// The default value is set to "true", it must be set to "false" to apply
+	// generate rules to those requests.
+	// +kubebuilder:default=true
+	// +kubebuilder:validation:Optional
+	SkipBackgroundRequests *bool `json:"skipBackgroundRequests,omitempty"`
 }
 
 // GenerateExistingConfiguration defines the configuration for generating resources for existing triggers.
