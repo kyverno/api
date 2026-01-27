@@ -1,6 +1,12 @@
 package v1alpha1
 
 import (
+	"fmt"
+	"reflect"
+
+	"github.com/google/cel-go/cel"
+	"github.com/google/cel-go/common/types"
+	"github.com/google/cel-go/common/types/ref"
 	admissionregistrationv1 "k8s.io/api/admissionregistration/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -164,6 +170,39 @@ type ImageValidatingPolicySpec struct {
 	AutogenConfiguration *ImageValidatingPolicyAutogenConfiguration `json:"autogen,omitempty"`
 }
 
+// AdmissionEnabled checks if admission is set to true
+func (s ImageValidatingPolicySpec) AdmissionEnabled() bool {
+	if s.EvaluationConfiguration == nil || s.EvaluationConfiguration.Admission == nil || s.EvaluationConfiguration.Admission.Enabled == nil {
+		return true
+	}
+	return *s.EvaluationConfiguration.Admission.Enabled
+}
+
+// BackgroundEnabled checks if background is set to true
+func (s ImageValidatingPolicySpec) BackgroundEnabled() bool {
+	if s.EvaluationConfiguration == nil || s.EvaluationConfiguration.Background == nil || s.EvaluationConfiguration.Background.Enabled == nil {
+		return true
+	}
+	return *s.EvaluationConfiguration.Background.Enabled
+}
+
+// ValidationActions returns the validation actions.
+func (s ImageValidatingPolicySpec) ValidationActions() []admissionregistrationv1.ValidationAction {
+	const defaultValue = admissionregistrationv1.Deny
+	if len(s.ValidationAction) == 0 {
+		return []admissionregistrationv1.ValidationAction{defaultValue}
+	}
+	return s.ValidationAction
+}
+
+// EvaluationMode returns the evaluation mode of the policy.
+func (s ImageValidatingPolicySpec) EvaluationMode() EvaluationMode {
+	if s.EvaluationConfiguration == nil || s.EvaluationConfiguration.Mode == "" {
+		return EvaluationModeKubernetes
+	}
+	return s.EvaluationConfiguration.Mode
+}
+
 // MatchImageReference defines a Glob or a CEL expression for matching images
 // +kubebuilder:oneOf:={required:{glob}}
 // +kubebuilder:oneOf:={required:{expression}}
@@ -230,6 +269,50 @@ type Attestor struct {
 	// Notary defines attestor configuration for Notary based signatures
 	// +optional
 	Notary *Notary `json:"notary,omitempty"`
+}
+
+func (v Attestor) ConvertToNative(typeDesc reflect.Type) (any, error) {
+	if reflect.TypeOf(v).AssignableTo(typeDesc) {
+		return v, nil
+	}
+	return nil, fmt.Errorf("type conversion error from 'Image' to '%v'", typeDesc)
+}
+
+func (v Attestor) ConvertToType(typeVal ref.Type) ref.Val {
+	switch typeVal {
+	case cel.ObjectType("imageverify.attestor"):
+		return v
+	default:
+		return types.NewErr("type conversion error from '%s' to '%s'", cel.ObjectType("imageverify.attestor"), typeVal)
+	}
+}
+
+func (v Attestor) Equal(other ref.Val) ref.Val {
+	img, ok := other.(Attestor)
+	if !ok {
+		return types.MaybeNoSuchOverloadErr(other)
+	}
+	return types.Bool(reflect.DeepEqual(v, img))
+}
+
+func (v Attestor) Type() ref.Type {
+	return cel.ObjectType("imageverify.attestor")
+}
+
+func (v Attestor) Value() any {
+	return v
+}
+
+func (a Attestor) GetKey() string {
+	return a.Name
+}
+
+func (a Attestor) IsCosign() bool {
+	return a.Cosign != nil
+}
+
+func (a Attestor) IsNotary() bool {
+	return a.Notary != nil
 }
 
 // Cosign defines attestor configuration for Cosign based signatures
@@ -416,6 +499,18 @@ type Attestation struct {
 	// Referrer defines the details of attestation attached using OCI 1.1 format
 	// +optional
 	Referrer *Referrer `json:"referrer,omitempty"`
+}
+
+func (a Attestation) GetKey() string {
+	return a.Name
+}
+
+func (a Attestation) IsInToto() bool {
+	return a.InToto != nil
+}
+
+func (a Attestation) IsReferrer() bool {
+	return a.Referrer != nil
 }
 
 type InToto struct {

@@ -13,6 +13,7 @@ import (
 // +kubebuilder:resource:path=mutatingpolicies,scope="Cluster",shortName=mpol,categories=kyverno
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:printcolumn:name="READY",type=string,JSONPath=`.status.conditionStatus.ready`
+// +kubebuilder:selectablefield:JSONPath=`.spec.evaluation.mode`
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:deprecatedversion
 
@@ -42,7 +43,7 @@ type MutatingPolicySpec struct {
 	// MatchConstraints specifies what resources this policy is designed to evaluate.
 	// The AdmissionPolicy cares about a request if it matches _all_ Constraints.
 	// Required.
-	MatchConstraints *admissionregistrationv1alpha1.MatchResources `json:"matchConstraints,omitempty"`
+	MatchConstraints *admissionregistrationv1.MatchResources `json:"matchConstraints,omitempty"`
 
 	// failurePolicy defines how to handle failures for the admission policy. Failures can
 	// occur from CEL expression parse errors, type check errors, runtime errors and invalid
@@ -55,7 +56,7 @@ type MutatingPolicySpec struct {
 	// Allowed values are Ignore or Fail. Defaults to Fail.
 	// +optional
 	// +kubebuilder:validation:Enum=Ignore;Fail
-	FailurePolicy *admissionregistrationv1alpha1.FailurePolicyType `json:"failurePolicy,omitempty"`
+	FailurePolicy *admissionregistrationv1.FailurePolicyType `json:"failurePolicy,omitempty"`
 
 	// MatchConditions is a list of conditions that must be met for a request to be validated.
 	// Match conditions filter requests that have already been matched by the rules,
@@ -74,7 +75,7 @@ type MutatingPolicySpec struct {
 	// +listType=map
 	// +listMapKey=name
 	// +optional
-	MatchConditions []admissionregistrationv1alpha1.MatchCondition `json:"matchConditions,omitempty" patchStrategy:"merge" patchMergeKey:"name"`
+	MatchConditions []admissionregistrationv1.MatchCondition `json:"matchConditions,omitempty" patchStrategy:"merge" patchMergeKey:"name"`
 
 	// Variables contain definitions of variables that can be used in composition of other expressions.
 	// Each variable is defined as a named CEL expression.
@@ -88,7 +89,7 @@ type MutatingPolicySpec struct {
 	// +listType=map
 	// +listMapKey=name
 	// +optional
-	Variables []admissionregistrationv1alpha1.Variable `json:"variables,omitempty" patchStrategy:"merge" patchMergeKey:"name"`
+	Variables []admissionregistrationv1.Variable `json:"variables,omitempty" patchStrategy:"merge" patchMergeKey:"name"`
 
 	// AutogenConfiguration defines the configuration for the generation controller.
 	// +optional
@@ -127,13 +128,84 @@ type MutatingPolicySpec struct {
 	// order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only
 	// reinvoked when mutations change the object after this mutation is invoked.
 	// Required.
-	ReinvocationPolicy admissionregistrationv1alpha1.ReinvocationPolicyType `json:"reinvocationPolicy,omitempty" protobuf:"bytes,7,opt,name=reinvocationPolicy,casttype=ReinvocationPolicyType"`
+	ReinvocationPolicy admissionregistrationv1.ReinvocationPolicyType `json:"reinvocationPolicy,omitempty" protobuf:"bytes,7,opt,name=reinvocationPolicy,casttype=ReinvocationPolicyType"`
+}
+
+// GenerateMutatingAdmissionPolicyEnabled checks if mutating admission policy generation is enabled
+func (s MutatingPolicySpec) GenerateMutatingAdmissionPolicyEnabled() bool {
+	const defaultValue = false
+	if s.AutogenConfiguration == nil {
+		return defaultValue
+	}
+	if s.AutogenConfiguration.MutatingAdmissionPolicy == nil {
+		return defaultValue
+	}
+	if s.AutogenConfiguration.MutatingAdmissionPolicy.Enabled == nil {
+		return defaultValue
+	}
+	return *s.AutogenConfiguration.MutatingAdmissionPolicy.Enabled
+}
+
+// AdmissionEnabled checks if admission is set to true
+func (s MutatingPolicySpec) AdmissionEnabled() bool {
+	const defaultValue = true
+	if s.EvaluationConfiguration == nil || s.EvaluationConfiguration.Admission == nil || s.EvaluationConfiguration.Admission.Enabled == nil {
+		return defaultValue
+	}
+	return *s.EvaluationConfiguration.Admission.Enabled
+}
+
+// BackgroundEnabled checks if background is set to true
+func (s MutatingPolicySpec) BackgroundEnabled() bool {
+	const defaultValue = true
+	if s.EvaluationConfiguration == nil || s.EvaluationConfiguration.Background == nil || s.EvaluationConfiguration.Background.Enabled == nil {
+		return defaultValue
+	}
+	return *s.EvaluationConfiguration.Background.Enabled
+}
+
+// EvaluationMode returns the evaluation mode of the policy.
+func (s MutatingPolicySpec) EvaluationMode() EvaluationMode {
+	const defaultValue = EvaluationModeKubernetes
+	if s.EvaluationConfiguration == nil || s.EvaluationConfiguration.Mode == "" {
+		return defaultValue
+	}
+	return s.EvaluationConfiguration.Mode
+}
+
+// GetReinvocationPolicy returns the reinvocation policy of the MutatingPolicy
+func (s *MutatingPolicySpec) GetReinvocationPolicy() admissionregistrationv1.ReinvocationPolicyType {
+	const defaultValue = admissionregistrationv1.NeverReinvocationPolicy
+	if s.ReinvocationPolicy == "" {
+		return defaultValue
+	}
+	return s.ReinvocationPolicy
+}
+
+// MutateExistingEnabled checks if mutate existing is set to true
+func (s MutatingPolicySpec) MutateExistingEnabled() bool {
+	if s.EvaluationConfiguration == nil ||
+		s.EvaluationConfiguration.MutateExistingConfiguration == nil ||
+		s.EvaluationConfiguration.MutateExistingConfiguration.Enabled == nil {
+		return false
+	}
+	return *s.EvaluationConfiguration.MutateExistingConfiguration.Enabled
 }
 
 type MutatingPolicyEvaluationConfiguration struct {
+	// Mode is the mode of policy evaluation.
+	// Allowed values are "Kubernetes" or "JSON".
+	// Optional. Default value is "Kubernetes".
+	// +optional
+	Mode EvaluationMode `json:"mode,omitempty"`
+
 	// Admission controls policy evaluation during admission.
 	// +optional
 	Admission *AdmissionConfiguration `json:"admission,omitempty"`
+
+	// Background controls policy evaluation during background scan.
+	// +optional
+	Background *BackgroundConfiguration `json:"background,omitempty"`
 
 	// MutateExisting controls whether existing resources are mutated.
 	// +optional
@@ -178,4 +250,23 @@ type MutatingPolicyList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata"`
 	Items           []MutatingPolicy `json:"items"`
+}
+
+// MutationTarget specifies the target of the mutation.
+type MutationTarget struct {
+	// Group specifies the API group of the target resource.
+	// +optional
+	Group string `json:"group,omitempty"`
+
+	// Version specifies the API version of the target resource.
+	// +optional
+	Version string `json:"version,omitempty"`
+
+	// Resource specifies the resource name of the target resource.
+	// +optional
+	Resource string `json:"resource,omitempty"`
+
+	// Kind specifies the kind of the target resource.
+	// +optional
+	Kind string `json:"kind,omitempty"`
 }
