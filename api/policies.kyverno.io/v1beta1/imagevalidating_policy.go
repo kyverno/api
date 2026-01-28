@@ -8,14 +8,26 @@ import (
 )
 
 type (
-	ImageValidatingPolicySpec   = v1alpha1.ImageValidatingPolicySpec
-	ImageValidatingPolicyStatus = v1alpha1.ImageValidatingPolicyStatus
-	Attestor                    = v1alpha1.Attestor
-	Cosign                      = v1alpha1.Cosign
-	Notary                      = v1alpha1.Notary
-	Attestation                 = v1alpha1.Attestation
-	InToto                      = v1alpha1.InToto
-	Referrer                    = v1alpha1.Referrer
+	ImageValidatingPolicySpec                 = v1alpha1.ImageValidatingPolicySpec
+	ImageValidatingPolicyStatus               = v1alpha1.ImageValidatingPolicyStatus
+	Attestor                                  = v1alpha1.Attestor
+	Cosign                                    = v1alpha1.Cosign
+	Notary                                    = v1alpha1.Notary
+	Attestation                               = v1alpha1.Attestation
+	InToto                                    = v1alpha1.InToto
+	Referrer                                  = v1alpha1.Referrer
+	MatchImageReference                       = v1alpha1.MatchImageReference
+	ImageExtractor                            = v1alpha1.ImageExtractor
+	Credentials                               = v1alpha1.Credentials
+	StringOrExpression                        = v1alpha1.StringOrExpression
+	Certificate                               = v1alpha1.Certificate
+	Key                                       = v1alpha1.Key
+	Keyless                                   = v1alpha1.Keyless
+	Identity                                  = v1alpha1.Identity
+	TUF                                       = v1alpha1.TUF
+	CTLog                                     = v1alpha1.CTLog
+	Source                                    = v1alpha1.Source
+	ImageValidatingPolicyAutogenConfiguration = v1alpha1.ImageValidatingPolicyAutogenConfiguration
 )
 
 var (

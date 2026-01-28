@@ -3993,7 +3993,6 @@ uses variables that are only available in the admission review request (e.g. use
 <a href="#policies.kyverno.io/v1alpha1.Cosign">Cosign</a>)
 </p>
 <p>
-<p>CTLog sets the configuration to verify the authority against a Rekor instance.</p>
 </p>
 <table class="table table-striped">
 <thead class="thead-dark">
@@ -4089,7 +4088,6 @@ timestamp. Default is false. Set to true if this was opted out during signing.</
 <a href="#policies.kyverno.io/v1alpha1.Cosign">Cosign</a>)
 </p>
 <p>
-<p>Certificate defines the configuration for local signature verification</p>
 </p>
 <table class="table table-striped">
 <thead class="thead-dark">
@@ -4906,10 +4904,6 @@ string
 <a href="#policies.kyverno.io/v1alpha1.Keyless">Keyless</a>)
 </p>
 <p>
-<p>Identity may contain the issuer and/or the subject found in the transparency
-log.
-Issuer/Subject uses a strict match, while IssuerRegExp and SubjectRegExp
-apply a regexp for matching.</p>
 </p>
 <table class="table table-striped">
 <thead class="thead-dark">
@@ -5485,7 +5479,6 @@ string
 <a href="#policies.kyverno.io/v1alpha1.Cosign">Cosign</a>)
 </p>
 <p>
-<p>A Key must specify only one of CEL, Data or KMS</p>
 </p>
 <table class="table table-striped">
 <thead class="thead-dark">
@@ -5555,8 +5548,6 @@ string
 <a href="#policies.kyverno.io/v1alpha1.Cosign">Cosign</a>)
 </p>
 <p>
-<p>Keyless contains location of the validating certificate and the identities
-against which to verify.</p>
 </p>
 <table class="table table-striped">
 <thead class="thead-dark">
@@ -5632,7 +5623,6 @@ Optional. Defaults to &ldquo;false&rdquo; if not specified.</p>
 <a href="#policies.kyverno.io/v1alpha1.ImageValidatingPolicySpec">ImageValidatingPolicySpec</a>)
 </p>
 <p>
-<p>MatchImageReference defines a Glob or a CEL expression for matching images</p>
 </p>
 <table class="table table-striped">
 <thead class="thead-dark">
@@ -6502,7 +6492,6 @@ string
 <a href="#policies.kyverno.io/v1alpha1.Cosign">Cosign</a>)
 </p>
 <p>
-<p>Source specifies the location of the signature / attestations.</p>
 </p>
 <table class="table table-striped">
 <thead class="thead-dark">
@@ -6565,7 +6554,6 @@ fully supported that should likely be the preferred way to handle these.</p>
 <a href="#policies.kyverno.io/v1alpha1.Notary">Notary</a>)
 </p>
 <p>
-<p>StringOrExpression contains either a raw string input or a CEL expression</p>
 </p>
 <table class="table table-striped">
 <thead class="thead-dark">
@@ -6643,7 +6631,6 @@ Optional. Defaults to &ldquo;false&rdquo; if not specified.</p>
 <a href="#policies.kyverno.io/v1alpha1.Cosign">Cosign</a>)
 </p>
 <p>
-<p>TUF defines the configuration to fetch sigstore root</p>
 </p>
 <table class="table table-striped">
 <thead class="thead-dark">

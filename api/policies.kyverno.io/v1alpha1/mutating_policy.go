@@ -39,6 +39,10 @@ type MutatingPolicyStatus struct {
 	Generated bool `json:"generated"`
 }
 
+func (status *MutatingPolicyStatus) GetConditionStatus() *ConditionStatus {
+	return &status.ConditionStatus
+}
+
 // MutatingPolicySpec is the specification of the desired behavior of the MutatingPolicy.
 type MutatingPolicySpec struct {
 	// MatchConstraints specifies what resources this policy is designed to evaluate.
@@ -191,6 +195,28 @@ func (s MutatingPolicySpec) MutateExistingEnabled() bool {
 		return false
 	}
 	return *s.EvaluationConfiguration.MutateExistingConfiguration.Enabled
+}
+
+func (s *MutatingPolicySpec) SetMatchConstraints(in admissionregistrationv1.MatchResources) {
+	out := &admissionregistrationv1.MatchResources{}
+	out.NamespaceSelector = in.NamespaceSelector
+	out.ObjectSelector = in.ObjectSelector
+	for _, ex := range in.ExcludeResourceRules {
+		out.ExcludeResourceRules = append(out.ExcludeResourceRules, admissionregistrationv1.NamedRuleWithOperations{
+			ResourceNames:      ex.ResourceNames,
+			RuleWithOperations: ex.RuleWithOperations,
+		})
+	}
+	for _, ex := range in.ResourceRules {
+		out.ResourceRules = append(out.ResourceRules, admissionregistrationv1.NamedRuleWithOperations{
+			ResourceNames:      ex.ResourceNames,
+			RuleWithOperations: ex.RuleWithOperations,
+		})
+	}
+	if in.MatchPolicy != nil {
+		out.MatchPolicy = in.MatchPolicy
+	}
+	s.MatchConstraints = out
 }
 
 type MutatingPolicyEvaluationConfiguration struct {

@@ -1,6 +1,7 @@
 package v1alpha1
 
 import (
+	policieskyvernoio "github.com/kyverno/api/api/policies.kyverno.io"
 	admissionregistrationv1 "k8s.io/api/admissionregistration/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -35,6 +36,10 @@ type ValidatingPolicyStatus struct {
 	// Generated indicates whether a ValidatingAdmissionPolicy/MutatingAdmissionPolicy is generated from the policy or not
 	// +optional
 	Generated bool `json:"generated"`
+}
+
+func (status *ValidatingPolicyStatus) GetConditionStatus() *ConditionStatus {
+	return &status.ConditionStatus
 }
 
 // +kubebuilder:object:root=true
@@ -158,6 +163,15 @@ type ValidatingPolicySpec struct {
 	// EvaluationConfiguration defines the configuration for the policy evaluation.
 	// +optional
 	EvaluationConfiguration *EvaluationConfiguration `json:"evaluation,omitempty"`
+}
+
+// EvaluationMode returns the evaluation mode of the policy.
+func (s ValidatingPolicySpec) EvaluationMode() EvaluationMode {
+	const defaultValue = policieskyvernoio.EvaluationModeKubernetes
+	if s.EvaluationConfiguration == nil || s.EvaluationConfiguration.Mode == "" {
+		return defaultValue
+	}
+	return s.EvaluationConfiguration.Mode
 }
 
 // GenerateValidatingAdmissionPolicyEnabled checks if validating admission policy generation is enabled

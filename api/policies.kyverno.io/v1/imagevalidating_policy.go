@@ -6,14 +6,26 @@ import (
 )
 
 type (
-	ImageValidatingPolicySpec   = v1beta1.ImageValidatingPolicySpec
-	ImageValidatingPolicyStatus = v1beta1.ImageValidatingPolicyStatus
-	Attestor                    = v1beta1.Attestor
-	Cosign                      = v1beta1.Cosign
-	Notary                      = v1beta1.Notary
-	Attestation                 = v1beta1.Attestation
-	InToto                      = v1beta1.InToto
-	Referrer                    = v1beta1.Referrer
+	ImageValidatingPolicySpec                 = v1beta1.ImageValidatingPolicySpec
+	ImageValidatingPolicyStatus               = v1beta1.ImageValidatingPolicyStatus
+	Attestor                                  = v1beta1.Attestor
+	Cosign                                    = v1beta1.Cosign
+	Notary                                    = v1beta1.Notary
+	Attestation                               = v1beta1.Attestation
+	InToto                                    = v1beta1.InToto
+	Referrer                                  = v1beta1.Referrer
+	MatchImageReference                       = v1beta1.MatchImageReference
+	ImageExtractor                            = v1beta1.ImageExtractor
+	Credentials                               = v1beta1.Credentials
+	StringOrExpression                        = v1beta1.StringOrExpression
+	Certificate                               = v1beta1.Certificate
+	Key                                       = v1beta1.Key
+	Keyless                                   = v1beta1.Keyless
+	Identity                                  = v1beta1.Identity
+	TUF                                       = v1beta1.TUF
+	CTLog                                     = v1beta1.CTLog
+	Source                                    = v1beta1.Source
+	ImageValidatingPolicyAutogenConfiguration = v1beta1.ImageValidatingPolicyAutogenConfiguration
 )
 
 // +genclient
