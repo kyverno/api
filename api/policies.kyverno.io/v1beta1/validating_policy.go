@@ -5,7 +5,6 @@ import (
 	"github.com/kyverno/api/api/policies.kyverno.io/v1alpha1"
 	admissionregistrationv1 "k8s.io/api/admissionregistration/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
 
 type (
@@ -14,6 +13,13 @@ type (
 	WebhookConfiguration                 = v1alpha1.WebhookConfiguration
 	ValidatingPolicyAutogenConfiguration = v1alpha1.ValidatingPolicyAutogenConfiguration
 	VapGenerationConfiguration           = v1alpha1.VapGenerationConfiguration
+)
+
+var (
+	_ ValidatingPolicyLike = (*ValidatingPolicy)(nil)
+	_ ValidatingPolicyLike = (*NamespacedValidatingPolicy)(nil)
+	_ GenericPolicy        = (*ValidatingPolicy)(nil)
+	_ GenericPolicy        = (*NamespacedValidatingPolicy)(nil)
 )
 
 // +genclient
@@ -43,22 +49,6 @@ type NamespacedValidatingPolicyList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata"`
 	Items           []NamespacedValidatingPolicy `json:"items"`
-}
-
-// ValidatingPolicyLike captures the common behaviour shared by validating policies regardless of scope.
-// +k8s:deepcopy-gen=false
-type ValidatingPolicyLike interface {
-	metav1.Object
-	runtime.Object
-	GetSpec() *ValidatingPolicySpec
-	GetStatus() *ValidatingPolicyStatus
-	GetFailurePolicy(bool) admissionregistrationv1.FailurePolicyType
-	GetMatchConstraints() admissionregistrationv1.MatchResources
-	GetMatchConditions() []admissionregistrationv1.MatchCondition
-	GetVariables() []admissionregistrationv1.Variable
-	GetValidatingPolicySpec() *ValidatingPolicySpec
-	BackgroundEnabled() bool
-	GetKind() string
 }
 
 // +genclient

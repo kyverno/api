@@ -1,6 +1,7 @@
 package v1alpha1
 
 import (
+	policieskyvernoio "github.com/kyverno/api/api/policies.kyverno.io"
 	admissionregistrationv1 "k8s.io/api/admissionregistration/v1"
 	admissionregistrationv1alpha1 "k8s.io/api/admissionregistration/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -166,7 +167,7 @@ func (s MutatingPolicySpec) BackgroundEnabled() bool {
 
 // EvaluationMode returns the evaluation mode of the policy.
 func (s MutatingPolicySpec) EvaluationMode() EvaluationMode {
-	const defaultValue = EvaluationModeKubernetes
+	const defaultValue = policieskyvernoio.EvaluationModeKubernetes
 	if s.EvaluationConfiguration == nil || s.EvaluationConfiguration.Mode == "" {
 		return defaultValue
 	}

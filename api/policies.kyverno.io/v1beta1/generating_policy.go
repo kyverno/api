@@ -5,7 +5,6 @@ import (
 	"github.com/kyverno/api/api/policies.kyverno.io/v1alpha1"
 	admissionregistrationv1 "k8s.io/api/admissionregistration/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
 
 type (
@@ -18,18 +17,12 @@ type (
 	Generation                                  = v1alpha1.Generation
 )
 
-// GeneratingPolicyLike captures the common behaviour shared by generating policies regardless of scope.
-// +k8s:deepcopy-gen=false
-type GeneratingPolicyLike interface {
-	metav1.Object
-	runtime.Object
-	GetSpec() *GeneratingPolicySpec
-	GetStatus() *GeneratingPolicyStatus
-	GetMatchConstraints() admissionregistrationv1.MatchResources
-	GetMatchConditions() []admissionregistrationv1.MatchCondition
-	GetVariables() []admissionregistrationv1.Variable
-	GetKind() string
-}
+var (
+	_ GeneratingPolicyLike = (*GeneratingPolicy)(nil)
+	_ GeneratingPolicyLike = (*NamespacedGeneratingPolicy)(nil)
+	_ GenericPolicy        = (*GeneratingPolicy)(nil)
+	_ GenericPolicy        = (*NamespacedGeneratingPolicy)(nil)
+)
 
 // +genclient
 // +genclient:nonNamespaced

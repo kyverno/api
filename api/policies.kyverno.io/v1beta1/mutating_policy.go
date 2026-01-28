@@ -4,7 +4,6 @@ import (
 	"github.com/kyverno/api/api/policies.kyverno.io/v1alpha1"
 	admissionregistrationv1 "k8s.io/api/admissionregistration/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
 
 type (
@@ -16,6 +15,13 @@ type (
 	MAPGenerationConfiguration            = v1alpha1.MAPGenerationConfiguration
 	MutateExistingConfiguration           = v1alpha1.MutateExistingConfiguration
 	MutationTarget                        = v1alpha1.MutationTarget
+)
+
+var (
+	_ MutatingPolicyLike = (*MutatingPolicy)(nil)
+	_ MutatingPolicyLike = (*NamespacedMutatingPolicy)(nil)
+	_ GenericPolicy      = (*MutatingPolicy)(nil)
+	_ GenericPolicy      = (*NamespacedMutatingPolicy)(nil)
 )
 
 // +genclient
@@ -195,21 +201,4 @@ type NamespacedMutatingPolicyList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata"`
 	Items           []NamespacedMutatingPolicy `json:"items"`
-}
-
-// MutatingPolicyLike captures the common behaviour shared by mutating policies regardless of scope.
-// +k8s:deepcopy-gen=false
-type MutatingPolicyLike interface {
-	metav1.Object
-	runtime.Object
-	GetSpec() *MutatingPolicySpec
-	GetStatus() *MutatingPolicyStatus
-	GetFailurePolicy(bool) admissionregistrationv1.FailurePolicyType
-	GetMatchConstraints() admissionregistrationv1.MatchResources
-	GetTargetMatchConstraints() TargetMatchConstraints
-	GetMatchConditions() []admissionregistrationv1.MatchCondition
-	GetVariables() []admissionregistrationv1.Variable
-	GetWebhookConfiguration() *WebhookConfiguration
-	BackgroundEnabled() bool
-	GetKind() string
 }

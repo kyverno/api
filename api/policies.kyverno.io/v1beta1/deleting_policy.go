@@ -7,12 +7,16 @@ import (
 	policieskyvernoio "github.com/kyverno/api/api/policies.kyverno.io"
 	"github.com/kyverno/api/api/policies.kyverno.io/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
 
 type (
 	DeletingPolicySpec   = v1alpha1.DeletingPolicySpec
 	DeletingPolicyStatus = v1alpha1.DeletingPolicyStatus
+)
+
+var (
+	_ DeletingPolicyLike = (*DeletingPolicy)(nil)
+	_ DeletingPolicyLike = (*NamespacedDeletingPolicy)(nil)
 )
 
 // +genclient
@@ -36,6 +40,13 @@ type DeletingPolicy struct {
 
 func (p *DeletingPolicy) GetKind() string {
 	return policieskyvernoio.DeletingPolicyKind
+}
+
+func (p *DeletingPolicy) GetDeletingPolicySpec() *DeletingPolicySpec {
+	if p == nil {
+		return nil
+	}
+	return &p.Spec
 }
 
 // GetExecutionTime returns the execution time of the policy
@@ -105,17 +116,6 @@ func (p *NamespacedDeletingPolicy) GetDeletingPolicySpec() *DeletingPolicySpec {
 		return nil
 	}
 	return &p.Spec
-}
-
-// DeletingPolicyLike captures the common behavior shared by deleting policies regardless of scope.
-// +k8s:deepcopy-gen=false
-type DeletingPolicyLike interface {
-	metav1.Object
-	runtime.Object
-	GetDeletingPolicySpec() *DeletingPolicySpec
-	GetKind() string
-	GetExecutionTime() (*time.Time, error)
-	GetNextExecutionTime(time.Time) (*time.Time, error)
 }
 
 func computeDeletingPolicyExecutionTime(schedule string, lastExecution metav1.Time, creationTime time.Time) (*time.Time, error) {

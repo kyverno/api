@@ -7,6 +7,7 @@ import (
 	"github.com/google/cel-go/cel"
 	"github.com/google/cel-go/common/types"
 	"github.com/google/cel-go/common/types/ref"
+	policieskyvernoio "github.com/kyverno/api/api/policies.kyverno.io"
 	admissionregistrationv1 "k8s.io/api/admissionregistration/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -198,7 +199,7 @@ func (s ImageValidatingPolicySpec) ValidationActions() []admissionregistrationv1
 // EvaluationMode returns the evaluation mode of the policy.
 func (s ImageValidatingPolicySpec) EvaluationMode() EvaluationMode {
 	if s.EvaluationConfiguration == nil || s.EvaluationConfiguration.Mode == "" {
-		return EvaluationModeKubernetes
+		return policieskyvernoio.EvaluationModeKubernetes
 	}
 	return s.EvaluationConfiguration.Mode
 }

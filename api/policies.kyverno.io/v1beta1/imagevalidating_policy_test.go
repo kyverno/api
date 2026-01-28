@@ -3,6 +3,7 @@ package v1beta1
 import (
 	"testing"
 
+	policieskyvernoio "github.com/kyverno/api/api/policies.kyverno.io"
 	"github.com/stretchr/testify/assert"
 	admissionregistrationv1 "k8s.io/api/admissionregistration/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -188,15 +189,15 @@ func TestImageValidatingPolicySpec_EvaluationMode(t *testing.T) {
 	}{{
 		name:   "nil",
 		policy: &ImageValidatingPolicySpec{},
-		want:   EvaluationModeKubernetes,
+		want:   policieskyvernoio.EvaluationModeKubernetes,
 	}, {
 		name: "json",
 		policy: &ImageValidatingPolicySpec{
 			EvaluationConfiguration: &EvaluationConfiguration{
-				Mode: EvaluationModeJSON,
+				Mode: policieskyvernoio.EvaluationModeJSON,
 			},
 		},
-		want: EvaluationModeJSON,
+		want: policieskyvernoio.EvaluationModeJSON,
 	}}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

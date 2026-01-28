@@ -5,7 +5,6 @@ import (
 	"github.com/kyverno/api/api/policies.kyverno.io/v1alpha1"
 	admissionregistrationv1 "k8s.io/api/admissionregistration/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
 
 type (
@@ -17,6 +16,13 @@ type (
 	Attestation                 = v1alpha1.Attestation
 	InToto                      = v1alpha1.InToto
 	Referrer                    = v1alpha1.Referrer
+)
+
+var (
+	_ ImageValidatingPolicyLike = (*ImageValidatingPolicy)(nil)
+	_ ImageValidatingPolicyLike = (*NamespacedImageValidatingPolicy)(nil)
+	_ GenericPolicy             = (*ImageValidatingPolicy)(nil)
+	_ GenericPolicy             = (*NamespacedImageValidatingPolicy)(nil)
 )
 
 // +genclient
@@ -64,22 +70,6 @@ type NamespacedImageValidatingPolicyList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata"`
 	Items           []NamespacedImageValidatingPolicy `json:"items"`
-}
-
-// ImageValidatingPolicyLike captures the common behaviour shared by image validating policies regardless of scope.
-// +k8s:deepcopy-gen=false
-type ImageValidatingPolicyLike interface {
-	metav1.Object
-	runtime.Object
-	GetSpec() *ImageValidatingPolicySpec
-	GetStatus() *ImageValidatingPolicyStatus
-	GetFailurePolicy(bool) admissionregistrationv1.FailurePolicyType
-	GetMatchConstraints() admissionregistrationv1.MatchResources
-	GetMatchConditions() []admissionregistrationv1.MatchCondition
-	GetVariables() []admissionregistrationv1.Variable
-	GetWebhookConfiguration() *WebhookConfiguration
-	BackgroundEnabled() bool
-	GetKind() string
 }
 
 // BackgroundEnabled checks if background is set to true

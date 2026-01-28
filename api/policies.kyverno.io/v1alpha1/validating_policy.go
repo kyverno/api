@@ -3,7 +3,6 @@ package v1alpha1
 import (
 	admissionregistrationv1 "k8s.io/api/admissionregistration/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // +genclient
@@ -24,22 +23,6 @@ type ValidatingPolicy struct {
 	// Status contains policy runtime data.
 	// +optional
 	Status ValidatingPolicyStatus `json:"status,omitempty"`
-}
-
-// ValidatingPolicyLike captures the common behaviour shared by validating policies regardless of scope.
-// +k8s:deepcopy-gen=false
-type ValidatingPolicyLike interface {
-	metav1.Object
-	runtime.Object
-	GetSpec() *ValidatingPolicySpec
-	GetStatus() *ValidatingPolicyStatus
-	GetFailurePolicy(bool) admissionregistrationv1.FailurePolicyType
-	GetMatchConstraints() admissionregistrationv1.MatchResources
-	GetMatchConditions() []admissionregistrationv1.MatchCondition
-	GetVariables() []admissionregistrationv1.Variable
-	GetValidatingPolicySpec() *ValidatingPolicySpec
-	BackgroundEnabled() bool
-	GetKind() string
 }
 
 type ValidatingPolicyStatus struct {

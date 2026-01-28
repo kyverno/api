@@ -4379,6 +4379,10 @@ Secrets must live in the Kyverno namespace.</p>
 <p>
 <p>CredentialsProvidersType provides the list of credential providers required.</p>
 </p>
+<h3 id="policies.kyverno.io/v1alpha1.DeletingPolicyLike">DeletingPolicyLike
+</h3>
+<p>
+</p>
 <h3 id="policies.kyverno.io/v1alpha1.DeletingPolicySpec">DeletingPolicySpec
 </h3>
 <p>
@@ -4551,9 +4555,7 @@ Kubernetes meta/v1.Time
 <td>
 <code>mode</code><br/>
 <em>
-<a href="#policies.kyverno.io/v1alpha1.EvaluationMode">
-EvaluationMode
-</a>
+string
 </em>
 </td>
 <td>
@@ -4594,15 +4596,6 @@ BackgroundConfiguration
 </tbody>
 </table>
 <hr />
-<h3 id="policies.kyverno.io/v1alpha1.EvaluationMode">EvaluationMode
-(<code>string</code> alias)</p></h3>
-<p>
-(<em>Appears on:</em>
-<a href="#policies.kyverno.io/v1alpha1.EvaluationConfiguration">EvaluationConfiguration</a>, 
-<a href="#policies.kyverno.io/v1alpha1.MutatingPolicyEvaluationConfiguration">MutatingPolicyEvaluationConfiguration</a>)
-</p>
-<p>
-</p>
 <h3 id="policies.kyverno.io/v1alpha1.GenerateExistingConfiguration">GenerateExistingConfiguration
 </h3>
 <p>
@@ -4710,6 +4703,10 @@ OrphanDownstreamOnPolicyDeleteConfiguration
 </tbody>
 </table>
 <hr />
+<h3 id="policies.kyverno.io/v1alpha1.GeneratingPolicyLike">GeneratingPolicyLike
+</h3>
+<p>
+</p>
 <h3 id="policies.kyverno.io/v1alpha1.GeneratingPolicySpec">GeneratingPolicySpec
 </h3>
 <p>
@@ -4898,6 +4895,10 @@ string
 </tbody>
 </table>
 <hr />
+<h3 id="policies.kyverno.io/v1alpha1.GenericPolicy">GenericPolicy
+</h3>
+<p>
+</p>
 <h3 id="policies.kyverno.io/v1alpha1.Identity">Identity
 </h3>
 <p>
@@ -5120,6 +5121,10 @@ map[string]github.com/kyverno/api/api/policies.kyverno.io/v1alpha1.ImageValidati
 </tbody>
 </table>
 <hr />
+<h3 id="policies.kyverno.io/v1alpha1.ImageValidatingPolicyLike">ImageValidatingPolicyLike
+</h3>
+<p>
+</p>
 <h3 id="policies.kyverno.io/v1alpha1.ImageValidatingPolicySpec">ImageValidatingPolicySpec
 </h3>
 <p>
@@ -5839,9 +5844,7 @@ map[string]github.com/kyverno/api/api/policies.kyverno.io/v1alpha1.MutatingPolic
 <td>
 <code>mode</code><br/>
 <em>
-<a href="#policies.kyverno.io/v1alpha1.EvaluationMode">
-EvaluationMode
-</a>
+string
 </em>
 </td>
 <td>
@@ -5896,6 +5899,10 @@ MutateExistingConfiguration
 </tbody>
 </table>
 <hr />
+<h3 id="policies.kyverno.io/v1alpha1.MutatingPolicyLike">MutatingPolicyLike
+</h3>
+<p>
+</p>
 <h3 id="policies.kyverno.io/v1alpha1.MutatingPolicySpec">MutatingPolicySpec
 </h3>
 <p>
@@ -6953,7 +6960,6 @@ map[string]github.com/kyverno/api/api/policies.kyverno.io/v1alpha1.ValidatingPol
 <h3 id="policies.kyverno.io/v1alpha1.ValidatingPolicyLike">ValidatingPolicyLike
 </h3>
 <p>
-<p>ValidatingPolicyLike captures the common behaviour shared by validating policies regardless of scope.</p>
 </p>
 <h3 id="policies.kyverno.io/v1alpha1.ValidatingPolicySpec">ValidatingPolicySpec
 </h3>
@@ -9649,30 +9655,6 @@ ValidatingPolicyStatus
 </tbody>
 </table>
 <hr />
-<h3 id="policies.kyverno.io/v1beta1.DeletingPolicyLike">DeletingPolicyLike
-</h3>
-<p>
-<p>DeletingPolicyLike captures the common behavior shared by deleting policies regardless of scope.</p>
-</p>
-<h3 id="policies.kyverno.io/v1beta1.GeneratingPolicyLike">GeneratingPolicyLike
-</h3>
-<p>
-<p>GeneratingPolicyLike captures the common behaviour shared by generating policies regardless of scope.</p>
-</p>
-<h3 id="policies.kyverno.io/v1beta1.GenericPolicy">GenericPolicy
-</h3>
-<p>
-</p>
-<h3 id="policies.kyverno.io/v1beta1.ImageValidatingPolicyLike">ImageValidatingPolicyLike
-</h3>
-<p>
-<p>ImageValidatingPolicyLike captures the common behaviour shared by image validating policies regardless of scope.</p>
-</p>
-<h3 id="policies.kyverno.io/v1beta1.MutatingPolicyLike">MutatingPolicyLike
-</h3>
-<p>
-<p>MutatingPolicyLike captures the common behaviour shared by mutating policies regardless of scope.</p>
-</p>
 <h3 id="policies.kyverno.io/v1beta1.NamespacedGeneratingPolicy">NamespacedGeneratingPolicy
 </h3>
 <p>
@@ -9832,11 +9814,6 @@ GeneratingPolicyStatus
 </tbody>
 </table>
 <hr />
-<h3 id="policies.kyverno.io/v1beta1.ValidatingPolicyLike">ValidatingPolicyLike
-</h3>
-<p>
-<p>ValidatingPolicyLike captures the common behaviour shared by validating policies regardless of scope.</p>
-</p>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
