@@ -2,6 +2,14 @@ apiVersion: v1
 entries:
   kyverno-api:
   - apiVersion: v2
+    appVersion: 0.0.1-alpha.2
+    created: "2026-01-28T12:53:38.893071924Z"
+    digest: 67451c17e2be1e6f09af447c9f1f7e74d0ee60ef19fa8fee89323675a545e25e
+    name: kyverno-api
+    urls:
+    - https://kyverno.github.io/api/kyverno-api-0.0.1-alpha.2.tgz
+    version: 0.0.1-alpha.2
+  - apiVersion: v2
     appVersion: 0.0.1-alpha.1
     created: "2026-01-20T11:30:07.740268544Z"
     digest: 41a55475e62bbef6736a98b19c265011cea06e026117fee9534d060ab94ece88
@@ -9,4 +17,4 @@ entries:
     urls:
     - https://kyverno.github.io/api/kyverno-api-0.0.1-alpha.1.tgz
     version: 0.0.1-alpha.1
-generated: "2026-01-20T11:30:07.731664272Z"
+generated: "2026-01-28T12:53:38.884659836Z"
