@@ -3,6 +3,7 @@ package v1beta1
 import (
 	"testing"
 
+	policieskyvernoio "github.com/kyverno/api/api/policies.kyverno.io"
 	admissionregistrationv1 "k8s.io/api/admissionregistration/v1"
 )
 
@@ -409,32 +410,32 @@ func TestMutatingPolicySpec_EvaluationMode(t *testing.T) {
 		{
 			name:     "nil evaluation configuration",
 			spec:     MutatingPolicySpec{},
-			expected: EvaluationModeKubernetes,
+			expected: policieskyvernoio.EvaluationModeKubernetes,
 		},
 		{
 			name: "empty mode",
 			spec: MutatingPolicySpec{
 				EvaluationConfiguration: &MutatingPolicyEvaluationConfiguration{},
 			},
-			expected: EvaluationModeKubernetes,
+			expected: policieskyvernoio.EvaluationModeKubernetes,
 		},
 		{
 			name: "kubernetes mode",
 			spec: MutatingPolicySpec{
 				EvaluationConfiguration: &MutatingPolicyEvaluationConfiguration{
-					Mode: EvaluationModeKubernetes,
+					Mode: policieskyvernoio.EvaluationModeKubernetes,
 				},
 			},
-			expected: EvaluationModeKubernetes,
+			expected: policieskyvernoio.EvaluationModeKubernetes,
 		},
 		{
 			name: "json mode",
 			spec: MutatingPolicySpec{
 				EvaluationConfiguration: &MutatingPolicyEvaluationConfiguration{
-					Mode: EvaluationModeJSON,
+					Mode: policieskyvernoio.EvaluationModeJSON,
 				},
 			},
-			expected: EvaluationModeJSON,
+			expected: policieskyvernoio.EvaluationModeJSON,
 		},
 	}
 

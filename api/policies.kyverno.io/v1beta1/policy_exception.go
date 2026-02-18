@@ -4,8 +4,14 @@ import (
 	"time"
 
 	admissionregistrationv1 "k8s.io/api/admissionregistration/v1"
+	"github.com/kyverno/api/api/policies.kyverno.io/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/validation/field"
+)
+
+type (
+	PolicyExceptionSpec = v1alpha1.PolicyExceptionSpec
+	PolicyRef           = v1alpha1.PolicyRef
 )
 
 // +genclient

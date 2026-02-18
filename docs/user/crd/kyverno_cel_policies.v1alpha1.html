@@ -27,15 +27,27 @@
             <ul><li>
                     <a href="#policies-kyverno-io-v1alpha1-DeletingPolicy">DeletingPolicy</a>
                   </li><li>
+                    <a href="#policies-kyverno-io-v1alpha1-DeletingPolicyList">DeletingPolicyList</a>
+                  </li><li>
                     <a href="#policies-kyverno-io-v1alpha1-GeneratingPolicy">GeneratingPolicy</a>
+                  </li><li>
+                    <a href="#policies-kyverno-io-v1alpha1-GeneratingPolicyList">GeneratingPolicyList</a>
                   </li><li>
                     <a href="#policies-kyverno-io-v1alpha1-ImageValidatingPolicy">ImageValidatingPolicy</a>
                   </li><li>
+                    <a href="#policies-kyverno-io-v1alpha1-ImageValidatingPolicyList">ImageValidatingPolicyList</a>
+                  </li><li>
                     <a href="#policies-kyverno-io-v1alpha1-MutatingPolicy">MutatingPolicy</a>
+                  </li><li>
+                    <a href="#policies-kyverno-io-v1alpha1-MutatingPolicyList">MutatingPolicyList</a>
                   </li><li>
                     <a href="#policies-kyverno-io-v1alpha1-PolicyException">PolicyException</a>
                   </li><li>
+                    <a href="#policies-kyverno-io-v1alpha1-PolicyExceptionList">PolicyExceptionList</a>
+                  </li><li>
                     <a href="#policies-kyverno-io-v1alpha1-ValidatingPolicy">ValidatingPolicy</a>
+                  </li><li>
+                    <a href="#policies-kyverno-io-v1alpha1-ValidatingPolicyList">ValidatingPolicyList</a>
                   </li></ul>
 
             
@@ -43,6 +55,11 @@
   <H3 id="policies-kyverno-io-v1alpha1-DeletingPolicy">DeletingPolicy
     </H3>
 
+  
+    <p>
+      (<em>Appears in:</em>
+        <a href="#policies-kyverno-io-v1alpha1-DeletingPolicyList">DeletingPolicyList</a>)
+    </p>
   
 
   <p></p>
@@ -89,7 +106,9 @@
           
           
             
-              <span style="font-family: monospace">meta/v1.ObjectMeta</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#objectmeta-v1-meta">
+                <span style="font-family: monospace">meta/v1.ObjectMeta</span>
+              </a>
             
           
         </td>
@@ -153,7 +172,9 @@
           
           
             
-              <span style="font-family: monospace">admissionregistration/v1.MatchResources</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#matchresources-v1-admissionregistration">
+                <span style="font-family: monospace">admissionregistration/v1.MatchResources</span>
+              </a>
             
           
         </td>
@@ -182,7 +203,9 @@ Required.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.MatchCondition</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#matchcondition-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.MatchCondition</span>
+              </a>
             
           
         </td>
@@ -217,7 +240,9 @@ There are a maximum of 64 conditions allowed.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.Variable</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#variable-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.Variable</span>
+              </a>
             
           
         </td>
@@ -279,7 +304,9 @@ Required.</p>
           
           
             
-              <span style="font-family: monospace">meta/v1.DeletionPropagation</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#deletionpropagation-v1-meta">
+                <span style="font-family: monospace">meta/v1.DeletionPropagation</span>
+              </a>
             
           
         </td>
@@ -338,9 +365,118 @@ Required.</p>
     </table>
   
 
+  <H3 id="policies-kyverno-io-v1alpha1-DeletingPolicyList">DeletingPolicyList
+    </H3>
+
+  
+
+  <p><p>DeletingPolicyList is a list of DeletingPolicy instances</p>
+</p>
+
+  
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>Field</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        
+          
+          <tr>
+            <td><code>apiVersion</code></br>string</td>
+            <td><code>policies.kyverno.io/v1alpha1</code></td>
+          </tr>
+          <tr>
+            <td><code>kind</code></br>string</td>
+            <td><code>DeletingPolicyList</code></td>
+          </tr>
+        
+
+        
+        
+
+  
+  
+    
+    
+  
+    
+    
+      <tr>
+        <td><code>metadata</code>
+          
+          <span style="color:blue;"> *</span>
+          
+          </br>
+
+          
+          
+            
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#listmeta-v1-meta">
+                <span style="font-family: monospace">meta/v1.ListMeta</span>
+              </a>
+            
+          
+        </td>
+        <td>
+          
+
+          
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+    
+    
+      <tr>
+        <td><code>items</code>
+          
+          <span style="color:blue;"> *</span>
+          
+          </br>
+
+          
+          
+            
+              <a href="#policies-kyverno-io-v1alpha1-DeletingPolicy">
+                <span style="font-family: monospace">[]DeletingPolicy</span>
+              </a>
+            
+          
+        </td>
+        <td>
+          
+
+          
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+
+
+      </tbody>
+    </table>
+  
+
   <H3 id="policies-kyverno-io-v1alpha1-GeneratingPolicy">GeneratingPolicy
     </H3>
 
+  
+    <p>
+      (<em>Appears in:</em>
+        <a href="#policies-kyverno-io-v1alpha1-GeneratingPolicyList">GeneratingPolicyList</a>)
+    </p>
   
 
   <p></p>
@@ -387,7 +523,9 @@ Required.</p>
           
           
             
-              <span style="font-family: monospace">meta/v1.ObjectMeta</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#objectmeta-v1-meta">
+                <span style="font-family: monospace">meta/v1.ObjectMeta</span>
+              </a>
             
           
         </td>
@@ -451,7 +589,9 @@ Required.</p>
           
           
             
-              <span style="font-family: monospace">admissionregistration/v1.MatchResources</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#matchresources-v1-admissionregistration">
+                <span style="font-family: monospace">admissionregistration/v1.MatchResources</span>
+              </a>
             
           
         </td>
@@ -480,7 +620,9 @@ Required.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.MatchCondition</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#matchcondition-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.MatchCondition</span>
+              </a>
             
           
         </td>
@@ -521,7 +663,9 @@ There are a maximum of 64 match conditions allowed.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.Variable</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#variable-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.Variable</span>
+              </a>
             
           
         </td>
@@ -675,9 +819,118 @@ Required.</p>
     </table>
   
 
+  <H3 id="policies-kyverno-io-v1alpha1-GeneratingPolicyList">GeneratingPolicyList
+    </H3>
+
+  
+
+  <p><p>GeneratingPolicyList is a list of GeneratingPolicy instances</p>
+</p>
+
+  
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>Field</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        
+          
+          <tr>
+            <td><code>apiVersion</code></br>string</td>
+            <td><code>policies.kyverno.io/v1alpha1</code></td>
+          </tr>
+          <tr>
+            <td><code>kind</code></br>string</td>
+            <td><code>GeneratingPolicyList</code></td>
+          </tr>
+        
+
+        
+        
+
+  
+  
+    
+    
+  
+    
+    
+      <tr>
+        <td><code>metadata</code>
+          
+          <span style="color:blue;"> *</span>
+          
+          </br>
+
+          
+          
+            
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#listmeta-v1-meta">
+                <span style="font-family: monospace">meta/v1.ListMeta</span>
+              </a>
+            
+          
+        </td>
+        <td>
+          
+
+          
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+    
+    
+      <tr>
+        <td><code>items</code>
+          
+          <span style="color:blue;"> *</span>
+          
+          </br>
+
+          
+          
+            
+              <a href="#policies-kyverno-io-v1alpha1-GeneratingPolicy">
+                <span style="font-family: monospace">[]GeneratingPolicy</span>
+              </a>
+            
+          
+        </td>
+        <td>
+          
+
+          
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+
+
+      </tbody>
+    </table>
+  
+
   <H3 id="policies-kyverno-io-v1alpha1-ImageValidatingPolicy">ImageValidatingPolicy
     </H3>
 
+  
+    <p>
+      (<em>Appears in:</em>
+        <a href="#policies-kyverno-io-v1alpha1-ImageValidatingPolicyList">ImageValidatingPolicyList</a>)
+    </p>
   
 
   <p></p>
@@ -724,7 +977,9 @@ Required.</p>
           
           
             
-              <span style="font-family: monospace">meta/v1.ObjectMeta</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#objectmeta-v1-meta">
+                <span style="font-family: monospace">meta/v1.ObjectMeta</span>
+              </a>
             
           
         </td>
@@ -786,7 +1041,9 @@ Required.</p>
           
           
             
-              <span style="font-family: monospace">admissionregistration/v1.MatchResources</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#matchresources-v1-admissionregistration">
+                <span style="font-family: monospace">admissionregistration/v1.MatchResources</span>
+              </a>
             
           
         </td>
@@ -813,7 +1070,9 @@ Required.</p>
           
           
             
-              <span style="font-family: monospace">admissionregistration/v1.FailurePolicyType</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#failurepolicytype-v1-admissionregistration">
+                <span style="font-family: monospace">admissionregistration/v1.FailurePolicyType</span>
+              </a>
             
           
         </td>
@@ -842,7 +1101,9 @@ or mis-configured policy definitions or bindings.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.AuditAnnotation</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#auditannotation-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.AuditAnnotation</span>
+              </a>
             
           
         </td>
@@ -874,7 +1135,9 @@ required.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.ValidationAction</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#validationaction-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.ValidationAction</span>
+              </a>
             
           
         </td>
@@ -919,7 +1182,9 @@ API response body and the HTTP warning headers.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.MatchCondition</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#matchcondition-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.MatchCondition</span>
+              </a>
             
           
         </td>
@@ -949,7 +1214,9 @@ There are a maximum of 64 match conditions allowed.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.Variable</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#variable-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.Variable</span>
+              </a>
             
           
         </td>
@@ -1160,7 +1427,9 @@ image verification functions</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.Validation</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#validation-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.Validation</span>
+              </a>
             
           
         </td>
@@ -1306,9 +1575,118 @@ image verification functions</p>
     </table>
   
 
+  <H3 id="policies-kyverno-io-v1alpha1-ImageValidatingPolicyList">ImageValidatingPolicyList
+    </H3>
+
+  
+
+  <p><p>ImageValidatingPolicyList is a list of ImageValidatingPolicy instances</p>
+</p>
+
+  
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>Field</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        
+          
+          <tr>
+            <td><code>apiVersion</code></br>string</td>
+            <td><code>policies.kyverno.io/v1alpha1</code></td>
+          </tr>
+          <tr>
+            <td><code>kind</code></br>string</td>
+            <td><code>ImageValidatingPolicyList</code></td>
+          </tr>
+        
+
+        
+        
+
+  
+  
+    
+    
+  
+    
+    
+      <tr>
+        <td><code>metadata</code>
+          
+          <span style="color:blue;"> *</span>
+          
+          </br>
+
+          
+          
+            
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#listmeta-v1-meta">
+                <span style="font-family: monospace">meta/v1.ListMeta</span>
+              </a>
+            
+          
+        </td>
+        <td>
+          
+
+          
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+    
+    
+      <tr>
+        <td><code>items</code>
+          
+          <span style="color:blue;"> *</span>
+          
+          </br>
+
+          
+          
+            
+              <a href="#policies-kyverno-io-v1alpha1-ImageValidatingPolicy">
+                <span style="font-family: monospace">[]ImageValidatingPolicy</span>
+              </a>
+            
+          
+        </td>
+        <td>
+          
+
+          
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+
+
+      </tbody>
+    </table>
+  
+
   <H3 id="policies-kyverno-io-v1alpha1-MutatingPolicy">MutatingPolicy
     </H3>
 
+  
+    <p>
+      (<em>Appears in:</em>
+        <a href="#policies-kyverno-io-v1alpha1-MutatingPolicyList">MutatingPolicyList</a>)
+    </p>
   
 
   <p></p>
@@ -1355,7 +1733,9 @@ image verification functions</p>
           
           
             
-              <span style="font-family: monospace">meta/v1.ObjectMeta</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#objectmeta-v1-meta">
+                <span style="font-family: monospace">meta/v1.ObjectMeta</span>
+              </a>
             
           
         </td>
@@ -1419,7 +1799,9 @@ image verification functions</p>
           
           
             
-              <span style="font-family: monospace">admissionregistration/v1alpha1.MatchResources</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#matchresources-v1-admissionregistration">
+                <span style="font-family: monospace">admissionregistration/v1.MatchResources</span>
+              </a>
             
           
         </td>
@@ -1448,7 +1830,9 @@ Required.</p>
           
           
             
-              <span style="font-family: monospace">admissionregistration/v1alpha1.FailurePolicyType</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#failurepolicytype-v1-admissionregistration">
+                <span style="font-family: monospace">admissionregistration/v1.FailurePolicyType</span>
+              </a>
             
           
         </td>
@@ -1480,7 +1864,9 @@ or mis-configured policy definitions or bindings.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1alpha1.MatchCondition</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#matchcondition-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.MatchCondition</span>
+              </a>
             
           
         </td>
@@ -1521,7 +1907,9 @@ There are a maximum of 64 match conditions allowed.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1alpha1.Variable</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#variable-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.Variable</span>
+              </a>
             
           
         </td>
@@ -1611,7 +1999,9 @@ Thus, Variables must be sorted by the order of first appearance and acyclic.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1alpha1.Mutation</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#mutation-v1alpha1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1alpha1.Mutation</span>
+              </a>
             
           
         </td>
@@ -1703,7 +2093,9 @@ and reinvocation of mutations occurs on a per binding basis.</p>
           
           
             
-              <span style="font-family: monospace">admissionregistration/v1alpha1.ReinvocationPolicyType</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#reinvocationpolicytype-v1-admissionregistration">
+                <span style="font-family: monospace">admissionregistration/v1.ReinvocationPolicyType</span>
+              </a>
             
           
         </td>
@@ -1769,9 +2161,118 @@ Required.</p>
     </table>
   
 
+  <H3 id="policies-kyverno-io-v1alpha1-MutatingPolicyList">MutatingPolicyList
+    </H3>
+
+  
+
+  <p><p>MutatingPolicyList is a list of MutatingPolicy instances</p>
+</p>
+
+  
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>Field</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        
+          
+          <tr>
+            <td><code>apiVersion</code></br>string</td>
+            <td><code>policies.kyverno.io/v1alpha1</code></td>
+          </tr>
+          <tr>
+            <td><code>kind</code></br>string</td>
+            <td><code>MutatingPolicyList</code></td>
+          </tr>
+        
+
+        
+        
+
+  
+  
+    
+    
+  
+    
+    
+      <tr>
+        <td><code>metadata</code>
+          
+          <span style="color:blue;"> *</span>
+          
+          </br>
+
+          
+          
+            
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#listmeta-v1-meta">
+                <span style="font-family: monospace">meta/v1.ListMeta</span>
+              </a>
+            
+          
+        </td>
+        <td>
+          
+
+          
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+    
+    
+      <tr>
+        <td><code>items</code>
+          
+          <span style="color:blue;"> *</span>
+          
+          </br>
+
+          
+          
+            
+              <a href="#policies-kyverno-io-v1alpha1-MutatingPolicy">
+                <span style="font-family: monospace">[]MutatingPolicy</span>
+              </a>
+            
+          
+        </td>
+        <td>
+          
+
+          
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+
+
+      </tbody>
+    </table>
+  
+
   <H3 id="policies-kyverno-io-v1alpha1-PolicyException">PolicyException
     </H3>
 
+  
+    <p>
+      (<em>Appears in:</em>
+        <a href="#policies-kyverno-io-v1alpha1-PolicyExceptionList">PolicyExceptionList</a>)
+    </p>
   
 
   <p><p>PolicyException declares resources to be excluded from specified policies.</p>
@@ -1819,7 +2320,9 @@ Required.</p>
           
           
             
-              <span style="font-family: monospace">meta/v1.ObjectMeta</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#objectmeta-v1-meta">
+                <span style="font-family: monospace">meta/v1.ObjectMeta</span>
+              </a>
             
           
         </td>
@@ -1913,7 +2416,9 @@ Required.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.MatchCondition</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#matchcondition-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.MatchCondition</span>
+              </a>
             
           
         </td>
@@ -2055,9 +2560,118 @@ Once expired, the exception will no longer be applied to incoming requests.</p>
     </table>
   
 
+  <H3 id="policies-kyverno-io-v1alpha1-PolicyExceptionList">PolicyExceptionList
+    </H3>
+
+  
+
+  <p><p>PolicyExceptionList is a list of Policy Exceptions</p>
+</p>
+
+  
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>Field</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        
+          
+          <tr>
+            <td><code>apiVersion</code></br>string</td>
+            <td><code>policies.kyverno.io/v1alpha1</code></td>
+          </tr>
+          <tr>
+            <td><code>kind</code></br>string</td>
+            <td><code>PolicyExceptionList</code></td>
+          </tr>
+        
+
+        
+        
+
+  
+  
+    
+    
+  
+    
+    
+      <tr>
+        <td><code>metadata</code>
+          
+          <span style="color:blue;"> *</span>
+          
+          </br>
+
+          
+          
+            
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#listmeta-v1-meta">
+                <span style="font-family: monospace">meta/v1.ListMeta</span>
+              </a>
+            
+          
+        </td>
+        <td>
+          
+
+          
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+    
+    
+      <tr>
+        <td><code>items</code>
+          
+          <span style="color:blue;"> *</span>
+          
+          </br>
+
+          
+          
+            
+              <a href="#policies-kyverno-io-v1alpha1-PolicyException">
+                <span style="font-family: monospace">[]PolicyException</span>
+              </a>
+            
+          
+        </td>
+        <td>
+          
+
+          
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+
+
+      </tbody>
+    </table>
+  
+
   <H3 id="policies-kyverno-io-v1alpha1-ValidatingPolicy">ValidatingPolicy
     </H3>
 
+  
+    <p>
+      (<em>Appears in:</em>
+        <a href="#policies-kyverno-io-v1alpha1-ValidatingPolicyList">ValidatingPolicyList</a>)
+    </p>
   
 
   <p></p>
@@ -2104,7 +2718,9 @@ Once expired, the exception will no longer be applied to incoming requests.</p>
           
           
             
-              <span style="font-family: monospace">meta/v1.ObjectMeta</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#objectmeta-v1-meta">
+                <span style="font-family: monospace">meta/v1.ObjectMeta</span>
+              </a>
             
           
         </td>
@@ -2168,7 +2784,9 @@ Once expired, the exception will no longer be applied to incoming requests.</p>
           
           
             
-              <span style="font-family: monospace">admissionregistration/v1.MatchResources</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#matchresources-v1-admissionregistration">
+                <span style="font-family: monospace">admissionregistration/v1.MatchResources</span>
+              </a>
             
           
         </td>
@@ -2197,7 +2815,9 @@ Required.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.Validation</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#validation-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.Validation</span>
+              </a>
             
           
         </td>
@@ -2226,7 +2846,9 @@ required.</p>
           
           
             
-              <span style="font-family: monospace">admissionregistration/v1.FailurePolicyType</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#failurepolicytype-v1-admissionregistration">
+                <span style="font-family: monospace">admissionregistration/v1.FailurePolicyType</span>
+              </a>
             
           
         </td>
@@ -2258,7 +2880,9 @@ or mis-configured policy definitions or bindings.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.AuditAnnotation</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#auditannotation-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.AuditAnnotation</span>
+              </a>
             
           
         </td>
@@ -2288,7 +2912,9 @@ required.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.MatchCondition</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#matchcondition-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.MatchCondition</span>
+              </a>
             
           
         </td>
@@ -2329,7 +2955,9 @@ There are a maximum of 64 match conditions allowed.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.Variable</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#variable-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.Variable</span>
+              </a>
             
           
         </td>
@@ -2392,7 +3020,9 @@ Thus, Variables must be sorted by the order of first appearance and acyclic.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.ValidationAction</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#validationaction-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.ValidationAction</span>
+              </a>
             
           
         </td>
@@ -2513,6 +3143,110 @@ API response body and the HTTP warning headers.</p>
 
           <p>Status contains policy runtime data.</p>
 
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+
+
+      </tbody>
+    </table>
+  
+
+  <H3 id="policies-kyverno-io-v1alpha1-ValidatingPolicyList">ValidatingPolicyList
+    </H3>
+
+  
+
+  <p><p>ValidatingPolicyList is a list of ValidatingPolicy instances</p>
+</p>
+
+  
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>Field</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        
+          
+          <tr>
+            <td><code>apiVersion</code></br>string</td>
+            <td><code>policies.kyverno.io/v1alpha1</code></td>
+          </tr>
+          <tr>
+            <td><code>kind</code></br>string</td>
+            <td><code>ValidatingPolicyList</code></td>
+          </tr>
+        
+
+        
+        
+
+  
+  
+    
+    
+  
+    
+    
+      <tr>
+        <td><code>metadata</code>
+          
+          <span style="color:blue;"> *</span>
+          
+          </br>
+
+          
+          
+            
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#listmeta-v1-meta">
+                <span style="font-family: monospace">meta/v1.ListMeta</span>
+              </a>
+            
+          
+        </td>
+        <td>
+          
+
+          
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+    
+    
+      <tr>
+        <td><code>items</code>
+          
+          <span style="color:blue;"> *</span>
+          
+          </br>
+
+          
+          
+            
+              <a href="#policies-kyverno-io-v1alpha1-ValidatingPolicy">
+                <span style="font-family: monospace">[]ValidatingPolicy</span>
+              </a>
+            
+          
+        </td>
+        <td>
+          
+
+          
 
           
 
@@ -2844,7 +3578,8 @@ Optional. Default value is &quot;true&quot;.</p>
   
     <p>
       (<em>Appears in:</em>
-        <a href="#policies-kyverno-io-v1alpha1-EvaluationConfiguration">EvaluationConfiguration</a>)
+        <a href="#policies-kyverno-io-v1alpha1-EvaluationConfiguration">EvaluationConfiguration</a>, 
+        <a href="#policies-kyverno-io-v1alpha1-MutatingPolicyEvaluationConfiguration">MutatingPolicyEvaluationConfiguration</a>)
     </p>
   
 
@@ -3272,7 +4007,9 @@ The conditions array, the reason and message fields contain more detail about th
           
           
             
-              <span style="font-family: monospace">[]meta/v1.Condition</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#condition-v1-meta">
+                <span style="font-family: monospace">[]meta/v1.Condition</span>
+              </a>
             
           
         </td>
@@ -3738,7 +4475,9 @@ Secrets must live in the Kyverno namespace.</p>
           
           
             
-              <span style="font-family: monospace">admissionregistration/v1.MatchResources</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#matchresources-v1-admissionregistration">
+                <span style="font-family: monospace">admissionregistration/v1.MatchResources</span>
+              </a>
             
           
         </td>
@@ -3767,7 +4506,9 @@ Required.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.MatchCondition</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#matchcondition-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.MatchCondition</span>
+              </a>
             
           
         </td>
@@ -3802,7 +4543,9 @@ There are a maximum of 64 conditions allowed.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.Variable</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#variable-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.Variable</span>
+              </a>
             
           
         </td>
@@ -3864,7 +4607,9 @@ Required.</p>
           
           
             
-              <span style="font-family: monospace">meta/v1.DeletionPropagation</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#deletionpropagation-v1-meta">
+                <span style="font-family: monospace">meta/v1.DeletionPropagation</span>
+              </a>
             
           
         </td>
@@ -3956,7 +4701,9 @@ Required.</p>
           
           
             
-              <span style="font-family: monospace">meta/v1.Time</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#time-v1-meta">
+                <span style="font-family: monospace">meta/v1.Time</span>
+              </a>
             
           
         </td>
@@ -4104,12 +4851,13 @@ Optional. Default value is &quot;Kubernetes&quot;.</p>
   
 
   <H3 id="policies-kyverno-io-v1alpha1-EvaluationMode">EvaluationMode
-    (<code>string</code> alias)</p></H3>
+    </H3>
 
   
     <p>
       (<em>Appears in:</em>
-        <a href="#policies-kyverno-io-v1alpha1-EvaluationConfiguration">EvaluationConfiguration</a>)
+        <a href="#policies-kyverno-io-v1alpha1-EvaluationConfiguration">EvaluationConfiguration</a>, 
+        <a href="#policies-kyverno-io-v1alpha1-MutatingPolicyEvaluationConfiguration">MutatingPolicyEvaluationConfiguration</a>)
     </p>
   
 
@@ -4377,7 +5125,9 @@ Optional. Defaults to &quot;false&quot; if not specified.</p>
           
           
             
-              <span style="font-family: monospace">admissionregistration/v1.MatchResources</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#matchresources-v1-admissionregistration">
+                <span style="font-family: monospace">admissionregistration/v1.MatchResources</span>
+              </a>
             
           
         </td>
@@ -4406,7 +5156,9 @@ Required.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.MatchCondition</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#matchcondition-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.MatchCondition</span>
+              </a>
             
           
         </td>
@@ -4447,7 +5199,9 @@ There are a maximum of 64 match conditions allowed.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.Variable</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#variable-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.Variable</span>
+              </a>
             
           
         </td>
@@ -5210,7 +5964,9 @@ apply a regexp for matching.</p>
           
           
             
-              <span style="font-family: monospace">admissionregistration/v1.MatchResources</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#matchresources-v1-admissionregistration">
+                <span style="font-family: monospace">admissionregistration/v1.MatchResources</span>
+              </a>
             
           
         </td>
@@ -5237,7 +5993,9 @@ apply a regexp for matching.</p>
           
           
             
-              <span style="font-family: monospace">admissionregistration/v1.FailurePolicyType</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#failurepolicytype-v1-admissionregistration">
+                <span style="font-family: monospace">admissionregistration/v1.FailurePolicyType</span>
+              </a>
             
           
         </td>
@@ -5266,7 +6024,9 @@ or mis-configured policy definitions or bindings.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.AuditAnnotation</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#auditannotation-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.AuditAnnotation</span>
+              </a>
             
           
         </td>
@@ -5298,7 +6058,9 @@ required.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.ValidationAction</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#validationaction-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.ValidationAction</span>
+              </a>
             
           
         </td>
@@ -5343,7 +6105,9 @@ API response body and the HTTP warning headers.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.MatchCondition</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#matchcondition-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.MatchCondition</span>
+              </a>
             
           
         </td>
@@ -5373,7 +6137,9 @@ There are a maximum of 64 match conditions allowed.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.Variable</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#variable-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.Variable</span>
+              </a>
             
           
         </td>
@@ -5584,7 +6350,9 @@ image verification functions</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.Validation</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#validation-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.Validation</span>
+              </a>
             
           
         </td>
@@ -6610,6 +7378,37 @@ When spec.targetMatchConstraints is not defined, Kyverno mutates existing resour
     
     
       <tr>
+        <td><code>mode</code>
+          
+          </br>
+
+          
+          
+            
+              <a href="#policies-kyverno-io-v1alpha1-EvaluationMode">
+                <span style="font-family: monospace">EvaluationMode</span>
+              </a>
+            
+          
+        </td>
+        <td>
+          
+
+          <p>Mode is the mode of policy evaluation.
+Allowed values are &quot;Kubernetes&quot; or &quot;JSON&quot;.
+Optional. Default value is &quot;Kubernetes&quot;.</p>
+
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+    
+    
+      <tr>
         <td><code>admission</code>
           
           </br>
@@ -6627,6 +7426,35 @@ When spec.targetMatchConstraints is not defined, Kyverno mutates existing resour
           
 
           <p>Admission controls policy evaluation during admission.</p>
+
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+    
+    
+      <tr>
+        <td><code>background</code>
+          
+          </br>
+
+          
+          
+            
+              <a href="#policies-kyverno-io-v1alpha1-BackgroundConfiguration">
+                <span style="font-family: monospace">BackgroundConfiguration</span>
+              </a>
+            
+          
+        </td>
+        <td>
+          
+
+          <p>Background controls policy evaluation during background scan.</p>
 
 
           
@@ -6714,7 +7542,9 @@ When spec.targetMatchConstraints is not defined, Kyverno mutates existing resour
           
           
             
-              <span style="font-family: monospace">admissionregistration/v1alpha1.MatchResources</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#matchresources-v1-admissionregistration">
+                <span style="font-family: monospace">admissionregistration/v1.MatchResources</span>
+              </a>
             
           
         </td>
@@ -6743,7 +7573,9 @@ Required.</p>
           
           
             
-              <span style="font-family: monospace">admissionregistration/v1alpha1.FailurePolicyType</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#failurepolicytype-v1-admissionregistration">
+                <span style="font-family: monospace">admissionregistration/v1.FailurePolicyType</span>
+              </a>
             
           
         </td>
@@ -6775,7 +7607,9 @@ or mis-configured policy definitions or bindings.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1alpha1.MatchCondition</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#matchcondition-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.MatchCondition</span>
+              </a>
             
           
         </td>
@@ -6816,7 +7650,9 @@ There are a maximum of 64 match conditions allowed.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1alpha1.Variable</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#variable-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.Variable</span>
+              </a>
             
           
         </td>
@@ -6906,7 +7742,9 @@ Thus, Variables must be sorted by the order of first appearance and acyclic.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1alpha1.Mutation</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#mutation-v1alpha1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1alpha1.Mutation</span>
+              </a>
             
           
         </td>
@@ -6998,7 +7836,9 @@ and reinvocation of mutations occurs on a per binding basis.</p>
           
           
             
-              <span style="font-family: monospace">admissionregistration/v1alpha1.ReinvocationPolicyType</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#reinvocationpolicytype-v1-admissionregistration">
+                <span style="font-family: monospace">admissionregistration/v1.ReinvocationPolicyType</span>
+              </a>
             
           
         </td>
@@ -7441,7 +8281,9 @@ Optional. Defaults to &quot;false&quot; if not specified.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.MatchCondition</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#matchcondition-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.MatchCondition</span>
+              </a>
             
           
         </td>
@@ -7800,7 +8642,9 @@ Once expired, the exception will no longer be applied to incoming requests.</p>
           
           
             
-              <span style="font-family: monospace">[]core/v1.LocalObjectReference</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#localobjectreference-v1-core">
+                <span style="font-family: monospace">[]core/v1.LocalObjectReference</span>
+              </a>
             
           
         </td>
@@ -8407,7 +9251,9 @@ Optional. Defaults to &quot;false&quot; if not specified.</p>
           
           
             
-              <span style="font-family: monospace">admissionregistration/v1.MatchResources</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#matchresources-v1-admissionregistration">
+                <span style="font-family: monospace">admissionregistration/v1.MatchResources</span>
+              </a>
             
           
         </td>
@@ -8742,7 +9588,9 @@ Optional. Defaults to &quot;false&quot; if not specified.</p>
           
           
             
-              <span style="font-family: monospace">admissionregistration/v1.MatchResources</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#matchresources-v1-admissionregistration">
+                <span style="font-family: monospace">admissionregistration/v1.MatchResources</span>
+              </a>
             
           
         </td>
@@ -8771,7 +9619,9 @@ Required.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.Validation</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#validation-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.Validation</span>
+              </a>
             
           
         </td>
@@ -8800,7 +9650,9 @@ required.</p>
           
           
             
-              <span style="font-family: monospace">admissionregistration/v1.FailurePolicyType</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#failurepolicytype-v1-admissionregistration">
+                <span style="font-family: monospace">admissionregistration/v1.FailurePolicyType</span>
+              </a>
             
           
         </td>
@@ -8832,7 +9684,9 @@ or mis-configured policy definitions or bindings.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.AuditAnnotation</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#auditannotation-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.AuditAnnotation</span>
+              </a>
             
           
         </td>
@@ -8862,7 +9716,9 @@ required.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.MatchCondition</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#matchcondition-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.MatchCondition</span>
+              </a>
             
           
         </td>
@@ -8903,7 +9759,9 @@ There are a maximum of 64 match conditions allowed.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.Variable</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#variable-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.Variable</span>
+              </a>
             
           
         </td>
@@ -8966,7 +9824,9 @@ Thus, Variables must be sorted by the order of first appearance and acyclic.</p>
           
           
             
-              <span style="font-family: monospace">[]admissionregistration/v1.ValidationAction</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#validationaction-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.ValidationAction</span>
+              </a>
             
           
         </td>

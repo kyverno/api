@@ -5,6 +5,7 @@ import (
 
 	admissionregistrationv1 "k8s.io/api/admissionregistration/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/util/validation/field"
 )
 
 // +genclient
@@ -61,12 +62,34 @@ type PolicyExceptionSpec struct {
 	ExpiresAt *metav1.Time `json:"expiresAt,omitempty"`
 }
 
+// Validate implements programmatic validation
+func (p *PolicyExceptionSpec) Validate(path *field.Path) (errs field.ErrorList) {
+	if len(p.PolicyRefs) == 0 {
+		errs = append(errs, field.Invalid(path.Child("policyRefs"), p.PolicyRefs, "must specify at least one policy ref"))
+	} else {
+		for i, policyRef := range p.PolicyRefs {
+			errs = append(errs, policyRef.Validate(path.Child("policyRefs").Index(i))...)
+		}
+	}
+	return errs
+}
+
 type PolicyRef struct {
 	// Name is the name of the policy
 	Name string `json:"name"`
 
 	// Kind is the kind of the policy
 	Kind string `json:"kind"`
+}
+
+func (p *PolicyRef) Validate(path *field.Path) (errs field.ErrorList) {
+	if p.Name == "" {
+		errs = append(errs, field.Invalid(path.Child("name"), p.Name, "must specify policy name"))
+	}
+	if p.Kind == "" {
+		errs = append(errs, field.Invalid(path.Child("kind"), p.Kind, "must specify policy kind"))
+	}
+	return errs
 }
 
 // +kubebuilder:object:root=true

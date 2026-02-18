@@ -1,11 +1,6 @@
 package v1alpha1
 
-type EvaluationMode string
-
-const (
-	EvaluationModeKubernetes EvaluationMode = "Kubernetes"
-	EvaluationModeJSON       EvaluationMode = "JSON"
-)
+type EvaluationMode = string
 
 type EvaluationConfiguration struct {
 	// Mode is the mode of policy evaluation.

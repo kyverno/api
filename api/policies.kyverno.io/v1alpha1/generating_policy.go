@@ -104,6 +104,55 @@ type GeneratingPolicyEvaluationConfiguration struct {
 	OrphanDownstreamOnPolicyDelete *OrphanDownstreamOnPolicyDeleteConfiguration `json:"orphanDownstreamOnPolicyDelete,omitempty"`
 }
 
+func (s GeneratingPolicySpec) OrphanDownstreamOnPolicyDeleteEnabled() bool {
+	const defaultValue = false
+	if s.EvaluationConfiguration == nil {
+		return defaultValue
+	}
+	if s.EvaluationConfiguration.OrphanDownstreamOnPolicyDelete == nil {
+		return defaultValue
+	}
+	if s.EvaluationConfiguration.OrphanDownstreamOnPolicyDelete.Enabled == nil {
+		return defaultValue
+	}
+	return *s.EvaluationConfiguration.OrphanDownstreamOnPolicyDelete.Enabled
+}
+
+func (s GeneratingPolicySpec) GenerateExistingEnabled() bool {
+	const defaultValue = false
+	if s.EvaluationConfiguration == nil {
+		return defaultValue
+	}
+	if s.EvaluationConfiguration.GenerateExistingConfiguration == nil {
+		return defaultValue
+	}
+	if s.EvaluationConfiguration.GenerateExistingConfiguration.Enabled == nil {
+		return defaultValue
+	}
+	return *s.EvaluationConfiguration.GenerateExistingConfiguration.Enabled
+}
+
+func (s GeneratingPolicySpec) SynchronizationEnabled() bool {
+	const defaultValue = false
+	if s.EvaluationConfiguration == nil {
+		return defaultValue
+	}
+	if s.EvaluationConfiguration.SynchronizationConfiguration == nil {
+		return defaultValue
+	}
+	if s.EvaluationConfiguration.SynchronizationConfiguration.Enabled == nil {
+		return defaultValue
+	}
+	return *s.EvaluationConfiguration.SynchronizationConfiguration.Enabled
+}
+
+func (s GeneratingPolicySpec) AdmissionEnabled() bool {
+	if s.EvaluationConfiguration == nil || s.EvaluationConfiguration.Admission == nil || s.EvaluationConfiguration.Admission.Enabled == nil {
+		return true
+	}
+	return *s.EvaluationConfiguration.Admission.Enabled
+}
+
 // GenerateExistingConfiguration defines the configuration for generating resources for existing triggers.
 type GenerateExistingConfiguration struct {
 	// Enabled controls whether to trigger the policy for existing resources
