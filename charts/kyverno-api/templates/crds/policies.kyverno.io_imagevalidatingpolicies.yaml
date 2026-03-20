@@ -8,6 +8,8 @@ metadata:
     {{- include "kyverno-api.annotations" . | nindent 4 }}
   name: imagevalidatingpolicies.policies.kyverno.io
 spec:
+  conversion:
+    strategy: None
   group: policies.kyverno.io
   names:
     categories:
