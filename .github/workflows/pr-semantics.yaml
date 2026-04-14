@@ -93,11 +93,7 @@ jobs:
           ignore-semantic-pull-request
         # Configure that a scope must always be provided.
         requireScope: false
-        # When using "Squash and merge" on a PR with only one commit, GitHub
-        # will suggest using that commit message instead of the PR title for the
-        # merge commit, and it's easy to commit this by mistake. Enable this option
-        # to also validate the commit message for one commit PRs.
-        validateSingleCommit: true
-        # Related to `validateSingleCommit` you can opt-in to validate that the PR
-        # title matches a single commit to avoid confusion.
-        validateSingleCommitMatchesPrTitle: true
+        # Legacy options, make sure Default to PR titles for squash merge commit messages is enabled
+        # to avoid having the wrong commit name when merging in cases we have a single commit
+        validateSingleCommit: false
+        validateSingleCommitMatchesPrTitle: false
