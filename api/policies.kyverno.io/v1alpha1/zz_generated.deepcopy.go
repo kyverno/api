@@ -929,6 +929,13 @@ func (in *Keyless) DeepCopyInto(out *Keyless) {
 		*out = make([]Identity, len(*in))
 		copy(*out, *in)
 	}
+	if in.AdditionalExtensions != nil {
+		in, out := &in.AdditionalExtensions, &out.AdditionalExtensions
+		*out = make(map[string]string, len(*in))
+		for key, val := range *in {
+			(*out)[key] = val
+		}
+	}
 	return
 }
 
