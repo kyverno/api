@@ -455,6 +455,9 @@ type Keyless struct {
 	// If not provided, the system roots are used.
 	// +kubebuilder:validation:Optional
 	Roots string `json:"roots,omitempty"`
+	// AdditionalExtensions are certificate-extensions used for keyless signing.
+	// +kubebuilder:validation:Optional
+	AdditionalExtensions map[string]string `json:"additionalExtensions,omitempty"`
 }
 
 // Certificate defines the configuration for local signature verification
