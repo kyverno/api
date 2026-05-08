@@ -233,6 +233,11 @@ func (in *Cosign) DeepCopyInto(out *Cosign) {
 			(*out)[key] = val
 		}
 	}
+	if in.TrustedRoot != nil {
+		in, out := &in.TrustedRoot, &out.TrustedRoot
+		*out = new(StringOrExpression)
+		**out = **in
+	}
 	return
 }
 
