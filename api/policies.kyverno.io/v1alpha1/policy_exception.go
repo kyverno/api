@@ -45,6 +45,10 @@ type PolicyExceptionSpec struct {
 	// +kubebuilder:validation:Enum=skip;pass
 	// +kubebuilder:default=skip
 	ReportResult string `json:"reportResult,omitempty"`
+
+	// Evaluation mode denotes which controller is in charge of compiling and handling this exception.
+	// +optional
+	EvaluationMode EvaluationMode `json:"evaluationMode,omitempty"`
 }
 
 // Validate implements programmatic validation

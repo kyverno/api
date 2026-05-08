@@ -211,6 +211,12 @@ spec:
                           description: Keyless sets the configuration to verify the
                             authority against a Fulcio instance.
                           properties:
+                            additionalExtensions:
+                              additionalProperties:
+                                type: string
+                              description: AdditionalExtensions are certificate-extensions
+                                used for keyless signing.
+                              type: object
                             identities:
                               description: Identities sets a list of identities.
                               items:
@@ -478,7 +484,7 @@ spec:
                   mode:
                     description: |-
                       Mode is the mode of policy evaluation.
-                      Allowed values are "Kubernetes" or "JSON".
+                      Allowed values are "Kubernetes", "HTTP" or "Envoy".
                       Optional. Default value is "Kubernetes".
                     type: string
                 type: object
@@ -1284,6 +1290,13 @@ spec:
                                           to verify the authority against a Fulcio
                                           instance.
                                         properties:
+                                          additionalExtensions:
+                                            additionalProperties:
+                                              type: string
+                                            description: AdditionalExtensions are
+                                              certificate-extensions used for keyless
+                                              signing.
+                                            type: object
                                           identities:
                                             description: Identities sets a list of
                                               identities.
@@ -1559,7 +1572,7 @@ spec:
                                 mode:
                                   description: |-
                                     Mode is the mode of policy evaluation.
-                                    Allowed values are "Kubernetes" or "JSON".
+                                    Allowed values are "Kubernetes", "HTTP" or "Envoy".
                                     Optional. Default value is "Kubernetes".
                                   type: string
                               type: object
@@ -2506,6 +2519,12 @@ spec:
                           description: Keyless sets the configuration to verify the
                             authority against a Fulcio instance.
                           properties:
+                            additionalExtensions:
+                              additionalProperties:
+                                type: string
+                              description: AdditionalExtensions are certificate-extensions
+                                used for keyless signing.
+                              type: object
                             identities:
                               description: Identities sets a list of identities.
                               items:
@@ -2773,7 +2792,7 @@ spec:
                   mode:
                     description: |-
                       Mode is the mode of policy evaluation.
-                      Allowed values are "Kubernetes" or "JSON".
+                      Allowed values are "Kubernetes", "HTTP" or "Envoy".
                       Optional. Default value is "Kubernetes".
                     type: string
                 type: object
@@ -3579,6 +3598,13 @@ spec:
                                           to verify the authority against a Fulcio
                                           instance.
                                         properties:
+                                          additionalExtensions:
+                                            additionalProperties:
+                                              type: string
+                                            description: AdditionalExtensions are
+                                              certificate-extensions used for keyless
+                                              signing.
+                                            type: object
                                           identities:
                                             description: Identities sets a list of
                                               identities.
@@ -3854,7 +3880,7 @@ spec:
                                 mode:
                                   description: |-
                                     Mode is the mode of policy evaluation.
-                                    Allowed values are "Kubernetes" or "JSON".
+                                    Allowed values are "Kubernetes", "HTTP" or "Envoy".
                                     Optional. Default value is "Kubernetes".
                                   type: string
                               type: object
@@ -4800,6 +4826,12 @@ spec:
                           description: Keyless sets the configuration to verify the
                             authority against a Fulcio instance.
                           properties:
+                            additionalExtensions:
+                              additionalProperties:
+                                type: string
+                              description: AdditionalExtensions are certificate-extensions
+                                used for keyless signing.
+                              type: object
                             identities:
                               description: Identities sets a list of identities.
                               items:
@@ -5067,7 +5099,7 @@ spec:
                   mode:
                     description: |-
                       Mode is the mode of policy evaluation.
-                      Allowed values are "Kubernetes" or "JSON".
+                      Allowed values are "Kubernetes", "HTTP" or "Envoy".
                       Optional. Default value is "Kubernetes".
                     type: string
                 type: object
@@ -5873,6 +5905,13 @@ spec:
                                           to verify the authority against a Fulcio
                                           instance.
                                         properties:
+                                          additionalExtensions:
+                                            additionalProperties:
+                                              type: string
+                                            description: AdditionalExtensions are
+                                              certificate-extensions used for keyless
+                                              signing.
+                                            type: object
                                           identities:
                                             description: Identities sets a list of
                                               identities.
@@ -6148,7 +6187,7 @@ spec:
                                 mode:
                                   description: |-
                                     Mode is the mode of policy evaluation.
-                                    Allowed values are "Kubernetes" or "JSON".
+                                    Allowed values are "Kubernetes", "HTTP" or "Envoy".
                                     Optional. Default value is "Kubernetes".
                                   type: string
                               type: object

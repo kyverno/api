@@ -2069,6 +2069,18 @@ string
 as a skip result or pass result. Defaults to &ldquo;skip&rdquo;.</p>
 </td>
 </tr>
+<tr>
+<td>
+<code>evaluationMode</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Evaluation mode denotes which controller is in charge of compiling and handling this exception.</p>
+</td>
+</tr>
 </table>
 </td>
 </tr>
@@ -3538,6 +3550,18 @@ string
 as a skip result or pass result. Defaults to &ldquo;skip&rdquo;.</p>
 </td>
 </tr>
+<tr>
+<td>
+<code>evaluationMode</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Evaluation mode denotes which controller is in charge of compiling and handling this exception.</p>
+</td>
+</tr>
 </table>
 </td>
 </tr>
@@ -4558,7 +4582,7 @@ string
 <td>
 <em>(Optional)</em>
 <p>Mode is the mode of policy evaluation.
-Allowed values are &ldquo;Kubernetes&rdquo; or &ldquo;JSON&rdquo;.
+Allowed values are &ldquo;Kubernetes&rdquo;, &ldquo;HTTP&rdquo; or &ldquo;Envoy&rdquo;.
 Optional. Default value is &ldquo;Kubernetes&rdquo;.</p>
 </td>
 </tr>
@@ -5581,6 +5605,17 @@ string
 If not provided, the system roots are used.</p>
 </td>
 </tr>
+<tr>
+<td>
+<code>additionalExtensions</code><br/>
+<em>
+map[string]string
+</em>
+</td>
+<td>
+<p>AdditionalExtensions are certificate-extensions used for keyless signing.</p>
+</td>
+</tr>
 </tbody>
 </table>
 <hr />
@@ -6408,6 +6443,18 @@ string
 <em>(Optional)</em>
 <p>ReportResult indicates whether the policy exception should be reported in the policy report
 as a skip result or pass result. Defaults to &ldquo;skip&rdquo;.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>evaluationMode</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Evaluation mode denotes which controller is in charge of compiling and handling this exception.</p>
 </td>
 </tr>
 </tbody>
@@ -9375,6 +9422,18 @@ string
 <em>(Optional)</em>
 <p>ReportResult indicates whether the policy exception should be reported in the policy report
 as a skip result or pass result. Defaults to &ldquo;skip&rdquo;.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>evaluationMode</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Evaluation mode denotes which controller is in charge of compiling and handling this exception.</p>
 </td>
 </tr>
 </table>

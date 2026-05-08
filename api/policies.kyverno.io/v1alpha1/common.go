@@ -4,7 +4,7 @@ type EvaluationMode = string
 
 type EvaluationConfiguration struct {
 	// Mode is the mode of policy evaluation.
-	// Allowed values are "Kubernetes" or "JSON".
+	// Allowed values are "Kubernetes", "HTTP" or "Envoy".
 	// Optional. Default value is "Kubernetes".
 	// +optional
 	Mode EvaluationMode `json:"mode,omitempty"`
