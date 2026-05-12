@@ -46,3 +46,23 @@ func TestConditionStatus_SetReadyByConditionAndObservedGeneration_Updated(t *tes
 	assert.NotNil(t, got)
 	assert.Equal(t, int64(2), got.ObservedGeneration)
 }
+
+// TestConditionStatus_WithRealObjectGeneration verifies that a real Kubernetes
+// object's generation is correctly propagated to observedGeneration in the
+// condition status, simulating a full reconciliation flow.
+func TestConditionStatus_WithRealObjectGeneration(t *testing.T) {
+	obj := ValidatingPolicy{}
+	obj.Generation = 5
+
+	var status ConditionStatus
+	status.SetReadyByConditionAndObservedGeneration(
+		PolicyConditionTypeWebhookConfigured,
+		metav1.ConditionTrue,
+		"reconciled",
+		obj.GetGeneration(),
+	)
+
+	got := meta.FindStatusCondition(status.Conditions, string(PolicyConditionTypeWebhookConfigured))
+	assert.NotNil(t, got)
+	assert.Equal(t, obj.GetGeneration(), got.ObservedGeneration)
+}
