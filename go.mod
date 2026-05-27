@@ -1,9 +1,9 @@
 module github.com/kyverno/api
 
-go 1.26.2
+go 1.26.3
 
 require (
-	github.com/aptible/supercronic v0.2.45
+	github.com/aptible/supercronic v0.2.46
 	github.com/stretchr/testify v1.11.1
 	k8s.io/api v0.35.3
 	k8s.io/apimachinery v0.36.0
