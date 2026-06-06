@@ -5,7 +5,15 @@
 {{- end -}}
 
 {{- define "kyverno-api.labels" -}}
-{{- tpl (toYaml .Values.labels) . -}}
+helm.sh/chart: crds-{{ include "kyverno-api.chartVersion" . }}
+app.kubernetes.io/component: kyverno-api
+app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+app.kubernetes.io/part-of: kyverno-api
+app.kubernetes.io/version: {{ include "kyverno-api.chartVersion" . }}
+{{- with .Values.labels }}
+{{ tpl (toYaml .) $ }}
+{{- end }}
 {{- end -}}
 
 {{- define "kyverno-api.annotations" -}}
