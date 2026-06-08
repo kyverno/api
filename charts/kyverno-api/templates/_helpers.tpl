@@ -5,14 +5,27 @@
 {{- end -}}
 
 {{- define "kyverno-api.labels" -}}
-helm.sh/chart: crds-{{ include "kyverno-api.chartVersion" . }}
+{{- $customLabels := .Values.labels | default dict -}}
+{{- if not (hasKey $customLabels "helm.sh/chart") }}
+helm.sh/chart: {{ .Chart.Name }}-{{ include "kyverno-api.chartVersion" . }}
+{{- end }}
+{{- if not (hasKey $customLabels "app.kubernetes.io/component") }}
 app.kubernetes.io/component: kyverno-api
+{{- end }}
+{{- if not (hasKey $customLabels "app.kubernetes.io/instance") }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+{{- if not (hasKey $customLabels "app.kubernetes.io/managed-by") }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+{{- if not (hasKey $customLabels "app.kubernetes.io/part-of") }}
 app.kubernetes.io/part-of: kyverno-api
+{{- end }}
+{{- if not (hasKey $customLabels "app.kubernetes.io/version") }}
 app.kubernetes.io/version: {{ include "kyverno-api.chartVersion" . }}
+{{- end }}
 {{- with .Values.labels }}
-{{ tpl (toYaml .) $ }}
+{{- tpl (toYaml .) $ -}}
 {{- end }}
 {{- end -}}
 
