@@ -1,6 +1,8 @@
 package v1alpha1
 
 import (
+	"time"
+
 	admissionregistrationv1 "k8s.io/api/admissionregistration/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/validation/field"
@@ -18,6 +20,14 @@ type PolicyException struct {
 
 	// Spec declares policy exception behaviors.
 	Spec PolicyExceptionSpec `json:"spec"`
+}
+
+// IsExpired checks if the policy exception has expired based on the expiresAt field.
+func (p *PolicyException) IsExpired() bool {
+	if p.Spec.ExpiresAt == nil {
+		return false
+	}
+	return time.Now().After(p.Spec.ExpiresAt.Time)
 }
 
 // PolicyExceptionSpec stores policy exception spec
@@ -45,6 +55,20 @@ type PolicyExceptionSpec struct {
 	// +kubebuilder:validation:Enum=skip;pass
 	// +kubebuilder:default=skip
 	ReportResult string `json:"reportResult,omitempty"`
+
+	// ExpiresAt specifies the time when the policy exception expires.
+	// Once expired, the exception will no longer be applied to incoming requests.
+	// The expected format is RFC3339 date-time (for example "2026-05-01T00:00:00Z").
+	// +optional
+	ExpiresAt *metav1.Time `json:"expiresAt,omitempty"`
+
+	// Properties is an optional map for additional metadata attached to this exception.
+	// For example:
+	// - reason: why this exception is needed
+	// - ticket: external approval/request identifier
+	// - approved-by: comma-separated approver list
+	// +optional
+	Properties map[string]string `json:"properties,omitempty"`
 
 	// Evaluation mode denotes which controller is in charge of compiling and handling this exception.
 	// +optional
