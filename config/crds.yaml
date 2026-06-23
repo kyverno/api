@@ -31598,6 +31598,7 @@ spec:
                 description: |-
                   ExpiresAt specifies the time when the policy exception expires.
                   Once expired, the exception will no longer be applied to incoming requests.
+                  The expected format is RFC3339 date-time (for example "2026-05-01T00:00:00Z").
                 format: date-time
                 type: string
               images:
@@ -31663,6 +31664,16 @@ spec:
                   - name
                   type: object
                 type: array
+              properties:
+                additionalProperties:
+                  type: string
+                description: |-
+                  Properties is an optional map for additional metadata attached to this exception.
+                  For example:
+                  - reason: why this exception is needed
+                  - ticket: external approval/request identifier
+                  - approved-by: comma-separated approver list
+                type: object
               reportResult:
                 default: skip
                 description: |-
@@ -31718,6 +31729,7 @@ spec:
                 description: |-
                   ExpiresAt specifies the time when the policy exception expires.
                   Once expired, the exception will no longer be applied to incoming requests.
+                  The expected format is RFC3339 date-time (for example "2026-05-01T00:00:00Z").
                 format: date-time
                 type: string
               images:
@@ -31783,6 +31795,16 @@ spec:
                   - name
                   type: object
                 type: array
+              properties:
+                additionalProperties:
+                  type: string
+                description: |-
+                  Properties is an optional map for additional metadata attached to this exception.
+                  For example:
+                  - reason: why this exception is needed
+                  - ticket: external approval/request identifier
+                  - approved-by: comma-separated approver list
+                type: object
               reportResult:
                 default: skip
                 description: |-
@@ -31837,6 +31859,7 @@ spec:
                 description: |-
                   ExpiresAt specifies the time when the policy exception expires.
                   Once expired, the exception will no longer be applied to incoming requests.
+                  The expected format is RFC3339 date-time (for example "2026-05-01T00:00:00Z").
                 format: date-time
                 type: string
               images:
@@ -31902,6 +31925,16 @@ spec:
                   - name
                   type: object
                 type: array
+              properties:
+                additionalProperties:
+                  type: string
+                description: |-
+                  Properties is an optional map for additional metadata attached to this exception.
+                  For example:
+                  - reason: why this exception is needed
+                  - ticket: external approval/request identifier
+                  - approved-by: comma-separated approver list
+                type: object
               reportResult:
                 default: skip
                 description: |-

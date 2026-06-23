@@ -3,7 +3,6 @@ package v1beta1
 import (
 	"time"
 
-	admissionregistrationv1 "k8s.io/api/admissionregistration/v1"
 	"github.com/kyverno/api/api/policies.kyverno.io/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/validation/field"
@@ -43,68 +42,6 @@ func (p *PolicyException) IsExpired() bool {
 // Validate implements programmatic validation
 func (p *PolicyException) Validate() (errs field.ErrorList) {
 	errs = append(errs, p.Spec.Validate(field.NewPath("spec"))...)
-	return errs
-}
-
-// PolicyExceptionSpec stores policy exception spec
-type PolicyExceptionSpec struct {
-	// PolicyRefs identifies the policies to which the exception is applied.
-	PolicyRefs []PolicyRef `json:"policyRefs"`
-
-	// MatchConditions is a list of CEL expressions that must be met for a resource to be excluded.
-	// +optional
-	MatchConditions []admissionregistrationv1.MatchCondition `json:"matchConditions,omitempty"`
-
-	// Images specifies container images to be excluded from policy evaluation.
-	// These excluded images can be referenced in CEL expressions via `exceptions.allowedImages`.
-	// +optional
-	Images []string `json:"images,omitempty"`
-
-	// AllowedValues specifies values that can be used in CEL expressions to bypass policy checks.
-	// These values can be referenced in CEL expressions via `exceptions.allowedValues`.
-	// +optional
-	AllowedValues []string `json:"allowedValues,omitempty"`
-
-	// ReportResult indicates whether the policy exception should be reported in the policy report
-	// as a skip result or pass result. Defaults to "skip".
-	// +optional
-	// +kubebuilder:validation:Enum=skip;pass
-	// +kubebuilder:default=skip
-	ReportResult string `json:"reportResult,omitempty"`
-
-	// ExpiresAt specifies the time when the policy exception expires.
-	// Once expired, the exception will no longer be applied to incoming requests.
-	// +optional
-	ExpiresAt *metav1.Time `json:"expiresAt,omitempty"`
-}
-
-// Validate implements programmatic validation
-func (p *PolicyExceptionSpec) Validate(path *field.Path) (errs field.ErrorList) {
-	if len(p.PolicyRefs) == 0 {
-		errs = append(errs, field.Invalid(path.Child("policyRefs"), p.PolicyRefs, "must specify at least one policy ref"))
-	} else {
-		for i, policyRef := range p.PolicyRefs {
-			errs = append(errs, policyRef.Validate(path.Child("policyRefs").Index(i))...)
-		}
-	}
-	return errs
-}
-
-type PolicyRef struct {
-	// Name is the name of the policy
-	Name string `json:"name"`
-
-	// Kind is the kind of the policy
-	Kind string `json:"kind"`
-}
-
-func (p *PolicyRef) Validate(path *field.Path) (errs field.ErrorList) {
-	if p.Name == "" {
-		errs = append(errs, field.Invalid(path.Child("name"), p.Name, "must specify policy name"))
-	}
-	if p.Kind == "" {
-		errs = append(errs, field.Invalid(path.Child("kind"), p.Kind, "must specify policy kind"))
-	}
 	return errs
 }
 

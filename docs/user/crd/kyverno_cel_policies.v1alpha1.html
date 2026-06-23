@@ -2529,7 +2529,9 @@ as a skip result or pass result. Defaults to &quot;skip&quot;.</p>
           
           
             
-              <span style="font-family: monospace">meta/v1.Time</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#time-v1-meta">
+                <span style="font-family: monospace">meta/v1.Time</span>
+              </a>
             
           
         </td>
@@ -2537,7 +2539,41 @@ as a skip result or pass result. Defaults to &quot;skip&quot;.</p>
           
 
           <p>ExpiresAt specifies the time when the policy exception expires.
-Once expired, the exception will no longer be applied to incoming requests.</p>
+Once expired, the exception will no longer be applied to incoming requests.
+The expected format is RFC3339 date-time (for example &quot;2026-05-01T00:00:00Z&quot;).</p>
+
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+    
+    
+      <tr>
+        <td><code>properties</code>
+          
+          </br>
+
+          
+          
+            
+              <span style="font-family: monospace">map[string]string</span>
+            
+          
+        </td>
+        <td>
+          
+
+          <p>Properties is an optional map for additional metadata attached to this exception.
+For example:</p>
+<ul>
+<li>reason: why this exception is needed</li>
+<li>ticket: external approval/request identifier</li>
+<li>approved-by: comma-separated approver list</li>
+</ul>
 
 
           
@@ -8394,7 +8430,9 @@ as a skip result or pass result. Defaults to &quot;skip&quot;.</p>
           
           
             
-              <span style="font-family: monospace">meta/v1.Time</span>
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#time-v1-meta">
+                <span style="font-family: monospace">meta/v1.Time</span>
+              </a>
             
           
         </td>
@@ -8402,7 +8440,41 @@ as a skip result or pass result. Defaults to &quot;skip&quot;.</p>
           
 
           <p>ExpiresAt specifies the time when the policy exception expires.
-Once expired, the exception will no longer be applied to incoming requests.</p>
+Once expired, the exception will no longer be applied to incoming requests.
+The expected format is RFC3339 date-time (for example &quot;2026-05-01T00:00:00Z&quot;).</p>
+
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+    
+    
+      <tr>
+        <td><code>properties</code>
+          
+          </br>
+
+          
+          
+            
+              <span style="font-family: monospace">map[string]string</span>
+            
+          
+        </td>
+        <td>
+          
+
+          <p>Properties is an optional map for additional metadata attached to this exception.
+For example:</p>
+<ul>
+<li>reason: why this exception is needed</li>
+<li>ticket: external approval/request identifier</li>
+<li>approved-by: comma-separated approver list</li>
+</ul>
 
 
           

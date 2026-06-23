@@ -58,8 +58,17 @@ type PolicyExceptionSpec struct {
 
 	// ExpiresAt specifies the time when the policy exception expires.
 	// Once expired, the exception will no longer be applied to incoming requests.
+	// The expected format is RFC3339 date-time (for example "2026-05-01T00:00:00Z").
 	// +optional
 	ExpiresAt *metav1.Time `json:"expiresAt,omitempty"`
+
+	// Properties is an optional map for additional metadata attached to this exception.
+	// For example:
+	// - reason: why this exception is needed
+	// - ticket: external approval/request identifier
+	// - approved-by: comma-separated approver list
+	// +optional
+	Properties map[string]string `json:"properties,omitempty"`
 }
 
 // Validate implements programmatic validation
