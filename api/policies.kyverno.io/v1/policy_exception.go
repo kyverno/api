@@ -1,6 +1,8 @@
 package v1
 
 import (
+	"time"
+
 	"github.com/kyverno/api/api/policies.kyverno.io/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -21,6 +23,14 @@ type PolicyException struct {
 
 	// Spec declares policy exception behaviors.
 	Spec PolicyExceptionSpec `json:"spec"`
+}
+
+// IsExpired checks if the policy exception has expired based on the expiresAt field.
+func (p *PolicyException) IsExpired() bool {
+	if p.Spec.ExpiresAt == nil {
+		return false
+	}
+	return time.Now().After(p.Spec.ExpiresAt.Time)
 }
 
 // +kubebuilder:object:root=true
