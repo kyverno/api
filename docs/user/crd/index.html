@@ -2071,6 +2071,38 @@ as a skip result or pass result. Defaults to &ldquo;skip&rdquo;.</p>
 </tr>
 <tr>
 <td>
+<code>expiresAt</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#time-v1-meta">
+Kubernetes meta/v1.Time
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>ExpiresAt specifies the time when the policy exception expires.
+Once expired, the exception will no longer be applied to incoming requests.
+The expected format is RFC3339 date-time (for example &ldquo;2026-05-01T00:00:00Z&rdquo;).</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>properties</code><br/>
+<em>
+map[string]string
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Properties is an optional map for additional metadata attached to this exception.
+For example:
+- reason: why this exception is needed
+- ticket: external approval/request identifier
+- approved-by: comma-separated approver list</p>
+</td>
+</tr>
+<tr>
+<td>
 <code>evaluationMode</code><br/>
 <em>
 string
@@ -3548,6 +3580,38 @@ string
 <em>(Optional)</em>
 <p>ReportResult indicates whether the policy exception should be reported in the policy report
 as a skip result or pass result. Defaults to &ldquo;skip&rdquo;.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>expiresAt</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#time-v1-meta">
+Kubernetes meta/v1.Time
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>ExpiresAt specifies the time when the policy exception expires.
+Once expired, the exception will no longer be applied to incoming requests.
+The expected format is RFC3339 date-time (for example &ldquo;2026-05-01T00:00:00Z&rdquo;).</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>properties</code><br/>
+<em>
+map[string]string
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Properties is an optional map for additional metadata attached to this exception.
+For example:
+- reason: why this exception is needed
+- ticket: external approval/request identifier
+- approved-by: comma-separated approver list</p>
 </td>
 </tr>
 <tr>
@@ -6480,6 +6544,38 @@ string
 <em>(Optional)</em>
 <p>ReportResult indicates whether the policy exception should be reported in the policy report
 as a skip result or pass result. Defaults to &ldquo;skip&rdquo;.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>expiresAt</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#time-v1-meta">
+Kubernetes meta/v1.Time
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>ExpiresAt specifies the time when the policy exception expires.
+Once expired, the exception will no longer be applied to incoming requests.
+The expected format is RFC3339 date-time (for example &ldquo;2026-05-01T00:00:00Z&rdquo;).</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>properties</code><br/>
+<em>
+map[string]string
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Properties is an optional map for additional metadata attached to this exception.
+For example:
+- reason: why this exception is needed
+- ticket: external approval/request identifier
+- approved-by: comma-separated approver list</p>
 </td>
 </tr>
 <tr>
@@ -9460,6 +9556,38 @@ string
 <em>(Optional)</em>
 <p>ReportResult indicates whether the policy exception should be reported in the policy report
 as a skip result or pass result. Defaults to &ldquo;skip&rdquo;.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>expiresAt</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#time-v1-meta">
+Kubernetes meta/v1.Time
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>ExpiresAt specifies the time when the policy exception expires.
+Once expired, the exception will no longer be applied to incoming requests.
+The expected format is RFC3339 date-time (for example &ldquo;2026-05-01T00:00:00Z&rdquo;).</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>properties</code><br/>
+<em>
+map[string]string
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Properties is an optional map for additional metadata attached to this exception.
+For example:
+- reason: why this exception is needed
+- ticket: external approval/request identifier
+- approved-by: comma-separated approver list</p>
 </td>
 </tr>
 <tr>
