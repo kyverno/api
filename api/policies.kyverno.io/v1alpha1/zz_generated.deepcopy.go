@@ -233,6 +233,11 @@ func (in *Cosign) DeepCopyInto(out *Cosign) {
 			(*out)[key] = val
 		}
 	}
+	if in.TrustedRoot != nil {
+		in, out := &in.TrustedRoot, &out.TrustedRoot
+		*out = new(StringOrExpression)
+		**out = **in
+	}
 	return
 }
 
@@ -929,6 +934,13 @@ func (in *Keyless) DeepCopyInto(out *Keyless) {
 		*out = make([]Identity, len(*in))
 		copy(*out, *in)
 	}
+	if in.AdditionalExtensions != nil {
+		in, out := &in.AdditionalExtensions, &out.AdditionalExtensions
+		*out = make(map[string]string, len(*in))
+		for key, val := range *in {
+			(*out)[key] = val
+		}
+	}
 	return
 }
 
@@ -1414,6 +1426,17 @@ func (in *PolicyExceptionSpec) DeepCopyInto(out *PolicyExceptionSpec) {
 		in, out := &in.AllowedValues, &out.AllowedValues
 		*out = make([]string, len(*in))
 		copy(*out, *in)
+	}
+	if in.ExpiresAt != nil {
+		in, out := &in.ExpiresAt, &out.ExpiresAt
+		*out = (*in).DeepCopy()
+	}
+	if in.Properties != nil {
+		in, out := &in.Properties, &out.Properties
+		*out = make(map[string]string, len(*in))
+		for key, val := range *in {
+			(*out)[key] = val
+		}
 	}
 	return
 }

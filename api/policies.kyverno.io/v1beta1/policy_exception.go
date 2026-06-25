@@ -1,6 +1,8 @@
 package v1beta1
 
 import (
+	"time"
+
 	"github.com/kyverno/api/api/policies.kyverno.io/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/validation/field"
@@ -27,6 +29,14 @@ type PolicyException struct {
 
 func (p *PolicyException) GetKind() string {
 	return "PolicyException"
+}
+
+// IsExpired checks if the policy exception has expired based on the expiresAt field.
+func (p *PolicyException) IsExpired() bool {
+	if p.Spec.ExpiresAt == nil {
+		return false
+	}
+	return time.Now().After(p.Spec.ExpiresAt.Time)
 }
 
 // Validate implements programmatic validation
