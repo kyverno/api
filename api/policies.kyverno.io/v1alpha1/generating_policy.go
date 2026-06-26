@@ -108,6 +108,12 @@ type GeneratingPolicyEvaluationConfiguration struct {
 
 	// OrphanDownstreamOnPolicyDelete defines the configuration for orphaning downstream resources on policy delete.
 	OrphanDownstreamOnPolicyDelete *OrphanDownstreamOnPolicyDeleteConfiguration `json:"orphanDownstreamOnPolicyDelete,omitempty"`
+
+	// SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+	// The default value is set to "true", it must be set to "false" to apply generateExisting rules to those requests.
+	// +optional
+	// +kubebuilder:default=true
+	SkipBackgroundRequests *bool `json:"skipBackgroundRequests,omitempty"`
 }
 
 func (s GeneratingPolicySpec) OrphanDownstreamOnPolicyDeleteEnabled() bool {
@@ -157,6 +163,14 @@ func (s GeneratingPolicySpec) AdmissionEnabled() bool {
 		return true
 	}
 	return *s.EvaluationConfiguration.Admission.Enabled
+}
+
+func (s GeneratingPolicySpec) SkipBackgroundRequestsEnabled() bool {
+	const defaultValue = true
+	if s.EvaluationConfiguration == nil || s.EvaluationConfiguration.SkipBackgroundRequests == nil {
+		return defaultValue
+	}
+	return *s.EvaluationConfiguration.SkipBackgroundRequests
 }
 
 // GenerateExistingConfiguration defines the configuration for generating resources for existing triggers.

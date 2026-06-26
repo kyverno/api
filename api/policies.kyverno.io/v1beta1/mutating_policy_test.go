@@ -401,6 +401,54 @@ func TestMutatingPolicySpec_BackgroundEnabled(t *testing.T) {
 	}
 }
 
+func TestMutatingPolicySpec_SkipBackgroundRequestsEnabled(t *testing.T) {
+	tests := []struct {
+		name     string
+		spec     MutatingPolicySpec
+		expected bool
+	}{
+		{
+			name:     "nil evaluation configuration",
+			spec:     MutatingPolicySpec{},
+			expected: true,
+		},
+		{
+			name: "nil skip background requests field",
+			spec: MutatingPolicySpec{
+				EvaluationConfiguration: &MutatingPolicyEvaluationConfiguration{},
+			},
+			expected: true,
+		},
+		{
+			name: "skip background requests false",
+			spec: MutatingPolicySpec{
+				EvaluationConfiguration: &MutatingPolicyEvaluationConfiguration{
+					SkipBackgroundRequests: &[]bool{false}[0],
+				},
+			},
+			expected: false,
+		},
+		{
+			name: "skip background requests true",
+			spec: MutatingPolicySpec{
+				EvaluationConfiguration: &MutatingPolicyEvaluationConfiguration{
+					SkipBackgroundRequests: &[]bool{true}[0],
+				},
+			},
+			expected: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := tt.spec.SkipBackgroundRequestsEnabled()
+			if result != tt.expected {
+				t.Errorf("SkipBackgroundRequestsEnabled() = %v, want %v", result, tt.expected)
+			}
+		})
+	}
+}
+
 func TestMutatingPolicySpec_EvaluationMode(t *testing.T) {
 	tests := []struct {
 		name     string
