@@ -365,6 +365,20 @@ WebhookConfiguration
 Required.</p>
 </td>
 </tr>
+<tr>
+<td>
+<code>useServerSideApply</code><br/>
+<em>
+bool
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>UseServerSideApply controls whether to use server-side apply for generate rules.
+If set to &ldquo;true&rdquo;, create &amp; update for generated resources will use apply instead of create/update.
+Defaults to &ldquo;false&rdquo; if not specified.</p>
+</td>
+</tr>
 </table>
 </td>
 </tr>
@@ -2516,6 +2530,20 @@ WebhookConfiguration
 Required.</p>
 </td>
 </tr>
+<tr>
+<td>
+<code>useServerSideApply</code><br/>
+<em>
+bool
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>UseServerSideApply controls whether to use server-side apply for generate rules.
+If set to &ldquo;true&rdquo;, create &amp; update for generated resources will use apply instead of create/update.
+Defaults to &ldquo;false&rdquo; if not specified.</p>
+</td>
+</tr>
 </table>
 </td>
 </tr>
@@ -2863,6 +2891,20 @@ WebhookConfiguration
 <td>
 <p>Generation defines a set of CEL expressions that will be evaluated to generate resources.
 Required.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>useServerSideApply</code><br/>
+<em>
+bool
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>UseServerSideApply controls whether to use server-side apply for generate rules.
+If set to &ldquo;true&rdquo;, create &amp; update for generated resources will use apply instead of create/update.
+Defaults to &ldquo;false&rdquo; if not specified.</p>
 </td>
 </tr>
 </table>
@@ -4822,6 +4864,19 @@ OrphanDownstreamOnPolicyDeleteConfiguration
 <p>OrphanDownstreamOnPolicyDelete defines the configuration for orphaning downstream resources on policy delete.</p>
 </td>
 </tr>
+<tr>
+<td>
+<code>skipBackgroundRequests</code><br/>
+<em>
+bool
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+The default value is set to &ldquo;true&rdquo;, it must be set to &ldquo;false&rdquo; to apply generateExisting rules to those requests.</p>
+</td>
+</tr>
 </tbody>
 </table>
 <hr />
@@ -4946,6 +5001,20 @@ WebhookConfiguration
 <td>
 <p>Generation defines a set of CEL expressions that will be evaluated to generate resources.
 Required.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>useServerSideApply</code><br/>
+<em>
+bool
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>UseServerSideApply controls whether to use server-side apply for generate rules.
+If set to &ldquo;true&rdquo;, create &amp; update for generated resources will use apply instead of create/update.
+Defaults to &ldquo;false&rdquo; if not specified.</p>
 </td>
 </tr>
 </tbody>
@@ -6019,6 +6088,19 @@ MutateExistingConfiguration
 <td>
 <em>(Optional)</em>
 <p>MutateExisting controls whether existing resources are mutated.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>skipBackgroundRequests</code><br/>
+<em>
+bool
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+The default value is set to &ldquo;true&rdquo;, it must be set to &ldquo;false&rdquo; to apply mutateExisting rules to those requests.</p>
 </td>
 </tr>
 </tbody>
@@ -7852,6 +7934,20 @@ WebhookConfiguration
 <td>
 <p>Generation defines a set of CEL expressions that will be evaluated to generate resources.
 Required.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>useServerSideApply</code><br/>
+<em>
+bool
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>UseServerSideApply controls whether to use server-side apply for generate rules.
+If set to &ldquo;true&rdquo;, create &amp; update for generated resources will use apply instead of create/update.
+Defaults to &ldquo;false&rdquo; if not specified.</p>
 </td>
 </tr>
 </table>
@@ -10003,6 +10099,20 @@ WebhookConfiguration
 <td>
 <p>Generation defines a set of CEL expressions that will be evaluated to generate resources.
 Required.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>useServerSideApply</code><br/>
+<em>
+bool
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>UseServerSideApply controls whether to use server-side apply for generate rules.
+If set to &ldquo;true&rdquo;, create &amp; update for generated resources will use apply instead of create/update.
+Defaults to &ldquo;false&rdquo; if not specified.</p>
 </td>
 </tr>
 </table>

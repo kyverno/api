@@ -495,6 +495,11 @@ func (in *GeneratingPolicyEvaluationConfiguration) DeepCopyInto(out *GeneratingP
 		*out = new(OrphanDownstreamOnPolicyDeleteConfiguration)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.SkipBackgroundRequests != nil {
+		in, out := &in.SkipBackgroundRequests, &out.SkipBackgroundRequests
+		*out = new(bool)
+		**out = **in
+	}
 	return
 }
 
@@ -1137,6 +1142,11 @@ func (in *MutatingPolicyEvaluationConfiguration) DeepCopyInto(out *MutatingPolic
 		in, out := &in.MutateExistingConfiguration, &out.MutateExistingConfiguration
 		*out = new(MutateExistingConfiguration)
 		(*in).DeepCopyInto(*out)
+	}
+	if in.SkipBackgroundRequests != nil {
+		in, out := &in.SkipBackgroundRequests, &out.SkipBackgroundRequests
+		*out = new(bool)
+		**out = **in
 	}
 	return
 }
