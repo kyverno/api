@@ -367,6 +367,24 @@ Required.</p>
 </tr>
 <tr>
 <td>
+<code>auditAnnotations</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#auditannotation-v1-admissionregistration">
+[]Kubernetes admissionregistration/v1.AuditAnnotation
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>AuditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the
+API server. auditAnnotations are evaluated after the policy has been evaluated but before the decision is logged.
+The results of evaluating the expressions are attached to the audit event as annotations with the key
+&ldquo;<policy name>/<key>&rdquo;.
+If the expression evaluates to an empty string or null the annotation will not be included in the audit event.</p>
+</td>
+</tr>
+<tr>
+<td>
 <code>useServerSideApply</code><br/>
 <em>
 bool
@@ -2532,6 +2550,24 @@ Required.</p>
 </tr>
 <tr>
 <td>
+<code>auditAnnotations</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#auditannotation-v1-admissionregistration">
+[]Kubernetes admissionregistration/v1.AuditAnnotation
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>AuditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the
+API server. auditAnnotations are evaluated after the policy has been evaluated but before the decision is logged.
+The results of evaluating the expressions are attached to the audit event as annotations with the key
+&ldquo;<policy name>/<key>&rdquo;.
+If the expression evaluates to an empty string or null the annotation will not be included in the audit event.</p>
+</td>
+</tr>
+<tr>
+<td>
 <code>useServerSideApply</code><br/>
 <em>
 bool
@@ -2891,6 +2927,24 @@ WebhookConfiguration
 <td>
 <p>Generation defines a set of CEL expressions that will be evaluated to generate resources.
 Required.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>auditAnnotations</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#auditannotation-v1-admissionregistration">
+[]Kubernetes admissionregistration/v1.AuditAnnotation
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>AuditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the
+API server. auditAnnotations are evaluated after the policy has been evaluated but before the decision is logged.
+The results of evaluating the expressions are attached to the audit event as annotations with the key
+&ldquo;<policy name>/<key>&rdquo;.
+If the expression evaluates to an empty string or null the annotation will not be included in the audit event.</p>
 </td>
 </tr>
 <tr>
@@ -4984,6 +5038,24 @@ WebhookConfiguration
 <td>
 <p>Generation defines a set of CEL expressions that will be evaluated to generate resources.
 Required.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>auditAnnotations</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#auditannotation-v1-admissionregistration">
+[]Kubernetes admissionregistration/v1.AuditAnnotation
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>AuditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the
+API server. auditAnnotations are evaluated after the policy has been evaluated but before the decision is logged.
+The results of evaluating the expressions are attached to the audit event as annotations with the key
+&ldquo;<policy name>/<key>&rdquo;.
+If the expression evaluates to an empty string or null the annotation will not be included in the audit event.</p>
 </td>
 </tr>
 <tr>
@@ -7921,6 +7993,24 @@ Required.</p>
 </tr>
 <tr>
 <td>
+<code>auditAnnotations</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#auditannotation-v1-admissionregistration">
+[]Kubernetes admissionregistration/v1.AuditAnnotation
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>AuditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the
+API server. auditAnnotations are evaluated after the policy has been evaluated but before the decision is logged.
+The results of evaluating the expressions are attached to the audit event as annotations with the key
+&ldquo;<policy name>/<key>&rdquo;.
+If the expression evaluates to an empty string or null the annotation will not be included in the audit event.</p>
+</td>
+</tr>
+<tr>
+<td>
 <code>useServerSideApply</code><br/>
 <em>
 bool
@@ -10082,6 +10172,24 @@ WebhookConfiguration
 <td>
 <p>Generation defines a set of CEL expressions that will be evaluated to generate resources.
 Required.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>auditAnnotations</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#auditannotation-v1-admissionregistration">
+[]Kubernetes admissionregistration/v1.AuditAnnotation
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>AuditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the
+API server. auditAnnotations are evaluated after the policy has been evaluated but before the decision is logged.
+The results of evaluating the expressions are attached to the audit event as annotations with the key
+&ldquo;<policy name>/<key>&rdquo;.
+If the expression evaluates to an empty string or null the annotation will not be included in the audit event.</p>
 </td>
 </tr>
 <tr>
