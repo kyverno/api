@@ -86,6 +86,14 @@ type GeneratingPolicySpec struct {
 	// +kubebuilder:validation:MinItems=1
 	Generation []Generation `json:"generate"`
 
+	// AuditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the
+	// API server. auditAnnotations are evaluated after the policy has been evaluated but before the decision is logged.
+	// The results of evaluating the expressions are attached to the audit event as annotations with the key
+	// "<policy name>/<key>".
+	// If the expression evaluates to an empty string or null the annotation will not be included in the audit event.
+	// +optional
+	AuditAnnotations []admissionregistrationv1.AuditAnnotation `json:"auditAnnotations,omitempty"`
+
 	// UseServerSideApply controls whether to use server-side apply for generate rules.
 	// If set to "true", create & update for generated resources will use apply instead of create/update.
 	// Defaults to "false" if not specified.
