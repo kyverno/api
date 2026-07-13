@@ -252,6 +252,14 @@ type MutatingPolicyEvaluationConfiguration struct {
 	// +optional
 	// +kubebuilder:default=true
 	SkipBackgroundRequests *bool `json:"skipBackgroundRequests,omitempty"`
+
+	// UseServerSideApply applies ApplyConfiguration patches with Server-Side Apply semantics,
+	// which allows setting atomic fields (for example a container's args or a projected volume)
+	// that the default MutatingAdmissionPolicy behaviour rejects. When true, an atomic value is
+	// replaced as a whole, so any field the object owner set but the patch does not is dropped.
+	// The default is false, which keeps parity with a native MutatingAdmissionPolicy.
+	// +optional
+	UseServerSideApply bool `json:"useServerSideApply,omitempty"`
 }
 
 type MutatingPolicyAutogenConfiguration struct {
