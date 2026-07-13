@@ -119,6 +119,12 @@ spec:
                           When spec.targetMatchConstraints is not defined, Kyverno mutates existing resources matched in spec.matchConstraints.
                         type: boolean
                     type: object
+                  skipBackgroundRequests:
+                    default: true
+                    description: |-
+                      SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+                      The default value is set to "true", it must be set to "false" to apply mutateExisting rules to those requests.
+                    type: boolean
                 type: object
               failurePolicy:
                 description: |-
@@ -1131,6 +1137,12 @@ spec:
                                         When spec.targetMatchConstraints is not defined, Kyverno mutates existing resources matched in spec.matchConstraints.
                                       type: boolean
                                   type: object
+                                skipBackgroundRequests:
+                                  default: true
+                                  description: |-
+                                    SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+                                    The default value is set to "true", it must be set to "false" to apply mutateExisting rules to those requests.
+                                  type: boolean
                               type: object
                             failurePolicy:
                               description: |-
@@ -2305,6 +2317,12 @@ spec:
                           When spec.targetMatchConstraints is not defined, Kyverno mutates existing resources matched in spec.matchConstraints.
                         type: boolean
                     type: object
+                  skipBackgroundRequests:
+                    default: true
+                    description: |-
+                      SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+                      The default value is set to "true", it must be set to "false" to apply mutateExisting rules to those requests.
+                    type: boolean
                 type: object
               failurePolicy:
                 description: |-
@@ -3317,6 +3335,12 @@ spec:
                                         When spec.targetMatchConstraints is not defined, Kyverno mutates existing resources matched in spec.matchConstraints.
                                       type: boolean
                                   type: object
+                                skipBackgroundRequests:
+                                  default: true
+                                  description: |-
+                                    SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+                                    The default value is set to "true", it must be set to "false" to apply mutateExisting rules to those requests.
+                                  type: boolean
                               type: object
                             failurePolicy:
                               description: |-

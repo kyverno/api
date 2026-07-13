@@ -365,6 +365,38 @@ WebhookConfiguration
 Required.</p>
 </td>
 </tr>
+<tr>
+<td>
+<code>auditAnnotations</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#auditannotation-v1-admissionregistration">
+[]Kubernetes admissionregistration/v1.AuditAnnotation
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>AuditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the
+API server. auditAnnotations are evaluated after the policy has been evaluated but before the decision is logged.
+The results of evaluating the expressions are attached to the audit event as annotations with the key
+&ldquo;<policy name>/<key>&rdquo;.
+If the expression evaluates to an empty string or null the annotation will not be included in the audit event.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>useServerSideApply</code><br/>
+<em>
+bool
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>UseServerSideApply controls whether to use server-side apply for generate rules.
+If set to &ldquo;true&rdquo;, create &amp; update for generated resources will use apply instead of create/update.
+Defaults to &ldquo;false&rdquo; if not specified.</p>
+</td>
+</tr>
 </table>
 </td>
 </tr>
@@ -2071,6 +2103,38 @@ as a skip result or pass result. Defaults to &ldquo;skip&rdquo;.</p>
 </tr>
 <tr>
 <td>
+<code>expiresAt</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#time-v1-meta">
+Kubernetes meta/v1.Time
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>ExpiresAt specifies the time when the policy exception expires.
+Once expired, the exception will no longer be applied to incoming requests.
+The expected format is RFC3339 date-time (for example &ldquo;2026-05-01T00:00:00Z&rdquo;).</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>properties</code><br/>
+<em>
+map[string]string
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Properties is an optional map for additional metadata attached to this exception.
+For example:
+- reason: why this exception is needed
+- ticket: external approval/request identifier
+- approved-by: comma-separated approver list</p>
+</td>
+</tr>
+<tr>
+<td>
 <code>evaluationMode</code><br/>
 <em>
 string
@@ -2484,6 +2548,38 @@ WebhookConfiguration
 Required.</p>
 </td>
 </tr>
+<tr>
+<td>
+<code>auditAnnotations</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#auditannotation-v1-admissionregistration">
+[]Kubernetes admissionregistration/v1.AuditAnnotation
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>AuditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the
+API server. auditAnnotations are evaluated after the policy has been evaluated but before the decision is logged.
+The results of evaluating the expressions are attached to the audit event as annotations with the key
+&ldquo;<policy name>/<key>&rdquo;.
+If the expression evaluates to an empty string or null the annotation will not be included in the audit event.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>useServerSideApply</code><br/>
+<em>
+bool
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>UseServerSideApply controls whether to use server-side apply for generate rules.
+If set to &ldquo;true&rdquo;, create &amp; update for generated resources will use apply instead of create/update.
+Defaults to &ldquo;false&rdquo; if not specified.</p>
+</td>
+</tr>
 </table>
 </td>
 </tr>
@@ -2831,6 +2927,38 @@ WebhookConfiguration
 <td>
 <p>Generation defines a set of CEL expressions that will be evaluated to generate resources.
 Required.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>auditAnnotations</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#auditannotation-v1-admissionregistration">
+[]Kubernetes admissionregistration/v1.AuditAnnotation
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>AuditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the
+API server. auditAnnotations are evaluated after the policy has been evaluated but before the decision is logged.
+The results of evaluating the expressions are attached to the audit event as annotations with the key
+&ldquo;<policy name>/<key>&rdquo;.
+If the expression evaluates to an empty string or null the annotation will not be included in the audit event.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>useServerSideApply</code><br/>
+<em>
+bool
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>UseServerSideApply controls whether to use server-side apply for generate rules.
+If set to &ldquo;true&rdquo;, create &amp; update for generated resources will use apply instead of create/update.
+Defaults to &ldquo;false&rdquo; if not specified.</p>
 </td>
 </tr>
 </table>
@@ -3548,6 +3676,38 @@ string
 <em>(Optional)</em>
 <p>ReportResult indicates whether the policy exception should be reported in the policy report
 as a skip result or pass result. Defaults to &ldquo;skip&rdquo;.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>expiresAt</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#time-v1-meta">
+Kubernetes meta/v1.Time
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>ExpiresAt specifies the time when the policy exception expires.
+Once expired, the exception will no longer be applied to incoming requests.
+The expected format is RFC3339 date-time (for example &ldquo;2026-05-01T00:00:00Z&rdquo;).</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>properties</code><br/>
+<em>
+map[string]string
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Properties is an optional map for additional metadata attached to this exception.
+For example:
+- reason: why this exception is needed
+- ticket: external approval/request identifier
+- approved-by: comma-separated approver list</p>
 </td>
 </tr>
 <tr>
@@ -4330,6 +4490,26 @@ Every specified key-value pair must exist and match in the verified payload.
 The payload may contain other key-value pairs.</p>
 </td>
 </tr>
+<tr>
+<td>
+<code>trustedRoot</code><br/>
+<em>
+<a href="#policies.kyverno.io/v1alpha1.StringOrExpression">
+StringOrExpression
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>TrustedRoot is the sigstore-go TrustedRoot JSON
+(mediaType application/vnd.dev.sigstore.trustedroot+json;version=0.1).
+When set, Kyverno uses this trust material directly instead of fetching
+trusted_root.json from the Sigstore TUF repository. Use this field when
+verifying attestations from providers that do not operate a TUF server,
+such as GitHub Actions. Takes precedence over the tuf field.
+Supports an inline JSON value or a CEL expression (e.g. variables.myRoot).</p>
+</td>
+</tr>
 </tbody>
 </table>
 <hr />
@@ -4721,6 +4901,19 @@ OrphanDownstreamOnPolicyDeleteConfiguration
 <p>OrphanDownstreamOnPolicyDelete defines the configuration for orphaning downstream resources on policy delete.</p>
 </td>
 </tr>
+<tr>
+<td>
+<code>skipBackgroundRequests</code><br/>
+<em>
+bool
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+The default value is set to &ldquo;true&rdquo;, it must be set to &ldquo;false&rdquo; to apply generateExisting rules to those requests.</p>
+</td>
+</tr>
 </tbody>
 </table>
 <hr />
@@ -4845,6 +5038,38 @@ WebhookConfiguration
 <td>
 <p>Generation defines a set of CEL expressions that will be evaluated to generate resources.
 Required.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>auditAnnotations</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#auditannotation-v1-admissionregistration">
+[]Kubernetes admissionregistration/v1.AuditAnnotation
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>AuditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the
+API server. auditAnnotations are evaluated after the policy has been evaluated but before the decision is logged.
+The results of evaluating the expressions are attached to the audit event as annotations with the key
+&ldquo;<policy name>/<key>&rdquo;.
+If the expression evaluates to an empty string or null the annotation will not be included in the audit event.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>useServerSideApply</code><br/>
+<em>
+bool
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>UseServerSideApply controls whether to use server-side apply for generate rules.
+If set to &ldquo;true&rdquo;, create &amp; update for generated resources will use apply instead of create/update.
+Defaults to &ldquo;false&rdquo; if not specified.</p>
 </td>
 </tr>
 </tbody>
@@ -5605,6 +5830,17 @@ string
 If not provided, the system roots are used.</p>
 </td>
 </tr>
+<tr>
+<td>
+<code>additionalExtensions</code><br/>
+<em>
+map[string]string
+</em>
+</td>
+<td>
+<p>AdditionalExtensions are certificate-extensions used for keyless signing.</p>
+</td>
+</tr>
 </tbody>
 </table>
 <hr />
@@ -5907,6 +6143,19 @@ MutateExistingConfiguration
 <td>
 <em>(Optional)</em>
 <p>MutateExisting controls whether existing resources are mutated.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>skipBackgroundRequests</code><br/>
+<em>
+bool
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+The default value is set to &ldquo;true&rdquo;, it must be set to &ldquo;false&rdquo; to apply mutateExisting rules to those requests.</p>
 </td>
 </tr>
 </tbody>
@@ -6436,6 +6685,38 @@ as a skip result or pass result. Defaults to &ldquo;skip&rdquo;.</p>
 </tr>
 <tr>
 <td>
+<code>expiresAt</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#time-v1-meta">
+Kubernetes meta/v1.Time
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>ExpiresAt specifies the time when the policy exception expires.
+Once expired, the exception will no longer be applied to incoming requests.
+The expected format is RFC3339 date-time (for example &ldquo;2026-05-01T00:00:00Z&rdquo;).</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>properties</code><br/>
+<em>
+map[string]string
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Properties is an optional map for additional metadata attached to this exception.
+For example:
+- reason: why this exception is needed
+- ticket: external approval/request identifier
+- approved-by: comma-separated approver list</p>
+</td>
+</tr>
+<tr>
+<td>
 <code>evaluationMode</code><br/>
 <em>
 string
@@ -6586,6 +6867,7 @@ fully supported that should likely be the preferred way to handle these.</p>
 <p>
 (<em>Appears on:</em>
 <a href="#policies.kyverno.io/v1alpha1.Certificate">Certificate</a>, 
+<a href="#policies.kyverno.io/v1alpha1.Cosign">Cosign</a>, 
 <a href="#policies.kyverno.io/v1alpha1.Notary">Notary</a>)
 </p>
 <p>
@@ -7707,6 +7989,38 @@ WebhookConfiguration
 <td>
 <p>Generation defines a set of CEL expressions that will be evaluated to generate resources.
 Required.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>auditAnnotations</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#auditannotation-v1-admissionregistration">
+[]Kubernetes admissionregistration/v1.AuditAnnotation
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>AuditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the
+API server. auditAnnotations are evaluated after the policy has been evaluated but before the decision is logged.
+The results of evaluating the expressions are attached to the audit event as annotations with the key
+&ldquo;<policy name>/<key>&rdquo;.
+If the expression evaluates to an empty string or null the annotation will not be included in the audit event.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>useServerSideApply</code><br/>
+<em>
+bool
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>UseServerSideApply controls whether to use server-side apply for generate rules.
+If set to &ldquo;true&rdquo;, create &amp; update for generated resources will use apply instead of create/update.
+Defaults to &ldquo;false&rdquo; if not specified.</p>
 </td>
 </tr>
 </table>
@@ -9415,6 +9729,38 @@ as a skip result or pass result. Defaults to &ldquo;skip&rdquo;.</p>
 </tr>
 <tr>
 <td>
+<code>expiresAt</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#time-v1-meta">
+Kubernetes meta/v1.Time
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>ExpiresAt specifies the time when the policy exception expires.
+Once expired, the exception will no longer be applied to incoming requests.
+The expected format is RFC3339 date-time (for example &ldquo;2026-05-01T00:00:00Z&rdquo;).</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>properties</code><br/>
+<em>
+map[string]string
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Properties is an optional map for additional metadata attached to this exception.
+For example:
+- reason: why this exception is needed
+- ticket: external approval/request identifier
+- approved-by: comma-separated approver list</p>
+</td>
+</tr>
+<tr>
+<td>
 <code>evaluationMode</code><br/>
 <em>
 string
@@ -9826,6 +10172,38 @@ WebhookConfiguration
 <td>
 <p>Generation defines a set of CEL expressions that will be evaluated to generate resources.
 Required.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>auditAnnotations</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#auditannotation-v1-admissionregistration">
+[]Kubernetes admissionregistration/v1.AuditAnnotation
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>AuditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the
+API server. auditAnnotations are evaluated after the policy has been evaluated but before the decision is logged.
+The results of evaluating the expressions are attached to the audit event as annotations with the key
+&ldquo;<policy name>/<key>&rdquo;.
+If the expression evaluates to an empty string or null the annotation will not be included in the audit event.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>useServerSideApply</code><br/>
+<em>
+bool
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>UseServerSideApply controls whether to use server-side apply for generate rules.
+If set to &ldquo;true&rdquo;, create &amp; update for generated resources will use apply instead of create/update.
+Defaults to &ldquo;false&rdquo; if not specified.</p>
 </td>
 </tr>
 </table>
