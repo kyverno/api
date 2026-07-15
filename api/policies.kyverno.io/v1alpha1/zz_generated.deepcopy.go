@@ -490,6 +490,11 @@ func (in *GeneratingPolicyEvaluationConfiguration) DeepCopyInto(out *GeneratingP
 		*out = new(OrphanDownstreamOnPolicyDeleteConfiguration)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.SkipBackgroundRequests != nil {
+		in, out := &in.SkipBackgroundRequests, &out.SkipBackgroundRequests
+		*out = new(bool)
+		**out = **in
+	}
 	return
 }
 
@@ -567,6 +572,11 @@ func (in *GeneratingPolicySpec) DeepCopyInto(out *GeneratingPolicySpec) {
 	if in.Generation != nil {
 		in, out := &in.Generation, &out.Generation
 		*out = make([]Generation, len(*in))
+		copy(*out, *in)
+	}
+	if in.AuditAnnotations != nil {
+		in, out := &in.AuditAnnotations, &out.AuditAnnotations
+		*out = make([]admissionregistrationv1.AuditAnnotation, len(*in))
 		copy(*out, *in)
 	}
 	return
@@ -1133,6 +1143,11 @@ func (in *MutatingPolicyEvaluationConfiguration) DeepCopyInto(out *MutatingPolic
 		*out = new(MutateExistingConfiguration)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.SkipBackgroundRequests != nil {
+		in, out := &in.SkipBackgroundRequests, &out.SkipBackgroundRequests
+		*out = new(bool)
+		**out = **in
+	}
 	return
 }
 
@@ -1426,6 +1441,17 @@ func (in *PolicyExceptionSpec) DeepCopyInto(out *PolicyExceptionSpec) {
 		in, out := &in.AllowedValues, &out.AllowedValues
 		*out = make([]string, len(*in))
 		copy(*out, *in)
+	}
+	if in.ExpiresAt != nil {
+		in, out := &in.ExpiresAt, &out.ExpiresAt
+		*out = (*in).DeepCopy()
+	}
+	if in.Properties != nil {
+		in, out := &in.Properties, &out.Properties
+		*out = make(map[string]string, len(*in))
+		for key, val := range *in {
+			(*out)[key] = val
+		}
 	}
 	return
 }

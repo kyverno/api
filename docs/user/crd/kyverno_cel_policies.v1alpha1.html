@@ -777,6 +777,68 @@ Required.</p>
       </tr>
     
   
+    
+    
+      <tr>
+        <td><code>auditAnnotations</code>
+          
+          </br>
+
+          
+          
+            
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#auditannotation-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.AuditAnnotation</span>
+              </a>
+            
+          
+        </td>
+        <td>
+          
+
+          <p>AuditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the
+API server. auditAnnotations are evaluated after the policy has been evaluated but before the decision is logged.
+The results of evaluating the expressions are attached to the audit event as annotations with the key
+&quot;<!-- raw HTML omitted -->/<!-- raw HTML omitted -->&quot;.
+If the expression evaluates to an empty string or null the annotation will not be included in the audit event.</p>
+
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+    
+    
+      <tr>
+        <td><code>useServerSideApply</code>
+          
+          </br>
+
+          
+          
+            
+              <span style="font-family: monospace">bool</span>
+            
+          
+        </td>
+        <td>
+          
+
+          <p>UseServerSideApply controls whether to use server-side apply for generate rules.
+If set to &quot;true&quot;, create &amp; update for generated resources will use apply instead of create/update.
+Defaults to &quot;false&quot; if not specified.</p>
+
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
 
             </table>
           
@@ -2510,6 +2572,70 @@ These values can be referenced in CEL expressions via <code>exceptions.allowedVa
 
           <p>ReportResult indicates whether the policy exception should be reported in the policy report
 as a skip result or pass result. Defaults to &quot;skip&quot;.</p>
+
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+    
+    
+      <tr>
+        <td><code>expiresAt</code>
+          
+          </br>
+
+          
+          
+            
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#time-v1-meta">
+                <span style="font-family: monospace">meta/v1.Time</span>
+              </a>
+            
+          
+        </td>
+        <td>
+          
+
+          <p>ExpiresAt specifies the time when the policy exception expires.
+Once expired, the exception will no longer be applied to incoming requests.
+The expected format is RFC3339 date-time (for example &quot;2026-05-01T00:00:00Z&quot;).</p>
+
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+    
+    
+      <tr>
+        <td><code>properties</code>
+          
+          </br>
+
+          
+          
+            
+              <span style="font-family: monospace">map[string]string</span>
+            
+          
+        </td>
+        <td>
+          
+
+          <p>Properties is an optional map for additional metadata attached to this exception.
+For example:</p>
+<ul>
+<li>reason: why this exception is needed</li>
+<li>ticket: external approval/request identifier</li>
+<li>approved-by: comma-separated approver list</li>
+</ul>
 
 
           
@@ -5114,6 +5240,34 @@ Optional. Defaults to &quot;false&quot; if not specified.</p>
       </tr>
     
   
+    
+    
+      <tr>
+        <td><code>skipBackgroundRequests</code>
+          
+          </br>
+
+          
+          
+            
+              <span style="font-family: monospace">bool</span>
+            
+          
+        </td>
+        <td>
+          
+
+          <p>SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+The default value is set to &quot;true&quot;, it must be set to &quot;false&quot; to apply generateExisting rules to those requests.</p>
+
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
 
 
       </tbody>
@@ -5341,6 +5495,68 @@ Thus, Variables must be sorted by the order of first appearance and acyclic.</p>
 
           <p>Generation defines a set of CEL expressions that will be evaluated to generate resources.
 Required.</p>
+
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+    
+    
+      <tr>
+        <td><code>auditAnnotations</code>
+          
+          </br>
+
+          
+          
+            
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#auditannotation-v1-admissionregistration">
+                <span style="font-family: monospace">[]admissionregistration/v1.AuditAnnotation</span>
+              </a>
+            
+          
+        </td>
+        <td>
+          
+
+          <p>AuditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the
+API server. auditAnnotations are evaluated after the policy has been evaluated but before the decision is logged.
+The results of evaluating the expressions are attached to the audit event as annotations with the key
+&quot;<!-- raw HTML omitted -->/<!-- raw HTML omitted -->&quot;.
+If the expression evaluates to an empty string or null the annotation will not be included in the audit event.</p>
+
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+    
+    
+      <tr>
+        <td><code>useServerSideApply</code>
+          
+          </br>
+
+          
+          
+            
+              <span style="font-family: monospace">bool</span>
+            
+          
+        </td>
+        <td>
+          
+
+          <p>UseServerSideApply controls whether to use server-side apply for generate rules.
+If set to &quot;true&quot;, create &amp; update for generated resources will use apply instead of create/update.
+Defaults to &quot;false&quot; if not specified.</p>
 
 
           
@@ -7559,6 +7775,65 @@ Optional. Default value is &quot;Kubernetes&quot;.</p>
       </tr>
     
   
+    
+    
+      <tr>
+        <td><code>skipBackgroundRequests</code>
+          
+          </br>
+
+          
+          
+            
+              <span style="font-family: monospace">bool</span>
+            
+          
+        </td>
+        <td>
+          
+
+          <p>SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+The default value is set to &quot;true&quot;, it must be set to &quot;false&quot; to apply mutateExisting rules to those requests.</p>
+
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+    
+    
+      <tr>
+        <td><code>useServerSideApply</code>
+          
+          </br>
+
+          
+          
+            
+              <span style="font-family: monospace">bool</span>
+            
+          
+        </td>
+        <td>
+          
+
+          <p>UseServerSideApply applies ApplyConfiguration patches with Server-Side Apply semantics,
+which allows setting atomic fields (for example a container's args or a projected volume)
+that the default MutatingAdmissionPolicy behaviour rejects. When true, an atomic value is
+replaced as a whole, so any field the object owner set but the patch does not is dropped.
+The default is false, which keeps parity with a native MutatingAdmissionPolicy.</p>
+
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
 
 
       </tbody>
@@ -8441,6 +8716,70 @@ These values can be referenced in CEL expressions via <code>exceptions.allowedVa
 
           <p>ReportResult indicates whether the policy exception should be reported in the policy report
 as a skip result or pass result. Defaults to &quot;skip&quot;.</p>
+
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+    
+    
+      <tr>
+        <td><code>expiresAt</code>
+          
+          </br>
+
+          
+          
+            
+              <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#time-v1-meta">
+                <span style="font-family: monospace">meta/v1.Time</span>
+              </a>
+            
+          
+        </td>
+        <td>
+          
+
+          <p>ExpiresAt specifies the time when the policy exception expires.
+Once expired, the exception will no longer be applied to incoming requests.
+The expected format is RFC3339 date-time (for example &quot;2026-05-01T00:00:00Z&quot;).</p>
+
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+    
+    
+      <tr>
+        <td><code>properties</code>
+          
+          </br>
+
+          
+          
+            
+              <span style="font-family: monospace">map[string]string</span>
+            
+          
+        </td>
+        <td>
+          
+
+          <p>Properties is an optional map for additional metadata attached to this exception.
+For example:</p>
+<ul>
+<li>reason: why this exception is needed</li>
+<li>ticket: external approval/request identifier</li>
+<li>approved-by: comma-separated approver list</li>
+</ul>
 
 
           
