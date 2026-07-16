@@ -1212,6 +1212,11 @@ func (in *MutatingPolicySpec) DeepCopyInto(out *MutatingPolicySpec) {
 		*out = new(TargetMatchConstraints)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.TargetMatchConditions != nil {
+		in, out := &in.TargetMatchConditions, &out.TargetMatchConditions
+		*out = make([]admissionregistrationv1.MatchCondition, len(*in))
+		copy(*out, *in)
+	}
 	if in.Mutations != nil {
 		in, out := &in.Mutations, &out.Mutations
 		*out = make([]admissionregistrationv1alpha1.Mutation, len(*in))

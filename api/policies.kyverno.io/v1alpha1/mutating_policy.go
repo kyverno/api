@@ -45,8 +45,9 @@ func (status *MutatingPolicyStatus) GetConditionStatus() *ConditionStatus {
 
 // MutatingPolicySpec is the specification of the desired behavior of the MutatingPolicy.
 type MutatingPolicySpec struct {
-	// MatchConstraints specifies what resources this policy is designed to evaluate.
+	// MatchConstraints specifies the trigger resources this policy is designed to evaluate.
 	// The AdmissionPolicy cares about a request if it matches _all_ Constraints.
+	// Trigger constraints and MatchConditions are evaluated before Variables.
 	// Required.
 	MatchConstraints *admissionregistrationv1.MatchResources `json:"matchConstraints,omitempty"`
 
@@ -100,9 +101,19 @@ type MutatingPolicySpec struct {
 	// +optional
 	AutogenConfiguration *MutatingPolicyAutogenConfiguration `json:"autogen,omitempty"`
 
-	// TargetMatchConstraints specifies what target mutation resources this policy is designed to evaluate.
+	// TargetMatchConstraints resolves the resources to mutate after Variables are evaluated.
 	// +optional
 	TargetMatchConstraints *TargetMatchConstraints `json:"targetMatchConstraints,omitempty"`
+
+	// TargetMatchConditions is a list of conditions that must be met for a resolved target resource.
+	// Target match conditions are evaluated after variables and target resolution. They can reference
+	// variables and use Object to refer to the target resource.
+	// +patchMergeKey=name
+	// +patchStrategy=merge
+	// +listType=map
+	// +listMapKey=name
+	// +optional
+	TargetMatchConditions []admissionregistrationv1.MatchCondition `json:"targetMatchConditions,omitempty" patchStrategy:"merge" patchMergeKey:"name"`
 
 	// mutations contain operations to perform on matching objects.
 	// mutations may not be empty; a minimum of one mutation is required.
@@ -253,10 +264,13 @@ type MAPGenerationConfiguration struct {
 }
 
 type TargetMatchConstraints struct {
+	// Expression resolves one target object or a list of target objects. The expression can use
+	// variables computed from the trigger request.
 	// +optional
 	Expression string `json:"expression,omitempty"`
 
-	// TargetMatchConstraints specifies what target mutation resources this policy is designed to evaluate.
+	// MatchResources constrains target resources and supplies their API route. When Expression is
+	// set, these rules still determine whether a target uses a subresource endpoint.
 	// +optional
 	admissionregistrationv1.MatchResources `json:",inline"`
 }
