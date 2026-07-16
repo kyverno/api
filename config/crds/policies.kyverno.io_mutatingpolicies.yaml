@@ -117,6 +117,20 @@ spec:
                           When spec.targetMatchConstraints is not defined, Kyverno mutates existing resources matched in spec.matchConstraints.
                         type: boolean
                     type: object
+                  skipBackgroundRequests:
+                    default: true
+                    description: |-
+                      SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+                      The default value is set to "true", it must be set to "false" to apply mutateExisting rules to those requests.
+                    type: boolean
+                  useServerSideApply:
+                    description: |-
+                      UseServerSideApply applies ApplyConfiguration patches with Server-Side Apply semantics,
+                      which allows setting atomic fields (for example a container's args or a projected volume)
+                      that the default MutatingAdmissionPolicy behaviour rejects. When true, an atomic value is
+                      replaced as a whole, so any field the object owner set but the patch does not is dropped.
+                      The default is false, which keeps parity with a native MutatingAdmissionPolicy.
+                    type: boolean
                 type: object
               failurePolicy:
                 description: |-
@@ -1178,6 +1192,20 @@ spec:
                                         When spec.targetMatchConstraints is not defined, Kyverno mutates existing resources matched in spec.matchConstraints.
                                       type: boolean
                                   type: object
+                                skipBackgroundRequests:
+                                  default: true
+                                  description: |-
+                                    SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+                                    The default value is set to "true", it must be set to "false" to apply mutateExisting rules to those requests.
+                                  type: boolean
+                                useServerSideApply:
+                                  description: |-
+                                    UseServerSideApply applies ApplyConfiguration patches with Server-Side Apply semantics,
+                                    which allows setting atomic fields (for example a container's args or a projected volume)
+                                    that the default MutatingAdmissionPolicy behaviour rejects. When true, an atomic value is
+                                    replaced as a whole, so any field the object owner set but the patch does not is dropped.
+                                    The default is false, which keeps parity with a native MutatingAdmissionPolicy.
+                                  type: boolean
                               type: object
                             failurePolicy:
                               description: |-
@@ -2403,6 +2431,20 @@ spec:
                           When spec.targetMatchConstraints is not defined, Kyverno mutates existing resources matched in spec.matchConstraints.
                         type: boolean
                     type: object
+                  skipBackgroundRequests:
+                    default: true
+                    description: |-
+                      SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+                      The default value is set to "true", it must be set to "false" to apply mutateExisting rules to those requests.
+                    type: boolean
+                  useServerSideApply:
+                    description: |-
+                      UseServerSideApply applies ApplyConfiguration patches with Server-Side Apply semantics,
+                      which allows setting atomic fields (for example a container's args or a projected volume)
+                      that the default MutatingAdmissionPolicy behaviour rejects. When true, an atomic value is
+                      replaced as a whole, so any field the object owner set but the patch does not is dropped.
+                      The default is false, which keeps parity with a native MutatingAdmissionPolicy.
+                    type: boolean
                 type: object
               failurePolicy:
                 description: |-
@@ -3464,6 +3506,20 @@ spec:
                                         When spec.targetMatchConstraints is not defined, Kyverno mutates existing resources matched in spec.matchConstraints.
                                       type: boolean
                                   type: object
+                                skipBackgroundRequests:
+                                  default: true
+                                  description: |-
+                                    SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+                                    The default value is set to "true", it must be set to "false" to apply mutateExisting rules to those requests.
+                                  type: boolean
+                                useServerSideApply:
+                                  description: |-
+                                    UseServerSideApply applies ApplyConfiguration patches with Server-Side Apply semantics,
+                                    which allows setting atomic fields (for example a container's args or a projected volume)
+                                    that the default MutatingAdmissionPolicy behaviour rejects. When true, an atomic value is
+                                    replaced as a whole, so any field the object owner set but the patch does not is dropped.
+                                    The default is false, which keeps parity with a native MutatingAdmissionPolicy.
+                                  type: boolean
                               type: object
                             failurePolicy:
                               description: |-
@@ -4688,6 +4744,20 @@ spec:
                           When spec.targetMatchConstraints is not defined, Kyverno mutates existing resources matched in spec.matchConstraints.
                         type: boolean
                     type: object
+                  skipBackgroundRequests:
+                    default: true
+                    description: |-
+                      SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+                      The default value is set to "true", it must be set to "false" to apply mutateExisting rules to those requests.
+                    type: boolean
+                  useServerSideApply:
+                    description: |-
+                      UseServerSideApply applies ApplyConfiguration patches with Server-Side Apply semantics,
+                      which allows setting atomic fields (for example a container's args or a projected volume)
+                      that the default MutatingAdmissionPolicy behaviour rejects. When true, an atomic value is
+                      replaced as a whole, so any field the object owner set but the patch does not is dropped.
+                      The default is false, which keeps parity with a native MutatingAdmissionPolicy.
+                    type: boolean
                 type: object
               failurePolicy:
                 description: |-
@@ -5749,6 +5819,20 @@ spec:
                                         When spec.targetMatchConstraints is not defined, Kyverno mutates existing resources matched in spec.matchConstraints.
                                       type: boolean
                                   type: object
+                                skipBackgroundRequests:
+                                  default: true
+                                  description: |-
+                                    SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+                                    The default value is set to "true", it must be set to "false" to apply mutateExisting rules to those requests.
+                                  type: boolean
+                                useServerSideApply:
+                                  description: |-
+                                    UseServerSideApply applies ApplyConfiguration patches with Server-Side Apply semantics,
+                                    which allows setting atomic fields (for example a container's args or a projected volume)
+                                    that the default MutatingAdmissionPolicy behaviour rejects. When true, an atomic value is
+                                    replaced as a whole, so any field the object owner set but the patch does not is dropped.
+                                    The default is false, which keeps parity with a native MutatingAdmissionPolicy.
+                                  type: boolean
                               type: object
                             failurePolicy:
                               description: |-

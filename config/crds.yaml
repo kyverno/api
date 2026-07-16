@@ -1724,6 +1724,58 @@ spec:
             description: GeneratingPolicySpec is the specification of the desired
               behavior of the GeneratingPolicy.
             properties:
+              auditAnnotations:
+                description: |-
+                  AuditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the
+                  API server. auditAnnotations are evaluated after the policy has been evaluated but before the decision is logged.
+                  The results of evaluating the expressions are attached to the audit event as annotations with the key
+                  "<policy name>/<key>".
+                  If the expression evaluates to an empty string or null the annotation will not be included in the audit event.
+                items:
+                  description: AuditAnnotation describes how to produce an audit annotation
+                    for an API request.
+                  properties:
+                    key:
+                      description: |-
+                        key specifies the audit annotation key. The audit annotation keys of
+                        a ValidatingAdmissionPolicy must be unique. The key must be a qualified
+                        name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
+
+                        The key is combined with the resource name of the
+                        ValidatingAdmissionPolicy to construct an audit annotation key:
+                        "{ValidatingAdmissionPolicy name}/{key}".
+
+                        If an admission webhook uses the same resource name as this ValidatingAdmissionPolicy
+                        and the same audit annotation key, the annotation key will be identical.
+                        In this case, the first annotation written with the key will be included
+                        in the audit event and all subsequent annotations with the same key
+                        will be discarded.
+
+                        Required.
+                      type: string
+                    valueExpression:
+                      description: |-
+                        valueExpression represents the expression which is evaluated by CEL to
+                        produce an audit annotation value. The expression must evaluate to either
+                        a string or null value. If the expression evaluates to a string, the
+                        audit annotation is included with the string value. If the expression
+                        evaluates to null or empty string the audit annotation will be omitted.
+                        The valueExpression may be no longer than 5kb in length.
+                        If the result of the valueExpression is more than 10kb in length, it
+                        will be truncated to 10kb.
+
+                        If multiple ValidatingAdmissionPolicyBinding resources match an
+                        API request, then the valueExpression will be evaluated for
+                        each binding. All unique values produced by the valueExpressions
+                        will be joined together in a comma-separated list.
+
+                        Required.
+                      type: string
+                  required:
+                  - key
+                  - valueExpression
+                  type: object
+                type: array
               evaluation:
                 description: EvaluationConfiguration defines the configuration for
                   the policy evaluation.
@@ -1762,6 +1814,12 @@ spec:
                           Optional. Defaults to "false" if not specified.
                         type: boolean
                     type: object
+                  skipBackgroundRequests:
+                    default: true
+                    description: |-
+                      SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+                      The default value is set to "true", it must be set to "false" to apply generateExisting rules to those requests.
+                    type: boolean
                   synchronize:
                     description: Synchronization defines the configuration for the
                       synchronization of generated resources.
@@ -2346,6 +2404,58 @@ spec:
             description: GeneratingPolicySpec is the specification of the desired
               behavior of the GeneratingPolicy.
             properties:
+              auditAnnotations:
+                description: |-
+                  AuditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the
+                  API server. auditAnnotations are evaluated after the policy has been evaluated but before the decision is logged.
+                  The results of evaluating the expressions are attached to the audit event as annotations with the key
+                  "<policy name>/<key>".
+                  If the expression evaluates to an empty string or null the annotation will not be included in the audit event.
+                items:
+                  description: AuditAnnotation describes how to produce an audit annotation
+                    for an API request.
+                  properties:
+                    key:
+                      description: |-
+                        key specifies the audit annotation key. The audit annotation keys of
+                        a ValidatingAdmissionPolicy must be unique. The key must be a qualified
+                        name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
+
+                        The key is combined with the resource name of the
+                        ValidatingAdmissionPolicy to construct an audit annotation key:
+                        "{ValidatingAdmissionPolicy name}/{key}".
+
+                        If an admission webhook uses the same resource name as this ValidatingAdmissionPolicy
+                        and the same audit annotation key, the annotation key will be identical.
+                        In this case, the first annotation written with the key will be included
+                        in the audit event and all subsequent annotations with the same key
+                        will be discarded.
+
+                        Required.
+                      type: string
+                    valueExpression:
+                      description: |-
+                        valueExpression represents the expression which is evaluated by CEL to
+                        produce an audit annotation value. The expression must evaluate to either
+                        a string or null value. If the expression evaluates to a string, the
+                        audit annotation is included with the string value. If the expression
+                        evaluates to null or empty string the audit annotation will be omitted.
+                        The valueExpression may be no longer than 5kb in length.
+                        If the result of the valueExpression is more than 10kb in length, it
+                        will be truncated to 10kb.
+
+                        If multiple ValidatingAdmissionPolicyBinding resources match an
+                        API request, then the valueExpression will be evaluated for
+                        each binding. All unique values produced by the valueExpressions
+                        will be joined together in a comma-separated list.
+
+                        Required.
+                      type: string
+                  required:
+                  - key
+                  - valueExpression
+                  type: object
+                type: array
               evaluation:
                 description: EvaluationConfiguration defines the configuration for
                   the policy evaluation.
@@ -2384,6 +2494,12 @@ spec:
                           Optional. Defaults to "false" if not specified.
                         type: boolean
                     type: object
+                  skipBackgroundRequests:
+                    default: true
+                    description: |-
+                      SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+                      The default value is set to "true", it must be set to "false" to apply generateExisting rules to those requests.
+                    type: boolean
                   synchronize:
                     description: Synchronization defines the configuration for the
                       synchronization of generated resources.
@@ -2967,6 +3083,58 @@ spec:
             description: GeneratingPolicySpec is the specification of the desired
               behavior of the GeneratingPolicy.
             properties:
+              auditAnnotations:
+                description: |-
+                  AuditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the
+                  API server. auditAnnotations are evaluated after the policy has been evaluated but before the decision is logged.
+                  The results of evaluating the expressions are attached to the audit event as annotations with the key
+                  "<policy name>/<key>".
+                  If the expression evaluates to an empty string or null the annotation will not be included in the audit event.
+                items:
+                  description: AuditAnnotation describes how to produce an audit annotation
+                    for an API request.
+                  properties:
+                    key:
+                      description: |-
+                        key specifies the audit annotation key. The audit annotation keys of
+                        a ValidatingAdmissionPolicy must be unique. The key must be a qualified
+                        name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
+
+                        The key is combined with the resource name of the
+                        ValidatingAdmissionPolicy to construct an audit annotation key:
+                        "{ValidatingAdmissionPolicy name}/{key}".
+
+                        If an admission webhook uses the same resource name as this ValidatingAdmissionPolicy
+                        and the same audit annotation key, the annotation key will be identical.
+                        In this case, the first annotation written with the key will be included
+                        in the audit event and all subsequent annotations with the same key
+                        will be discarded.
+
+                        Required.
+                      type: string
+                    valueExpression:
+                      description: |-
+                        valueExpression represents the expression which is evaluated by CEL to
+                        produce an audit annotation value. The expression must evaluate to either
+                        a string or null value. If the expression evaluates to a string, the
+                        audit annotation is included with the string value. If the expression
+                        evaluates to null or empty string the audit annotation will be omitted.
+                        The valueExpression may be no longer than 5kb in length.
+                        If the result of the valueExpression is more than 10kb in length, it
+                        will be truncated to 10kb.
+
+                        If multiple ValidatingAdmissionPolicyBinding resources match an
+                        API request, then the valueExpression will be evaluated for
+                        each binding. All unique values produced by the valueExpressions
+                        will be joined together in a comma-separated list.
+
+                        Required.
+                      type: string
+                  required:
+                  - key
+                  - valueExpression
+                  type: object
+                type: array
               evaluation:
                 description: EvaluationConfiguration defines the configuration for
                   the policy evaluation.
@@ -3005,6 +3173,12 @@ spec:
                           Optional. Defaults to "false" if not specified.
                         type: boolean
                     type: object
+                  skipBackgroundRequests:
+                    default: true
+                    description: |-
+                      SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+                      The default value is set to "true", it must be set to "false" to apply generateExisting rules to those requests.
+                    type: boolean
                   synchronize:
                     description: Synchronization defines the configuration for the
                       synchronization of generated resources.
@@ -10761,6 +10935,20 @@ spec:
                           When spec.targetMatchConstraints is not defined, Kyverno mutates existing resources matched in spec.matchConstraints.
                         type: boolean
                     type: object
+                  skipBackgroundRequests:
+                    default: true
+                    description: |-
+                      SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+                      The default value is set to "true", it must be set to "false" to apply mutateExisting rules to those requests.
+                    type: boolean
+                  useServerSideApply:
+                    description: |-
+                      UseServerSideApply applies ApplyConfiguration patches with Server-Side Apply semantics,
+                      which allows setting atomic fields (for example a container's args or a projected volume)
+                      that the default MutatingAdmissionPolicy behaviour rejects. When true, an atomic value is
+                      replaced as a whole, so any field the object owner set but the patch does not is dropped.
+                      The default is false, which keeps parity with a native MutatingAdmissionPolicy.
+                    type: boolean
                 type: object
               failurePolicy:
                 description: |-
@@ -11822,6 +12010,20 @@ spec:
                                         When spec.targetMatchConstraints is not defined, Kyverno mutates existing resources matched in spec.matchConstraints.
                                       type: boolean
                                   type: object
+                                skipBackgroundRequests:
+                                  default: true
+                                  description: |-
+                                    SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+                                    The default value is set to "true", it must be set to "false" to apply mutateExisting rules to those requests.
+                                  type: boolean
+                                useServerSideApply:
+                                  description: |-
+                                    UseServerSideApply applies ApplyConfiguration patches with Server-Side Apply semantics,
+                                    which allows setting atomic fields (for example a container's args or a projected volume)
+                                    that the default MutatingAdmissionPolicy behaviour rejects. When true, an atomic value is
+                                    replaced as a whole, so any field the object owner set but the patch does not is dropped.
+                                    The default is false, which keeps parity with a native MutatingAdmissionPolicy.
+                                  type: boolean
                               type: object
                             failurePolicy:
                               description: |-
@@ -13047,6 +13249,20 @@ spec:
                           When spec.targetMatchConstraints is not defined, Kyverno mutates existing resources matched in spec.matchConstraints.
                         type: boolean
                     type: object
+                  skipBackgroundRequests:
+                    default: true
+                    description: |-
+                      SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+                      The default value is set to "true", it must be set to "false" to apply mutateExisting rules to those requests.
+                    type: boolean
+                  useServerSideApply:
+                    description: |-
+                      UseServerSideApply applies ApplyConfiguration patches with Server-Side Apply semantics,
+                      which allows setting atomic fields (for example a container's args or a projected volume)
+                      that the default MutatingAdmissionPolicy behaviour rejects. When true, an atomic value is
+                      replaced as a whole, so any field the object owner set but the patch does not is dropped.
+                      The default is false, which keeps parity with a native MutatingAdmissionPolicy.
+                    type: boolean
                 type: object
               failurePolicy:
                 description: |-
@@ -14108,6 +14324,20 @@ spec:
                                         When spec.targetMatchConstraints is not defined, Kyverno mutates existing resources matched in spec.matchConstraints.
                                       type: boolean
                                   type: object
+                                skipBackgroundRequests:
+                                  default: true
+                                  description: |-
+                                    SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+                                    The default value is set to "true", it must be set to "false" to apply mutateExisting rules to those requests.
+                                  type: boolean
+                                useServerSideApply:
+                                  description: |-
+                                    UseServerSideApply applies ApplyConfiguration patches with Server-Side Apply semantics,
+                                    which allows setting atomic fields (for example a container's args or a projected volume)
+                                    that the default MutatingAdmissionPolicy behaviour rejects. When true, an atomic value is
+                                    replaced as a whole, so any field the object owner set but the patch does not is dropped.
+                                    The default is false, which keeps parity with a native MutatingAdmissionPolicy.
+                                  type: boolean
                               type: object
                             failurePolicy:
                               description: |-
@@ -15332,6 +15562,20 @@ spec:
                           When spec.targetMatchConstraints is not defined, Kyverno mutates existing resources matched in spec.matchConstraints.
                         type: boolean
                     type: object
+                  skipBackgroundRequests:
+                    default: true
+                    description: |-
+                      SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+                      The default value is set to "true", it must be set to "false" to apply mutateExisting rules to those requests.
+                    type: boolean
+                  useServerSideApply:
+                    description: |-
+                      UseServerSideApply applies ApplyConfiguration patches with Server-Side Apply semantics,
+                      which allows setting atomic fields (for example a container's args or a projected volume)
+                      that the default MutatingAdmissionPolicy behaviour rejects. When true, an atomic value is
+                      replaced as a whole, so any field the object owner set but the patch does not is dropped.
+                      The default is false, which keeps parity with a native MutatingAdmissionPolicy.
+                    type: boolean
                 type: object
               failurePolicy:
                 description: |-
@@ -16393,6 +16637,20 @@ spec:
                                         When spec.targetMatchConstraints is not defined, Kyverno mutates existing resources matched in spec.matchConstraints.
                                       type: boolean
                                   type: object
+                                skipBackgroundRequests:
+                                  default: true
+                                  description: |-
+                                    SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+                                    The default value is set to "true", it must be set to "false" to apply mutateExisting rules to those requests.
+                                  type: boolean
+                                useServerSideApply:
+                                  description: |-
+                                    UseServerSideApply applies ApplyConfiguration patches with Server-Side Apply semantics,
+                                    which allows setting atomic fields (for example a container's args or a projected volume)
+                                    that the default MutatingAdmissionPolicy behaviour rejects. When true, an atomic value is
+                                    replaced as a whole, so any field the object owner set but the patch does not is dropped.
+                                    The default is false, which keeps parity with a native MutatingAdmissionPolicy.
+                                  type: boolean
                               type: object
                             failurePolicy:
                               description: |-
@@ -18693,6 +18951,58 @@ spec:
             description: GeneratingPolicySpec is the specification of the desired
               behavior of the GeneratingPolicy.
             properties:
+              auditAnnotations:
+                description: |-
+                  AuditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the
+                  API server. auditAnnotations are evaluated after the policy has been evaluated but before the decision is logged.
+                  The results of evaluating the expressions are attached to the audit event as annotations with the key
+                  "<policy name>/<key>".
+                  If the expression evaluates to an empty string or null the annotation will not be included in the audit event.
+                items:
+                  description: AuditAnnotation describes how to produce an audit annotation
+                    for an API request.
+                  properties:
+                    key:
+                      description: |-
+                        key specifies the audit annotation key. The audit annotation keys of
+                        a ValidatingAdmissionPolicy must be unique. The key must be a qualified
+                        name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
+
+                        The key is combined with the resource name of the
+                        ValidatingAdmissionPolicy to construct an audit annotation key:
+                        "{ValidatingAdmissionPolicy name}/{key}".
+
+                        If an admission webhook uses the same resource name as this ValidatingAdmissionPolicy
+                        and the same audit annotation key, the annotation key will be identical.
+                        In this case, the first annotation written with the key will be included
+                        in the audit event and all subsequent annotations with the same key
+                        will be discarded.
+
+                        Required.
+                      type: string
+                    valueExpression:
+                      description: |-
+                        valueExpression represents the expression which is evaluated by CEL to
+                        produce an audit annotation value. The expression must evaluate to either
+                        a string or null value. If the expression evaluates to a string, the
+                        audit annotation is included with the string value. If the expression
+                        evaluates to null or empty string the audit annotation will be omitted.
+                        The valueExpression may be no longer than 5kb in length.
+                        If the result of the valueExpression is more than 10kb in length, it
+                        will be truncated to 10kb.
+
+                        If multiple ValidatingAdmissionPolicyBinding resources match an
+                        API request, then the valueExpression will be evaluated for
+                        each binding. All unique values produced by the valueExpressions
+                        will be joined together in a comma-separated list.
+
+                        Required.
+                      type: string
+                  required:
+                  - key
+                  - valueExpression
+                  type: object
+                type: array
               evaluation:
                 description: EvaluationConfiguration defines the configuration for
                   the policy evaluation.
@@ -18731,6 +19041,12 @@ spec:
                           Optional. Defaults to "false" if not specified.
                         type: boolean
                     type: object
+                  skipBackgroundRequests:
+                    default: true
+                    description: |-
+                      SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+                      The default value is set to "true", it must be set to "false" to apply generateExisting rules to those requests.
+                    type: boolean
                   synchronize:
                     description: Synchronization defines the configuration for the
                       synchronization of generated resources.
@@ -19316,6 +19632,58 @@ spec:
             description: GeneratingPolicySpec is the specification of the desired
               behavior of the GeneratingPolicy.
             properties:
+              auditAnnotations:
+                description: |-
+                  AuditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the
+                  API server. auditAnnotations are evaluated after the policy has been evaluated but before the decision is logged.
+                  The results of evaluating the expressions are attached to the audit event as annotations with the key
+                  "<policy name>/<key>".
+                  If the expression evaluates to an empty string or null the annotation will not be included in the audit event.
+                items:
+                  description: AuditAnnotation describes how to produce an audit annotation
+                    for an API request.
+                  properties:
+                    key:
+                      description: |-
+                        key specifies the audit annotation key. The audit annotation keys of
+                        a ValidatingAdmissionPolicy must be unique. The key must be a qualified
+                        name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
+
+                        The key is combined with the resource name of the
+                        ValidatingAdmissionPolicy to construct an audit annotation key:
+                        "{ValidatingAdmissionPolicy name}/{key}".
+
+                        If an admission webhook uses the same resource name as this ValidatingAdmissionPolicy
+                        and the same audit annotation key, the annotation key will be identical.
+                        In this case, the first annotation written with the key will be included
+                        in the audit event and all subsequent annotations with the same key
+                        will be discarded.
+
+                        Required.
+                      type: string
+                    valueExpression:
+                      description: |-
+                        valueExpression represents the expression which is evaluated by CEL to
+                        produce an audit annotation value. The expression must evaluate to either
+                        a string or null value. If the expression evaluates to a string, the
+                        audit annotation is included with the string value. If the expression
+                        evaluates to null or empty string the audit annotation will be omitted.
+                        The valueExpression may be no longer than 5kb in length.
+                        If the result of the valueExpression is more than 10kb in length, it
+                        will be truncated to 10kb.
+
+                        If multiple ValidatingAdmissionPolicyBinding resources match an
+                        API request, then the valueExpression will be evaluated for
+                        each binding. All unique values produced by the valueExpressions
+                        will be joined together in a comma-separated list.
+
+                        Required.
+                      type: string
+                  required:
+                  - key
+                  - valueExpression
+                  type: object
+                type: array
               evaluation:
                 description: EvaluationConfiguration defines the configuration for
                   the policy evaluation.
@@ -19354,6 +19722,12 @@ spec:
                           Optional. Defaults to "false" if not specified.
                         type: boolean
                     type: object
+                  skipBackgroundRequests:
+                    default: true
+                    description: |-
+                      SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+                      The default value is set to "true", it must be set to "false" to apply generateExisting rules to those requests.
+                    type: boolean
                   synchronize:
                     description: Synchronization defines the configuration for the
                       synchronization of generated resources.
@@ -24755,6 +25129,20 @@ spec:
                           When spec.targetMatchConstraints is not defined, Kyverno mutates existing resources matched in spec.matchConstraints.
                         type: boolean
                     type: object
+                  skipBackgroundRequests:
+                    default: true
+                    description: |-
+                      SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+                      The default value is set to "true", it must be set to "false" to apply mutateExisting rules to those requests.
+                    type: boolean
+                  useServerSideApply:
+                    description: |-
+                      UseServerSideApply applies ApplyConfiguration patches with Server-Side Apply semantics,
+                      which allows setting atomic fields (for example a container's args or a projected volume)
+                      that the default MutatingAdmissionPolicy behaviour rejects. When true, an atomic value is
+                      replaced as a whole, so any field the object owner set but the patch does not is dropped.
+                      The default is false, which keeps parity with a native MutatingAdmissionPolicy.
+                    type: boolean
                 type: object
               failurePolicy:
                 description: |-
@@ -25816,6 +26204,20 @@ spec:
                                         When spec.targetMatchConstraints is not defined, Kyverno mutates existing resources matched in spec.matchConstraints.
                                       type: boolean
                                   type: object
+                                skipBackgroundRequests:
+                                  default: true
+                                  description: |-
+                                    SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+                                    The default value is set to "true", it must be set to "false" to apply mutateExisting rules to those requests.
+                                  type: boolean
+                                useServerSideApply:
+                                  description: |-
+                                    UseServerSideApply applies ApplyConfiguration patches with Server-Side Apply semantics,
+                                    which allows setting atomic fields (for example a container's args or a projected volume)
+                                    that the default MutatingAdmissionPolicy behaviour rejects. When true, an atomic value is
+                                    replaced as a whole, so any field the object owner set but the patch does not is dropped.
+                                    The default is false, which keeps parity with a native MutatingAdmissionPolicy.
+                                  type: boolean
                               type: object
                             failurePolicy:
                               description: |-
@@ -27040,6 +27442,20 @@ spec:
                           When spec.targetMatchConstraints is not defined, Kyverno mutates existing resources matched in spec.matchConstraints.
                         type: boolean
                     type: object
+                  skipBackgroundRequests:
+                    default: true
+                    description: |-
+                      SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+                      The default value is set to "true", it must be set to "false" to apply mutateExisting rules to those requests.
+                    type: boolean
+                  useServerSideApply:
+                    description: |-
+                      UseServerSideApply applies ApplyConfiguration patches with Server-Side Apply semantics,
+                      which allows setting atomic fields (for example a container's args or a projected volume)
+                      that the default MutatingAdmissionPolicy behaviour rejects. When true, an atomic value is
+                      replaced as a whole, so any field the object owner set but the patch does not is dropped.
+                      The default is false, which keeps parity with a native MutatingAdmissionPolicy.
+                    type: boolean
                 type: object
               failurePolicy:
                 description: |-
@@ -28101,6 +28517,20 @@ spec:
                                         When spec.targetMatchConstraints is not defined, Kyverno mutates existing resources matched in spec.matchConstraints.
                                       type: boolean
                                   type: object
+                                skipBackgroundRequests:
+                                  default: true
+                                  description: |-
+                                    SkipBackgroundRequests bypasses admission requests that are sent by the background controller.
+                                    The default value is set to "true", it must be set to "false" to apply mutateExisting rules to those requests.
+                                  type: boolean
+                                useServerSideApply:
+                                  description: |-
+                                    UseServerSideApply applies ApplyConfiguration patches with Server-Side Apply semantics,
+                                    which allows setting atomic fields (for example a container's args or a projected volume)
+                                    that the default MutatingAdmissionPolicy behaviour rejects. When true, an atomic value is
+                                    replaced as a whole, so any field the object owner set but the patch does not is dropped.
+                                    The default is false, which keeps parity with a native MutatingAdmissionPolicy.
+                                  type: boolean
                               type: object
                             failurePolicy:
                               description: |-
