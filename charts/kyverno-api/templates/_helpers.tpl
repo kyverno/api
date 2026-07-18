@@ -22,7 +22,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 app.kubernetes.io/part-of: kyverno-api
 {{- end }}
 {{- if not (hasKey $customLabels "app.kubernetes.io/version") }}
-app.kubernetes.io/version: {{ include "kyverno-api.chartVersion" . }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 {{- with .Values.labels }}
 {{- tpl (toYaml .) $ -}}
