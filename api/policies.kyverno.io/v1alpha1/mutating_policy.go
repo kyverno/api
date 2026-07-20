@@ -47,7 +47,7 @@ func (status *MutatingPolicyStatus) GetConditionStatus() *ConditionStatus {
 type MutatingPolicySpec struct {
 	// MatchConstraints specifies the trigger resources this policy is designed to evaluate.
 	// The AdmissionPolicy cares about a request if it matches _all_ Constraints.
-	// Trigger constraints and MatchConditions are evaluated before Variables.
+	// Trigger constraints and MatchConditions are evaluated before target resolution.
 	// Required.
 	MatchConstraints *admissionregistrationv1.MatchResources `json:"matchConstraints,omitempty"`
 
@@ -85,8 +85,11 @@ type MutatingPolicySpec struct {
 
 	// Variables contain definitions of variables that can be used in composition of other expressions.
 	// Each variable is defined as a named CEL expression.
-	// The variables defined here will be available under `variables` in other expressions of the policy
-	// except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+	// The variables defined here will be available under `variables` in other expressions of the policy,
+	// including MatchConditions where they are evaluated lazily on first reference.
+	// Note that a native Kubernetes MutatingAdmissionPolicy does not support variables in match
+	// conditions; policies that generate a MutatingAdmissionPolicy through autogen should not
+	// reference variables in MatchConditions.
 	//
 	// The expression of a variable can refer to other variables defined earlier in the list but not those after.
 	// Thus, Variables must be sorted by the order of first appearance and acyclic.
