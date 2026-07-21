@@ -123,9 +123,18 @@ spec:
                       controllers rules.
                     properties:
                       controllers:
+                        description: |-
+                          Controllers specifies the list of pod controllers to generate rules for,
+                          for example DaemonSet, Deployment, Job, StatefulSet, ReplicaSet, ReplicationController, CronJob.
+                          Optional. Defaults to all supported pod controllers if not specified.
                         items:
                           type: string
                         type: array
+                      enabled:
+                        description: |-
+                          Enabled specifies whether to generate pod controller rules.
+                          Optional. Defaults to "true" if not specified.
+                        type: boolean
                     type: object
                 type: object
               evaluation:
@@ -1252,9 +1261,18 @@ spec:
                                     generate a pod controllers rules.
                                   properties:
                                     controllers:
+                                      description: |-
+                                        Controllers specifies the list of pod controllers to generate rules for,
+                                        for example DaemonSet, Deployment, Job, StatefulSet, ReplicaSet, ReplicationController, CronJob.
+                                        Optional. Defaults to all supported pod controllers if not specified.
                                       items:
                                         type: string
                                       type: array
+                                    enabled:
+                                      description: |-
+                                        Enabled specifies whether to generate pod controller rules.
+                                        Optional. Defaults to "true" if not specified.
+                                      type: boolean
                                   type: object
                               type: object
                             evaluation:
@@ -2547,9 +2565,18 @@ spec:
                       controllers rules.
                     properties:
                       controllers:
+                        description: |-
+                          Controllers specifies the list of pod controllers to generate rules for,
+                          for example DaemonSet, Deployment, Job, StatefulSet, ReplicaSet, ReplicationController, CronJob.
+                          Optional. Defaults to all supported pod controllers if not specified.
                         items:
                           type: string
                         type: array
+                      enabled:
+                        description: |-
+                          Enabled specifies whether to generate pod controller rules.
+                          Optional. Defaults to "true" if not specified.
+                        type: boolean
                     type: object
                 type: object
               evaluation:
@@ -3676,9 +3703,18 @@ spec:
                                     generate a pod controllers rules.
                                   properties:
                                     controllers:
+                                      description: |-
+                                        Controllers specifies the list of pod controllers to generate rules for,
+                                        for example DaemonSet, Deployment, Job, StatefulSet, ReplicaSet, ReplicationController, CronJob.
+                                        Optional. Defaults to all supported pod controllers if not specified.
                                       items:
                                         type: string
                                       type: array
+                                    enabled:
+                                      description: |-
+                                        Enabled specifies whether to generate pod controller rules.
+                                        Optional. Defaults to "true" if not specified.
+                                      type: boolean
                                   type: object
                               type: object
                             evaluation:
@@ -4970,9 +5006,18 @@ spec:
                       controllers rules.
                     properties:
                       controllers:
+                        description: |-
+                          Controllers specifies the list of pod controllers to generate rules for,
+                          for example DaemonSet, Deployment, Job, StatefulSet, ReplicaSet, ReplicationController, CronJob.
+                          Optional. Defaults to all supported pod controllers if not specified.
                         items:
                           type: string
                         type: array
+                      enabled:
+                        description: |-
+                          Enabled specifies whether to generate pod controller rules.
+                          Optional. Defaults to "true" if not specified.
+                        type: boolean
                     type: object
                 type: object
               evaluation:
@@ -6099,9 +6144,18 @@ spec:
                                     generate a pod controllers rules.
                                   properties:
                                     controllers:
+                                      description: |-
+                                        Controllers specifies the list of pod controllers to generate rules for,
+                                        for example DaemonSet, Deployment, Job, StatefulSet, ReplicaSet, ReplicationController, CronJob.
+                                        Optional. Defaults to all supported pod controllers if not specified.
                                       items:
                                         type: string
                                       type: array
+                                    enabled:
+                                      description: |-
+                                        Enabled specifies whether to generate pod controller rules.
+                                        Optional. Defaults to "true" if not specified.
+                                      type: boolean
                                   type: object
                               type: object
                             evaluation:
