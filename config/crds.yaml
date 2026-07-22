@@ -1864,8 +1864,10 @@ spec:
                         value:
                           description: |-
                             Value is a YAML string, single or multi-document, defining the resources to generate.
-                            The namespace of each generated resource is taken from its rendered metadata.namespace,
-                            resources without a namespace are treated as cluster-scoped.
+                            The namespace of each generated resource is taken from its rendered metadata.namespace.
+                            For cluster-scoped policies, resources without a namespace are treated as cluster-scoped.
+                            For namespaced policies, resources without a namespace default to the policy's namespace,
+                            and any other namespace is rejected.
                           minLength: 1
                           type: string
                       required:
@@ -1874,8 +1876,8 @@ spec:
                   type: object
                   x-kubernetes-validations:
                   - message: exactly one of expression or template must be set
-                    rule: (has(self.expression) && !has(self.template)) || (!has(self.expression)
-                      && has(self.template))
+                    rule: (has(self.expression) && self.expression != '' && !has(self.template))
+                      || ((!has(self.expression) || self.expression == '') && has(self.template))
                 minItems: 1
                 type: array
               matchConditions:
@@ -2573,8 +2575,10 @@ spec:
                         value:
                           description: |-
                             Value is a YAML string, single or multi-document, defining the resources to generate.
-                            The namespace of each generated resource is taken from its rendered metadata.namespace,
-                            resources without a namespace are treated as cluster-scoped.
+                            The namespace of each generated resource is taken from its rendered metadata.namespace.
+                            For cluster-scoped policies, resources without a namespace are treated as cluster-scoped.
+                            For namespaced policies, resources without a namespace default to the policy's namespace,
+                            and any other namespace is rejected.
                           minLength: 1
                           type: string
                       required:
@@ -2583,8 +2587,8 @@ spec:
                   type: object
                   x-kubernetes-validations:
                   - message: exactly one of expression or template must be set
-                    rule: (has(self.expression) && !has(self.template)) || (!has(self.expression)
-                      && has(self.template))
+                    rule: (has(self.expression) && self.expression != '' && !has(self.template))
+                      || ((!has(self.expression) || self.expression == '') && has(self.template))
                 minItems: 1
                 type: array
               matchConditions:
@@ -3281,8 +3285,10 @@ spec:
                         value:
                           description: |-
                             Value is a YAML string, single or multi-document, defining the resources to generate.
-                            The namespace of each generated resource is taken from its rendered metadata.namespace,
-                            resources without a namespace are treated as cluster-scoped.
+                            The namespace of each generated resource is taken from its rendered metadata.namespace.
+                            For cluster-scoped policies, resources without a namespace are treated as cluster-scoped.
+                            For namespaced policies, resources without a namespace default to the policy's namespace,
+                            and any other namespace is rejected.
                           minLength: 1
                           type: string
                       required:
@@ -3291,8 +3297,8 @@ spec:
                   type: object
                   x-kubernetes-validations:
                   - message: exactly one of expression or template must be set
-                    rule: (has(self.expression) && !has(self.template)) || (!has(self.expression)
-                      && has(self.template))
+                    rule: (has(self.expression) && self.expression != '' && !has(self.template))
+                      || ((!has(self.expression) || self.expression == '') && has(self.template))
                 minItems: 1
                 type: array
               matchConditions:
@@ -19196,8 +19202,10 @@ spec:
                         value:
                           description: |-
                             Value is a YAML string, single or multi-document, defining the resources to generate.
-                            The namespace of each generated resource is taken from its rendered metadata.namespace,
-                            resources without a namespace are treated as cluster-scoped.
+                            The namespace of each generated resource is taken from its rendered metadata.namespace.
+                            For cluster-scoped policies, resources without a namespace are treated as cluster-scoped.
+                            For namespaced policies, resources without a namespace default to the policy's namespace,
+                            and any other namespace is rejected.
                           minLength: 1
                           type: string
                       required:
@@ -19206,8 +19214,8 @@ spec:
                   type: object
                   x-kubernetes-validations:
                   - message: exactly one of expression or template must be set
-                    rule: (has(self.expression) && !has(self.template)) || (!has(self.expression)
-                      && has(self.template))
+                    rule: (has(self.expression) && self.expression != '' && !has(self.template))
+                      || ((!has(self.expression) || self.expression == '') && has(self.template))
                 minItems: 1
                 type: array
               matchConditions:
@@ -19906,8 +19914,10 @@ spec:
                         value:
                           description: |-
                             Value is a YAML string, single or multi-document, defining the resources to generate.
-                            The namespace of each generated resource is taken from its rendered metadata.namespace,
-                            resources without a namespace are treated as cluster-scoped.
+                            The namespace of each generated resource is taken from its rendered metadata.namespace.
+                            For cluster-scoped policies, resources without a namespace are treated as cluster-scoped.
+                            For namespaced policies, resources without a namespace default to the policy's namespace,
+                            and any other namespace is rejected.
                           minLength: 1
                           type: string
                       required:
@@ -19916,8 +19926,8 @@ spec:
                   type: object
                   x-kubernetes-validations:
                   - message: exactly one of expression or template must be set
-                    rule: (has(self.expression) && !has(self.template)) || (!has(self.expression)
-                      && has(self.template))
+                    rule: (has(self.expression) && self.expression != '' && !has(self.template))
+                      || ((!has(self.expression) || self.expression == '') && has(self.template))
                 minItems: 1
                 type: array
               matchConditions:

@@ -213,7 +213,7 @@ type OrphanDownstreamOnPolicyDeleteConfiguration struct {
 }
 
 // Generation defines the configuration for the generation of resources.
-// +kubebuilder:validation:XValidation:rule="(has(self.expression) && !has(self.template)) || (!has(self.expression) && has(self.template))",message="exactly one of expression or template must be set"
+// +kubebuilder:validation:XValidation:rule="(has(self.expression) && self.expression != '' && !has(self.template)) || ((!has(self.expression) || self.expression == '') && has(self.template))",message="exactly one of expression or template must be set"
 type Generation struct {
 	// Expression is a CEL expression that takes a list of resources to be generated.
 	// +optional
@@ -239,8 +239,10 @@ const (
 // GenerationTemplate declares generated resources as a YAML document with optional CEL interpolation.
 type GenerationTemplate struct {
 	// Value is a YAML string, single or multi-document, defining the resources to generate.
-	// The namespace of each generated resource is taken from its rendered metadata.namespace,
-	// resources without a namespace are treated as cluster-scoped.
+	// The namespace of each generated resource is taken from its rendered metadata.namespace.
+	// For cluster-scoped policies, resources without a namespace are treated as cluster-scoped.
+	// For namespaced policies, resources without a namespace default to the policy's namespace,
+	// and any other namespace is rejected.
 	// +kubebuilder:validation:MinLength=1
 	Value string `json:"value"`
 
