@@ -213,9 +213,43 @@ type OrphanDownstreamOnPolicyDeleteConfiguration struct {
 }
 
 // Generation defines the configuration for the generation of resources.
+// +kubebuilder:validation:XValidation:rule="(has(self.expression) && !has(self.template)) || (!has(self.expression) && has(self.template))",message="exactly one of expression or template must be set"
 type Generation struct {
 	// Expression is a CEL expression that takes a list of resources to be generated.
+	// +optional
 	Expression string `json:"expression,omitempty"`
+
+	// Template declares the resources to be generated as a YAML document,
+	// with optional CEL interpolation.
+	// +optional
+	Template *GenerationTemplate `json:"template,omitempty"`
+}
+
+// InterpolationMode controls placeholder evaluation in a generation template.
+// +kubebuilder:validation:Enum=none;cel
+type InterpolationMode string
+
+const (
+	// InterpolationModeNone disables placeholder evaluation, the template is treated as plain YAML.
+	InterpolationModeNone InterpolationMode = "none"
+	// InterpolationModeCEL evaluates `(( ... ))` placeholders as CEL expressions before the YAML is parsed.
+	InterpolationModeCEL InterpolationMode = "cel"
+)
+
+// GenerationTemplate declares generated resources as a YAML document with optional CEL interpolation.
+type GenerationTemplate struct {
+	// Value is a YAML string, single or multi-document, defining the resources to generate.
+	// The namespace of each generated resource is taken from its rendered metadata.namespace,
+	// resources without a namespace are treated as cluster-scoped.
+	// +kubebuilder:validation:MinLength=1
+	Value string `json:"value"`
+
+	// Interpolate controls placeholder evaluation in Value:
+	// "none" (default) treats Value as plain YAML;
+	// "cel" evaluates `(( ... ))` placeholders as CEL expressions before the YAML is parsed.
+	// +kubebuilder:default=none
+	// +optional
+	Interpolate InterpolationMode `json:"interpolate,omitempty"`
 }
 
 type GeneratingPolicyStatus struct {

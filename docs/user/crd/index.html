@@ -5195,7 +5195,71 @@ string
 </em>
 </td>
 <td>
+<em>(Optional)</em>
 <p>Expression is a CEL expression that takes a list of resources to be generated.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>template</code><br/>
+<em>
+<a href="#policies.kyverno.io/v1alpha1.GenerationTemplate">
+GenerationTemplate
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Template declares the resources to be generated as a YAML document,
+with optional CEL interpolation.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="policies.kyverno.io/v1alpha1.GenerationTemplate">GenerationTemplate
+</h3>
+<p>
+(<em>Appears on:</em>
+<a href="#policies.kyverno.io/v1alpha1.Generation">Generation</a>)
+</p>
+<p>
+</p>
+<table class="table table-striped">
+<thead class="thead-dark">
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>value</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+<p>Value is a YAML string, single or multi-document, defining the resources to generate.
+The namespace of each generated resource is taken from its rendered metadata.namespace,
+resources without a namespace are treated as cluster-scoped.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>interpolate</code><br/>
+<em>
+<a href="#policies.kyverno.io/v1alpha1.InterpolationMode">
+InterpolationMode
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Interpolate controls placeholder evaluation in Value:
+&ldquo;none&rdquo; (default) treats Value as plain YAML;
+&ldquo;cel&rdquo; evaluates <code>(( ... ))</code> placeholders as CEL expressions before the YAML is parsed.</p>
 </td>
 </tr>
 </tbody>
@@ -5780,6 +5844,14 @@ string
 </tbody>
 </table>
 <hr />
+<h3 id="policies.kyverno.io/v1alpha1.InterpolationMode">InterpolationMode
+(<code>string</code> alias)</p></h3>
+<p>
+(<em>Appears on:</em>
+<a href="#policies.kyverno.io/v1alpha1.GenerationTemplate">GenerationTemplate</a>)
+</p>
+<p>
+</p>
 <h3 id="policies.kyverno.io/v1alpha1.Key">Key
 </h3>
 <p>
