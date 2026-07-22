@@ -5333,6 +5333,19 @@ string
 <p>SubjectRegExp specifies a regular expression to match the subject for this identity.</p>
 </td>
 </tr>
+<tr>
+<td>
+<code>subjectExpression</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>SubjectExpression defines a CEL expression that evaluates to the subject string,
+matched as a regexp against the certificate SAN URI. Mutually exclusive with SubjectRegExp.</p>
+</td>
+</tr>
 </tbody>
 </table>
 <hr />
