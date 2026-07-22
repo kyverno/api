@@ -341,6 +341,15 @@ type Cosign struct {
 	// The payload may contain other key-value pairs.
 	// +optional
 	Annotations map[string]string `json:"annotations,omitempty"`
+	// TrustedRoot is the sigstore-go TrustedRoot JSON
+	// (mediaType application/vnd.dev.sigstore.trustedroot+json;version=0.1).
+	// When set, Kyverno uses this trust material directly instead of fetching
+	// trusted_root.json from the Sigstore TUF repository. Use this field when
+	// verifying attestations from providers that do not operate a TUF server,
+	// such as GitHub Actions. Takes precedence over the tuf field.
+	// Supports an inline JSON value or a CEL expression (e.g. variables.myRoot).
+	// +optional
+	TrustedRoot *StringOrExpression `json:"trustedRoot,omitempty"`
 }
 
 // StringOrExpression contains either a raw string input or a CEL expression
@@ -455,6 +464,9 @@ type Keyless struct {
 	// If not provided, the system roots are used.
 	// +kubebuilder:validation:Optional
 	Roots string `json:"roots,omitempty"`
+	// AdditionalExtensions are certificate-extensions used for keyless signing.
+	// +kubebuilder:validation:Optional
+	AdditionalExtensions map[string]string `json:"additionalExtensions,omitempty"`
 }
 
 // Certificate defines the configuration for local signature verification

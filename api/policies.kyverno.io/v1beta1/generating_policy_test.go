@@ -298,6 +298,41 @@ func TestAdmissionEnabled(t *testing.T) {
 	})
 }
 
+func TestSkipBackgroundRequestsEnabled(t *testing.T) {
+	t.Run("empty EvaluationConfiguration", func(t *testing.T) {
+		s := GeneratingPolicySpec{
+			EvaluationConfiguration: &GeneratingPolicyEvaluationConfiguration{},
+		}
+		res := s.SkipBackgroundRequestsEnabled()
+		assert.True(t, res)
+	})
+	t.Run("skip background requests nil on nil evaluation config", func(t *testing.T) {
+		s := GeneratingPolicySpec{}
+		res := s.SkipBackgroundRequestsEnabled()
+		assert.True(t, res)
+	})
+	t.Run("skip background requests false", func(t *testing.T) {
+		boolVal := false
+		s := GeneratingPolicySpec{
+			EvaluationConfiguration: &GeneratingPolicyEvaluationConfiguration{
+				SkipBackgroundRequests: &boolVal,
+			},
+		}
+		res := s.SkipBackgroundRequestsEnabled()
+		assert.False(t, res)
+	})
+	t.Run("skip background requests true", func(t *testing.T) {
+		boolVal := true
+		s := GeneratingPolicySpec{
+			EvaluationConfiguration: &GeneratingPolicyEvaluationConfiguration{
+				SkipBackgroundRequests: &boolVal,
+			},
+		}
+		res := s.SkipBackgroundRequestsEnabled()
+		assert.True(t, res)
+	})
+}
+
 func TestNamespacedGeneratingPolicy_GetKind(t *testing.T) {
 	policy := &NamespacedGeneratingPolicy{}
 	expected := "NamespacedGeneratingPolicy"
