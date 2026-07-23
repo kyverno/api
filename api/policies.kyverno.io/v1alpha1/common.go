@@ -1,5 +1,9 @@
 package v1alpha1
 
+import (
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+)
+
 type EvaluationMode = string
 
 type EvaluationConfiguration struct {
@@ -33,4 +37,11 @@ type BackgroundConfiguration struct {
 	// +optional
 	// +kubebuilder:default=true
 	Enabled *bool `json:"enabled,omitempty"`
+
+	// Interval defines how often background scanning is performed for this specific policy.
+    // Overrides the global background scan interval set at the controller level.
+    // The value must be a valid duration string (e.g., "15m", "1h", "30s").
+    // Optional. If not set, the global background scan interval is used.
+    // +optional
+    Interval *metav1.Duration `json:"interval,omitempty"`
 }

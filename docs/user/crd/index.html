@@ -4227,6 +4227,23 @@ Optional. Default value is &ldquo;true&rdquo;. The value must be set to &ldquo;f
 uses variables that are only available in the admission review request (e.g. user name).</p>
 </td>
 </tr>
+<tr>
+<td>
+<code>interval</code><br/>
+<em>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration">
+Kubernetes meta/v1.Duration
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Interval defines how often background scanning is performed for this specific policy.
+Overrides the global background scan interval set at the controller level.
+The value must be a valid duration string (e.g., &ldquo;15m&rdquo;, &ldquo;1h&rdquo;, &ldquo;30s&rdquo;).
+Optional. If not set, the global background scan interval is used.</p>
+</td>
+</tr>
 </tbody>
 </table>
 <hr />

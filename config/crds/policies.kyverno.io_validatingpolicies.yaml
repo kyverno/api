@@ -151,6 +151,13 @@ spec:
                           Optional. Default value is "true". The value must be set to "false" if the policy rule
                           uses variables that are only available in the admission review request (e.g. user name).
                         type: boolean
+                      interval:
+                        description: |-
+                          Interval defines how often background scanning is performed for this specific policy.
+                          Overrides the global background scan interval set at the controller level.
+                          The value must be a valid duration string (e.g., "15m", "1h", "30s").
+                          Optional. If not set, the global background scan interval is used.
+                        type: string
                     type: object
                   mode:
                     description: |-
@@ -858,6 +865,13 @@ spec:
                                         Optional. Default value is "true". The value must be set to "false" if the policy rule
                                         uses variables that are only available in the admission review request (e.g. user name).
                                       type: boolean
+                                    interval:
+                                      description: |-
+                                        Interval defines how often background scanning is performed for this specific policy.
+                                        Overrides the global background scan interval set at the controller level.
+                                        The value must be a valid duration string (e.g., "15m", "1h", "30s").
+                                        Optional. If not set, the global background scan interval is used.
+                                      type: string
                                   type: object
                                 mode:
                                   description: |-
@@ -1714,6 +1728,13 @@ spec:
                           Optional. Default value is "true". The value must be set to "false" if the policy rule
                           uses variables that are only available in the admission review request (e.g. user name).
                         type: boolean
+                      interval:
+                        description: |-
+                          Interval defines how often background scanning is performed for this specific policy.
+                          Overrides the global background scan interval set at the controller level.
+                          The value must be a valid duration string (e.g., "15m", "1h", "30s").
+                          Optional. If not set, the global background scan interval is used.
+                        type: string
                     type: object
                   mode:
                     description: |-
@@ -2421,6 +2442,13 @@ spec:
                                         Optional. Default value is "true". The value must be set to "false" if the policy rule
                                         uses variables that are only available in the admission review request (e.g. user name).
                                       type: boolean
+                                    interval:
+                                      description: |-
+                                        Interval defines how often background scanning is performed for this specific policy.
+                                        Overrides the global background scan interval set at the controller level.
+                                        The value must be a valid duration string (e.g., "15m", "1h", "30s").
+                                        Optional. If not set, the global background scan interval is used.
+                                      type: string
                                   type: object
                                 mode:
                                   description: |-
@@ -3276,6 +3304,13 @@ spec:
                           Optional. Default value is "true". The value must be set to "false" if the policy rule
                           uses variables that are only available in the admission review request (e.g. user name).
                         type: boolean
+                      interval:
+                        description: |-
+                          Interval defines how often background scanning is performed for this specific policy.
+                          Overrides the global background scan interval set at the controller level.
+                          The value must be a valid duration string (e.g., "15m", "1h", "30s").
+                          Optional. If not set, the global background scan interval is used.
+                        type: string
                     type: object
                   mode:
                     description: |-
@@ -3983,6 +4018,13 @@ spec:
                                         Optional. Default value is "true". The value must be set to "false" if the policy rule
                                         uses variables that are only available in the admission review request (e.g. user name).
                                       type: boolean
+                                    interval:
+                                      description: |-
+                                        Interval defines how often background scanning is performed for this specific policy.
+                                        Overrides the global background scan interval set at the controller level.
+                                        The value must be a valid duration string (e.g., "15m", "1h", "30s").
+                                        Optional. If not set, the global background scan interval is used.
+                                      type: string
                                   type: object
                                 mode:
                                   description: |-

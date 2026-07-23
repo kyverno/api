@@ -3793,6 +3793,38 @@ uses variables that are only available in the admission review request (e.g. use
       </tr>
     
   
+    
+    
+      <tr>
+        <td><code>interval</code>
+          
+          </br>
+
+          
+          
+            
+              <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration">
+                <span style="font-family: monospace">meta/v1.Duration</span>
+              </a>
+            
+          
+        </td>
+        <td>
+          
+
+          <p>Interval defines how often background scanning is performed for this specific policy.
+Overrides the global background scan interval set at the controller level.
+The value must be a valid duration string (e.g., &quot;15m&quot;, &quot;1h&quot;, &quot;30s&quot;).
+Optional. If not set, the global background scan interval is used.</p>
+
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
 
 
       </tbody>
