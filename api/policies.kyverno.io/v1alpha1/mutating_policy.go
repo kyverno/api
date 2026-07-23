@@ -129,6 +129,14 @@ type MutatingPolicySpec struct {
 	// +optional
 	Mutations []admissionregistrationv1alpha1.Mutation `json:"mutations,omitempty" protobuf:"bytes,4,rep,name=mutations"`
 
+	// AuditAnnotations contains CEL expressions which are used to produce audit annotations that are surfaced
+	// as properties in policy report results. auditAnnotations are evaluated after the mutations have been
+	// applied successfully. The results of evaluating the expressions are attached to the report result as
+	// properties with the annotation key.
+	// If the expression evaluates to an empty string or null the annotation will not be included.
+	// +optional
+	AuditAnnotations []admissionregistrationv1.AuditAnnotation `json:"auditAnnotations,omitempty"`
+
 	// WebhookConfiguration defines the configuration for the webhook.
 	// +optional
 	WebhookConfiguration *WebhookConfiguration `json:"webhookConfiguration,omitempty"`
