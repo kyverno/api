@@ -5,9 +5,13 @@
 {{- end -}}
 
 {{- define "kyverno-api.labels" -}}
-{{- tpl (toYaml .Values.labels) . -}}
+{{- with .Values.labels }}
+{{- tpl (toYaml .) $ }}
+{{- end }}
 {{- end -}}
 
 {{- define "kyverno-api.annotations" -}}
-{{- tpl (toYaml .Values.annotations) . -}}
+{{- with .Values.annotations }}
+{{- tpl (toYaml .) $ }}
+{{- end }}
 {{- end -}}
