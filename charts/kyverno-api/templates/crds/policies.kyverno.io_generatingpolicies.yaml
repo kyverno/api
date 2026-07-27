@@ -2,10 +2,14 @@
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
+  {{- with include "kyverno-api.labels" . }}
   labels:
-    {{- include "kyverno-api.labels" . | nindent 4 }}
+    {{- . | nindent 4 }}
+  {{- end }}
+  {{- with include "kyverno-api.annotations" . }}
   annotations:
-    {{- include "kyverno-api.annotations" . | nindent 4 }}
+    {{- . | nindent 4 }}
+  {{- end }}
   name: generatingpolicies.policies.kyverno.io
 spec:
   group: policies.kyverno.io
