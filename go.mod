@@ -1,14 +1,16 @@
 module github.com/kyverno/api
 
-go 1.26.2
+go 1.26.5
 
 require (
-	github.com/aptible/supercronic v0.2.45
+	github.com/aptible/supercronic v0.2.48
 	github.com/stretchr/testify v1.11.1
 	k8s.io/api v0.35.3
 	k8s.io/apimachinery v0.36.0
 	k8s.io/utils v0.0.0-20260210185600-b8788abfbbc2
 )
+
+require github.com/kr/text v0.2.0 // indirect
 
 require (
 	cel.dev/expr v0.25.1 // indirect
@@ -25,8 +27,8 @@ require (
 	github.com/x448/float16 v0.8.4 // indirect
 	go.yaml.in/yaml/v2 v2.4.4 // indirect
 	golang.org/x/exp v0.0.0-20250620022241-b7579e27df2b // indirect
-	golang.org/x/net v0.49.0 // indirect
-	golang.org/x/text v0.33.0 // indirect
+	golang.org/x/net v0.57.0 // indirect
+	golang.org/x/text v0.40.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20251202230838-ff82c1b0f217 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20251202230838-ff82c1b0f217 // indirect
 	google.golang.org/protobuf v1.36.12-0.20260120151049-f2248ac996af // indirect
