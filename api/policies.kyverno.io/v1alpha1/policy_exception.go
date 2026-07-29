@@ -93,6 +93,11 @@ type PolicyRef struct {
 
 	// Kind is the kind of the policy
 	Kind string `json:"kind"`
+
+	// ValidationAction overrides the policy's validation action when set
+	// +optional
+	// +kubebuilder:validation:Enum=Deny;Audit;Warn
+	ValidationAction admissionregistrationv1.ValidationAction `json:"validationAction,omitempty"`
 }
 
 func (p *PolicyRef) Validate(path *field.Path) (errs field.ErrorList) {

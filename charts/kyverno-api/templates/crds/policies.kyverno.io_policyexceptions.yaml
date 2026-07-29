@@ -118,6 +118,14 @@ spec:
                     name:
                       description: Name is the name of the policy
                       type: string
+                    validationAction:
+                      description: ValidationAction overrides the policy's validation
+                        action when set
+                      enum:
+                      - Deny
+                      - Audit
+                      - Warn
+                      type: string
                   required:
                   - kind
                   - name
@@ -253,6 +261,14 @@ spec:
                     name:
                       description: Name is the name of the policy
                       type: string
+                    validationAction:
+                      description: ValidationAction overrides the policy's validation
+                        action when set
+                      enum:
+                      - Deny
+                      - Audit
+                      - Warn
+                      type: string
                   required:
                   - kind
                   - name
@@ -386,6 +402,14 @@ spec:
                       type: string
                     name:
                       description: Name is the name of the policy
+                      type: string
+                    validationAction:
+                      description: ValidationAction overrides the policy's validation
+                        action when set
+                      enum:
+                      - Deny
+                      - Audit
+                      - Warn
                       type: string
                   required:
                   - kind
