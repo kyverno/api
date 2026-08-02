@@ -99,6 +99,13 @@ type GeneratingPolicySpec struct {
 	// Defaults to "false" if not specified.
 	// +optional
 	UseServerSideApply bool `json:"useServerSideApply,omitempty"`
+
+	// FailurePolicy defines how matchCondition CEL evaluation errors are handled.
+	// Allowed values are Ignore or Fail. Defaults to Fail.
+	// - Ignore: a matchCondition evaluation error is treated as no-match, skipping the policy.
+	// - Fail: a matchCondition evaluation error causes the request to be rejected.
+	// +optional
+	FailurePolicy *admissionregistrationv1.FailurePolicyType `json:"failurePolicy,omitempty"`
 }
 
 type GeneratingPolicyEvaluationConfiguration struct {

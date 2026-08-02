@@ -33,6 +33,7 @@ type GeneratingPolicyLike interface {
 	runtime.Object
 	GetSpec() *GeneratingPolicySpec
 	GetStatus() *GeneratingPolicyStatus
+	GetFailurePolicy(bool) admissionregistrationv1.FailurePolicyType
 	GetMatchConstraints() admissionregistrationv1.MatchResources
 	GetMatchConditions() []admissionregistrationv1.MatchCondition
 	GetVariables() []admissionregistrationv1.Variable

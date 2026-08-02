@@ -69,11 +69,6 @@ func TestGetMatchConditionsGpol(t *testing.T) {
 	assert.Equal(t, res[0].Expression, "true", "expression should be 'true")
 }
 
-func TestGetFailurePolicyGpol(t *testing.T) {
-	res := gpol.GetFailurePolicy(false)
-	assert.Equal(t, res, v1.Ignore, "result should be 'Ignore")
-}
-
 func TestGetWebhookConfigurationGpol(t *testing.T) {
 	gpol := &GeneratingPolicy{
 		Spec: GeneratingPolicySpec{
@@ -391,12 +386,6 @@ func TestNamespacedGeneratingPolicy_GetMatchConditions(t *testing.T) {
 	assert.Equal(t, "true", res[0].Expression, "expression should be 'true'")
 }
 
-func TestNamespacedGeneratingPolicy_GetFailurePolicy(t *testing.T) {
-	policy := &NamespacedGeneratingPolicy{}
-	res := policy.GetFailurePolicy(false)
-	assert.Equal(t, v1.Ignore, res, "result should be 'Ignore'")
-}
-
 func TestNamespacedGeneratingPolicy_GetTimeoutSeconds(t *testing.T) {
 	t.Run("nil webhook configuration", func(t *testing.T) {
 		policy := &NamespacedGeneratingPolicy{
@@ -449,4 +438,96 @@ func TestNamespacedGeneratingPolicy_GetSpec(t *testing.T) {
 	res := policy.GetSpec()
 	assert.NotNil(t, res, "res should not be nil")
 	assert.Equal(t, 1, len(res.Variables), "should have 1 variable")
+}
+
+func TestGetFailurePolicyGpol(t *testing.T) {
+	fail := v1.Fail
+	ignore := v1.Ignore
+
+	t.Run("GeneratingPolicy: defaults to Fail when FailurePolicy is nil", func(t *testing.T) {
+		gpol := &GeneratingPolicy{
+			Spec: GeneratingPolicySpec{},
+		}
+		assert.Equal(t, v1.Fail, gpol.GetFailurePolicy(false))
+	})
+
+	t.Run("GeneratingPolicy: returns Fail when explicitly set", func(t *testing.T) {
+		gpol := &GeneratingPolicy{
+			Spec: GeneratingPolicySpec{
+				FailurePolicy: &fail,
+			},
+		}
+		assert.Equal(t, v1.Fail, gpol.GetFailurePolicy(false))
+	})
+
+	t.Run("GeneratingPolicy: returns Ignore when explicitly set", func(t *testing.T) {
+		gpol := &GeneratingPolicy{
+			Spec: GeneratingPolicySpec{
+				FailurePolicy: &ignore,
+			},
+		}
+		assert.Equal(t, v1.Ignore, gpol.GetFailurePolicy(false))
+	})
+
+	t.Run("GeneratingPolicy: returns Ignore when forceFailurePolicyIgnore=true regardless of Spec", func(t *testing.T) {
+		gpol := &GeneratingPolicy{
+			Spec: GeneratingPolicySpec{
+				FailurePolicy: &fail,
+			},
+		}
+		assert.Equal(t, v1.Ignore, gpol.GetFailurePolicy(true))
+	})
+
+	t.Run("GeneratingPolicy: returns Ignore when forceFailurePolicyIgnore=true and FailurePolicy is nil", func(t *testing.T) {
+		gpol := &GeneratingPolicy{
+			Spec: GeneratingPolicySpec{},
+		}
+		assert.Equal(t, v1.Ignore, gpol.GetFailurePolicy(true))
+	})
+}
+
+func TestGetFailurePolicyNamespacedGpol(t *testing.T) {
+	fail := v1.Fail
+	ignore := v1.Ignore
+
+	t.Run("NamespacedGeneratingPolicy: defaults to Fail when FailurePolicy is nil", func(t *testing.T) {
+		ngpol := &NamespacedGeneratingPolicy{
+			Spec: GeneratingPolicySpec{},
+		}
+		assert.Equal(t, v1.Fail, ngpol.GetFailurePolicy(false))
+	})
+
+	t.Run("NamespacedGeneratingPolicy: returns Fail when explicitly set", func(t *testing.T) {
+		ngpol := &NamespacedGeneratingPolicy{
+			Spec: GeneratingPolicySpec{
+				FailurePolicy: &fail,
+			},
+		}
+		assert.Equal(t, v1.Fail, ngpol.GetFailurePolicy(false))
+	})
+
+	t.Run("NamespacedGeneratingPolicy: returns Ignore when explicitly set", func(t *testing.T) {
+		ngpol := &NamespacedGeneratingPolicy{
+			Spec: GeneratingPolicySpec{
+				FailurePolicy: &ignore,
+			},
+		}
+		assert.Equal(t, v1.Ignore, ngpol.GetFailurePolicy(false))
+	})
+
+	t.Run("NamespacedGeneratingPolicy: returns Ignore when forceFailurePolicyIgnore=true regardless of Spec", func(t *testing.T) {
+		ngpol := &NamespacedGeneratingPolicy{
+			Spec: GeneratingPolicySpec{
+				FailurePolicy: &fail,
+			},
+		}
+		assert.Equal(t, v1.Ignore, ngpol.GetFailurePolicy(true))
+	})
+
+	t.Run("NamespacedGeneratingPolicy: returns Ignore when forceFailurePolicyIgnore=true and FailurePolicy is nil", func(t *testing.T) {
+		ngpol := &NamespacedGeneratingPolicy{
+			Spec: GeneratingPolicySpec{},
+		}
+		assert.Equal(t, v1.Ignore, ngpol.GetFailurePolicy(true))
+	})
 }

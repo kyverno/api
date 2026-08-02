@@ -64,8 +64,14 @@ func (s *GeneratingPolicy) GetMatchConditions() []admissionregistrationv1.MatchC
 	return s.Spec.MatchConditions
 }
 
-func (s *GeneratingPolicy) GetFailurePolicy(bool) admissionregistrationv1.FailurePolicyType {
-	return admissionregistrationv1.Ignore
+func (s *GeneratingPolicy) GetFailurePolicy(forceFailurePolicyIgnore bool) admissionregistrationv1.FailurePolicyType {
+	if forceFailurePolicyIgnore {
+		return admissionregistrationv1.Ignore
+	}
+	if s.Spec.FailurePolicy != nil {
+		return *s.Spec.FailurePolicy
+	}
+	return admissionregistrationv1.Fail
 }
 
 func (s *GeneratingPolicy) GetTimeoutSeconds() *int32 {
@@ -121,8 +127,14 @@ func (s *NamespacedGeneratingPolicy) GetMatchConditions() []admissionregistratio
 	return s.Spec.MatchConditions
 }
 
-func (s *NamespacedGeneratingPolicy) GetFailurePolicy(bool) admissionregistrationv1.FailurePolicyType {
-	return admissionregistrationv1.Ignore
+func (s *NamespacedGeneratingPolicy) GetFailurePolicy(forceFailurePolicyIgnore bool) admissionregistrationv1.FailurePolicyType {
+	if forceFailurePolicyIgnore {
+		return admissionregistrationv1.Ignore
+	}
+	if s.Spec.FailurePolicy != nil {
+		return *s.Spec.FailurePolicy
+	}
+	return admissionregistrationv1.Fail
 }
 
 func (s *NamespacedGeneratingPolicy) GetTimeoutSeconds() *int32 {

@@ -581,6 +581,11 @@ func (in *GeneratingPolicySpec) DeepCopyInto(out *GeneratingPolicySpec) {
 		*out = make([]admissionregistrationv1.AuditAnnotation, len(*in))
 		copy(*out, *in)
 	}
+	if in.FailurePolicy != nil {
+		in, out := &in.FailurePolicy, &out.FailurePolicy
+		*out = new(admissionregistrationv1.FailurePolicyType)
+		**out = **in
+	}
 	return
 }
 
