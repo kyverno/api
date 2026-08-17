@@ -4100,6 +4100,75 @@ ValidatingPolicyStatus
 </tbody>
 </table>
 <hr />
+<h3 id="policies.kyverno.io/v1alpha1.AdditionalExtensions">AdditionalExtensions
+</h3>
+<p>
+(<em>Appears on:</em>
+<a href="#policies.kyverno.io/v1alpha1.Keyless">Keyless</a>)
+</p>
+<p>
+</p>
+<table class="table table-striped">
+<thead class="thead-dark">
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>githubWorkflowRepository</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>githubWorkflowName</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>githubWorkflowRef</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>githubWorkflowSha</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>githubWorkflowTrigger</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
 <h3 id="policies.kyverno.io/v1alpha1.AdmissionConfiguration">AdmissionConfiguration
 </h3>
 <p>
@@ -6033,10 +6102,13 @@ If not provided, the system roots are used.</p>
 <td>
 <code>additionalExtensions</code><br/>
 <em>
-map[string]string
+<a href="#policies.kyverno.io/v1alpha1.AdditionalExtensions">
+AdditionalExtensions
+</a>
 </em>
 </td>
 <td>
+<em>(Optional)</em>
 <p>AdditionalExtensions are certificate-extensions used for keyless signing.</p>
 </td>
 </tr>
