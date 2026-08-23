@@ -42,7 +42,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           linting: off
           charts_dir: charts-tmp
-          app_version: ${{ steps.semver.outputs.fullversion }}
           chart_version: ${{ steps.semver.outputs.fullversion }}
       # - name: Login to GitHub Container Registry
       #   run: |
