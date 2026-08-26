@@ -118,9 +118,8 @@ helm-chart: controller-gen
 	@echo Generate helm crds... >&2
 	@rm -rf charts/kyverno-api/templates/crds && mkdir -p charts/kyverno-api/templates/crds
 	@cp $(CRDS_PATH)/*.yaml charts/kyverno-api/templates/crds/
-	@$(SED) -i '/^  annotations:/a \ \ \ \ {{- include "kyverno-api.annotations" . | nindent 4 }}' charts/kyverno-api/templates/crds/*
-	@$(SED) -i '/^  annotations:/i \ \ labels:' charts/kyverno-api/templates/crds/*
-	@$(SED) -i '/^  labels:/a \ \ \ \ {{- include "kyverno-api.labels" . | nindent 4 }}' charts/kyverno-api/templates/crds/*
+	@$(SED) -i '/^  annotations:/c\  {{- if .Values.annotations }}\n  annotations:\n    {{- include "kyverno-api.annotations" . | nindent 4 }}\n  {{- end }}' charts/kyverno-api/templates/crds/*
+	@$(SED) -i '/^  {{- if .Values.annotations }}/i\  {{- if .Values.labels }}\n  labels:\n    {{- include "kyverno-api.labels" . | nindent 4 }}\n  {{- end }}' charts/kyverno-api/templates/crds/*
 	@$(SED) -i '/controller-gen.kubebuilder.io/d' charts/kyverno-api/templates/crds/*
 
 .PHONY: helm-docs
@@ -146,6 +145,25 @@ helm-install: $(HELM) ## Install helm chart
 	@echo Install kyverno chart... >&2
 	@$(HELM) template --namespace kyverno charts/kyverno-api | kubectl apply --server-side -f -
 # 	@$(HELM) upgrade --install kyverno-api --namespace kyverno --create-namespace --server-side --wait ./charts/kyverno-api
+
+.PHONY: helm-test
+helm-test: $(HELM) ## Test helm chart
+	@echo Test kyverno-api chart... >&2
+	@set -e; \
+	tmp=$$(mktemp); \
+	custom=$$(mktemp); \
+	trap 'rm -f "$$tmp" "$$custom"' EXIT; \
+	expected=$$(find charts/kyverno-api/templates/crds -name '*.yaml' | wc -l); \
+	$(HELM) template kyverno-api charts/kyverno-api > "$$tmp"; \
+	$(HELM) template kyverno-api charts/kyverno-api \
+		--set labels.test=foo \
+		--set annotations.test=bar > "$$custom"; \
+	test "$$(grep -c '^kind: CustomResourceDefinition$$' "$$tmp")" -eq "$$expected"; \
+	test "$$(grep -c '^kind: CustomResourceDefinition$$' "$$custom")" -eq "$$expected"; \
+	test "$$(grep -c '^  labels:$$' "$$tmp")" -eq 0; \
+	test "$$(grep -c '^  annotations:$$' "$$tmp")" -eq 0; \
+	test "$$(grep -c '^    test: foo$$' "$$custom")" -eq "$$expected"; \
+	test "$$(grep -c '^    test: bar$$' "$$custom")" -eq "$$expected"
 
 ##################
 # VERIFY CODEGEN #
