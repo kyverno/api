@@ -485,6 +485,9 @@ type Certificate struct {
 // log.
 // Issuer/Subject uses a strict match, while IssuerRegExp and SubjectRegExp
 // apply a regexp for matching.
+// For a dynamic subject, use SubjectExpression which accepts a CEL expression
+// evaluated at admission time. The result is used as a regexp match against the
+// certificate SAN URI, so it can be either a literal string or a regexp pattern.
 type Identity struct {
 	// Issuer defines the issuer for this identity.
 	// +optional
@@ -498,6 +501,10 @@ type Identity struct {
 	// SubjectRegExp specifies a regular expression to match the subject for this identity.
 	// +optional
 	SubjectRegExp string `json:"subjectRegExp,omitempty"`
+	// SubjectExpression defines a CEL expression that evaluates to the subject string,
+	// matched as a regexp against the certificate SAN URI. Mutually exclusive with SubjectRegExp.
+	// +optional
+	SubjectExpression string `json:"subjectExpression,omitempty"`
 }
 
 // Attestation defines the identification details of the  metadata that has to be verified

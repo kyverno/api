@@ -15,6 +15,13 @@ type (
 	SynchronizationConfiguration                = v1alpha1.SynchronizationConfiguration
 	OrphanDownstreamOnPolicyDeleteConfiguration = v1alpha1.OrphanDownstreamOnPolicyDeleteConfiguration
 	Generation                                  = v1alpha1.Generation
+	GenerationTemplate                          = v1alpha1.GenerationTemplate
+	InterpolationMode                           = v1alpha1.InterpolationMode
+)
+
+const (
+	InterpolationModeNone = v1alpha1.InterpolationModeNone
+	InterpolationModeCEL  = v1alpha1.InterpolationModeCEL
 )
 
 var (

@@ -28,3 +28,14 @@ jobs:
         run:  |
           set -e
           make verify-codegen
+      - name: Create codegen patch
+        if: failure()
+        run: |
+          git diff > codegen.patch
+          echo 'Codegen is out of date. Download the codegen-patch artifact, then run `git apply codegen.patch` and commit the result.' >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload codegen patch
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: codegen-patch
+          path: codegen.patch

@@ -45,8 +45,9 @@ func (status *MutatingPolicyStatus) GetConditionStatus() *ConditionStatus {
 
 // MutatingPolicySpec is the specification of the desired behavior of the MutatingPolicy.
 type MutatingPolicySpec struct {
-	// MatchConstraints specifies what resources this policy is designed to evaluate.
+	// MatchConstraints specifies the trigger resources this policy is designed to evaluate.
 	// The AdmissionPolicy cares about a request if it matches _all_ Constraints.
+	// Trigger constraints and MatchConditions are evaluated before target resolution.
 	// Required.
 	MatchConstraints *admissionregistrationv1.MatchResources `json:"matchConstraints,omitempty"`
 
@@ -84,8 +85,11 @@ type MutatingPolicySpec struct {
 
 	// Variables contain definitions of variables that can be used in composition of other expressions.
 	// Each variable is defined as a named CEL expression.
-	// The variables defined here will be available under `variables` in other expressions of the policy
-	// except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+	// The variables defined here will be available under `variables` in other expressions of the policy,
+	// including MatchConditions where they are evaluated lazily on first reference.
+	// Note that a native Kubernetes MutatingAdmissionPolicy does not support variables in match
+	// conditions; policies that generate a MutatingAdmissionPolicy through autogen should not
+	// reference variables in MatchConditions.
 	//
 	// The expression of a variable can refer to other variables defined earlier in the list but not those after.
 	// Thus, Variables must be sorted by the order of first appearance and acyclic.
@@ -100,9 +104,19 @@ type MutatingPolicySpec struct {
 	// +optional
 	AutogenConfiguration *MutatingPolicyAutogenConfiguration `json:"autogen,omitempty"`
 
-	// TargetMatchConstraints specifies what target mutation resources this policy is designed to evaluate.
+	// TargetMatchConstraints resolves the resources to mutate after Variables are evaluated.
 	// +optional
 	TargetMatchConstraints *TargetMatchConstraints `json:"targetMatchConstraints,omitempty"`
+
+	// TargetMatchConditions is a list of conditions that must be met for a resolved target resource.
+	// Target match conditions are evaluated after variables and target resolution. They can reference
+	// variables and use Object to refer to the target resource.
+	// +patchMergeKey=name
+	// +patchStrategy=merge
+	// +listType=map
+	// +listMapKey=name
+	// +optional
+	TargetMatchConditions []admissionregistrationv1.MatchCondition `json:"targetMatchConditions,omitempty" patchStrategy:"merge" patchMergeKey:"name"`
 
 	// mutations contain operations to perform on matching objects.
 	// mutations may not be empty; a minimum of one mutation is required.
@@ -114,6 +128,14 @@ type MutatingPolicySpec struct {
 	// +listType=atomic
 	// +optional
 	Mutations []admissionregistrationv1alpha1.Mutation `json:"mutations,omitempty" protobuf:"bytes,4,rep,name=mutations"`
+
+	// AuditAnnotations contains CEL expressions which are used to produce audit annotations that are surfaced
+	// as properties in policy report results. auditAnnotations are evaluated after the mutations have been
+	// applied successfully. The results of evaluating the expressions are attached to the report result as
+	// properties with the annotation key.
+	// If the expression evaluates to an empty string or null the annotation will not be included.
+	// +optional
+	AuditAnnotations []admissionregistrationv1.AuditAnnotation `json:"auditAnnotations,omitempty"`
 
 	// WebhookConfiguration defines the configuration for the webhook.
 	// +optional
@@ -252,6 +274,14 @@ type MutatingPolicyEvaluationConfiguration struct {
 	// +optional
 	// +kubebuilder:default=true
 	SkipBackgroundRequests *bool `json:"skipBackgroundRequests,omitempty"`
+
+	// UseServerSideApply applies ApplyConfiguration patches with Server-Side Apply semantics,
+	// which allows setting atomic fields (for example a container's args or a projected volume)
+	// that the default MutatingAdmissionPolicy behaviour rejects. When true, an atomic value is
+	// replaced as a whole, so any field the object owner set but the patch does not is dropped.
+	// The default is false, which keeps parity with a native MutatingAdmissionPolicy.
+	// +optional
+	UseServerSideApply bool `json:"useServerSideApply,omitempty"`
 }
 
 type MutatingPolicyAutogenConfiguration struct {
@@ -268,10 +298,13 @@ type MAPGenerationConfiguration struct {
 }
 
 type TargetMatchConstraints struct {
+	// Expression resolves one target object or a list of target objects. The expression can use
+	// variables computed from the trigger request.
 	// +optional
 	Expression string `json:"expression,omitempty"`
 
-	// TargetMatchConstraints specifies what target mutation resources this policy is designed to evaluate.
+	// MatchResources constrains target resources and supplies their API route. When Expression is
+	// set, these rules still determine whether a target uses a subresource endpoint.
 	// +optional
 	admissionregistrationv1.MatchResources `json:",inline"`
 }
