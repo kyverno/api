@@ -31,7 +31,16 @@ type ConditionStatus struct {
 	Message string `json:"message"`
 }
 
+// SetReadyByCondition sets the condition status using observedGeneration = 0.
+// A value of 0 means "unset / legacy behavior" and is provided for backward
+// compatibility with callers that do not yet track the reconciled generation.
+// Prefer SetReadyByConditionAndObservedGeneration when the actual resource
+// generation is available.
 func (status *ConditionStatus) SetReadyByCondition(c PolicyConditionType, s metav1.ConditionStatus, message string) {
+	status.SetReadyByConditionAndObservedGeneration(c, s, message, 0)
+}
+
+func (status *ConditionStatus) SetReadyByConditionAndObservedGeneration(c PolicyConditionType, s metav1.ConditionStatus, message string, observedGeneration int64) {
 	reason := "Succeeded"
 	if s != metav1.ConditionTrue {
 		reason = "Failed"
@@ -42,6 +51,7 @@ func (status *ConditionStatus) SetReadyByCondition(c PolicyConditionType, s meta
 		Status:             s,
 		Message:            message,
 		LastTransitionTime: metav1.NewTime(time.Now().Truncate(time.Second)),
+		ObservedGeneration: observedGeneration,
 	}
 	meta.SetStatusCondition(&status.Conditions, newCondition)
 }
