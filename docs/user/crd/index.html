@@ -6837,12 +6837,27 @@ Optional. Defaults to &ldquo;false&rdquo; if not specified.</p>
 <tbody>
 <tr>
 <td>
+<code>enabled</code><br/>
+<em>
+bool
+</em>
+</td>
+<td>
+<p>Enabled specifies whether to generate pod controller rules.
+Optional. Defaults to &ldquo;true&rdquo; if not specified.</p>
+</td>
+</tr>
+<tr>
+<td>
 <code>controllers</code><br/>
 <em>
 []string
 </em>
 </td>
 <td>
+<p>Controllers specifies the list of pod controllers to generate rules for,
+for example DaemonSet, Deployment, Job, StatefulSet, ReplicaSet, ReplicationController, CronJob.
+Optional. Defaults to all supported pod controllers if not specified.</p>
 </td>
 </tr>
 </tbody>
