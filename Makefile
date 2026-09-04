@@ -121,6 +121,7 @@ helm-chart: controller-gen
 	@$(SED) -i '/^  annotations:/c\  {{- if .Values.annotations }}\n  annotations:\n    {{- include "kyverno-api.annotations" . | nindent 4 }}\n  {{- end }}' charts/kyverno-api/templates/crds/*
 	@$(SED) -i '/^  {{- if .Values.annotations }}/i\  {{- if .Values.labels }}\n  labels:\n    {{- include "kyverno-api.labels" . | nindent 4 }}\n  {{- end }}' charts/kyverno-api/templates/crds/*
 	@$(SED) -i '/controller-gen.kubebuilder.io/d' charts/kyverno-api/templates/crds/*
+	@$(SED) -i '/^spec:/a \ \ conversion:\n\ \ \ \ strategy: None' charts/kyverno-api/templates/crds/*
 
 .PHONY: helm-docs
 helm-docs: helm-chart $(HELM_DOCS) ## Generate helm docs
