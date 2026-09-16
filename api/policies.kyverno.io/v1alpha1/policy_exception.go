@@ -39,6 +39,15 @@ type PolicyExceptionSpec struct {
 	// +optional
 	MatchConditions []admissionregistrationv1.MatchCondition `json:"matchConditions,omitempty"`
 
+	// Validations are compensating controls that must be satisfied for this exception to be
+	// granted. They are evaluated only for resources that already matched MatchConditions.
+	// If any expression evaluates to false, the exception is not granted and the resource is
+	// rejected with that validation's message.
+	// Only honored for exceptions referencing a ValidatingPolicy.
+	// +optional
+	// +listType=atomic
+	Validations []admissionregistrationv1.Validation `json:"validations,omitempty"`
+
 	// Images specifies container images to be excluded from policy evaluation.
 	// These excluded images can be referenced in CEL expressions via `exceptions.allowedImages`.
 	// +optional
@@ -82,6 +91,12 @@ func (p *PolicyExceptionSpec) Validate(path *field.Path) (errs field.ErrorList) 
 	} else {
 		for i, policyRef := range p.PolicyRefs {
 			errs = append(errs, policyRef.Validate(path.Child("policyRefs").Index(i))...)
+		}
+	}
+	for i, validation := range p.Validations {
+		if validation.Expression == "" {
+			path := path.Child("validations").Index(i).Child("expression")
+			errs = append(errs, field.Invalid(path, validation.Expression, "must specify an expression"))
 		}
 	}
 	return errs

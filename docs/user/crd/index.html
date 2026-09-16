@@ -2140,6 +2140,24 @@ PolicyExceptionSpec
 </tr>
 <tr>
 <td>
+<code>validations</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#validation-v1-admissionregistration">
+[]Kubernetes admissionregistration/v1.Validation
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Validations are compensating controls that must be satisfied for this exception to be
+granted. They are evaluated only for resources that already matched MatchConditions.
+If any expression evaluates to false, the exception is not granted and the resource is
+rejected with that validation&rsquo;s message.
+Only honored for exceptions referencing a ValidatingPolicy.</p>
+</td>
+</tr>
+<tr>
+<td>
 <code>images</code><br/>
 <em>
 []string
@@ -3751,6 +3769,24 @@ PolicyExceptionSpec
 <td>
 <em>(Optional)</em>
 <p>MatchConditions is a list of CEL expressions that must be met for a resource to be excluded.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>validations</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#validation-v1-admissionregistration">
+[]Kubernetes admissionregistration/v1.Validation
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Validations are compensating controls that must be satisfied for this exception to be
+granted. They are evaluated only for resources that already matched MatchConditions.
+If any expression evaluates to false, the exception is not granted and the resource is
+rejected with that validation&rsquo;s message.
+Only honored for exceptions referencing a ValidatingPolicy.</p>
 </td>
 </tr>
 <tr>
@@ -6899,6 +6935,24 @@ Optional. Defaults to &ldquo;false&rdquo; if not specified.</p>
 </tr>
 <tr>
 <td>
+<code>validations</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#validation-v1-admissionregistration">
+[]Kubernetes admissionregistration/v1.Validation
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Validations are compensating controls that must be satisfied for this exception to be
+granted. They are evaluated only for resources that already matched MatchConditions.
+If any expression evaluates to false, the exception is not granted and the resource is
+rejected with that validation&rsquo;s message.
+Only honored for exceptions referencing a ValidatingPolicy.</p>
+</td>
+</tr>
+<tr>
+<td>
 <code>images</code><br/>
 <em>
 []string
@@ -10018,6 +10072,24 @@ PolicyExceptionSpec
 <td>
 <em>(Optional)</em>
 <p>MatchConditions is a list of CEL expressions that must be met for a resource to be excluded.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>validations</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#validation-v1-admissionregistration">
+[]Kubernetes admissionregistration/v1.Validation
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Validations are compensating controls that must be satisfied for this exception to be
+granted. They are evaluated only for resources that already matched MatchConditions.
+If any expression evaluates to false, the exception is not granted and the resource is
+rejected with that validation&rsquo;s message.
+Only honored for exceptions referencing a ValidatingPolicy.</p>
 </td>
 </tr>
 <tr>
