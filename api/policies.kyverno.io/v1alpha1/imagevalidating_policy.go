@@ -465,8 +465,16 @@ type Keyless struct {
 	// +kubebuilder:validation:Optional
 	Roots string `json:"roots,omitempty"`
 	// AdditionalExtensions are certificate-extensions used for keyless signing.
-	// +kubebuilder:validation:Optional
-	AdditionalExtensions map[string]string `json:"additionalExtensions,omitempty"`
+	// +optional
+	AdditionalExtensions *AdditionalExtensions `json:"additionalExtensions,omitempty"`
+}
+
+type AdditionalExtensions struct {
+	GithubWorkflowRepository *string `json:"githubWorkflowRepository,omitempty"`
+	GithubWorkflowName       *string `json:"githubWorkflowName,omitempty"`
+	GithubWorkflowRef        *string `json:"githubWorkflowRef,omitempty"`
+	GithubWorkflowSha        *string `json:"githubWorkflowSha,omitempty"`
+	GithubWorkflowTrigger    *string `json:"githubWorkflowTrigger,omitempty"`
 }
 
 // Certificate defines the configuration for local signature verification

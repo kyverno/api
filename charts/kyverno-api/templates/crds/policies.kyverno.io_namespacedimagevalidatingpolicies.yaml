@@ -216,10 +216,19 @@ spec:
                             authority against a Fulcio instance.
                           properties:
                             additionalExtensions:
-                              additionalProperties:
-                                type: string
                               description: AdditionalExtensions are certificate-extensions
                                 used for keyless signing.
+                              properties:
+                                githubWorkflowName:
+                                  type: string
+                                githubWorkflowRef:
+                                  type: string
+                                githubWorkflowRepository:
+                                  type: string
+                                githubWorkflowSha:
+                                  type: string
+                                githubWorkflowTrigger:
+                                  type: string
                               type: object
                             identities:
                               description: Identities sets a list of identities.
@@ -1326,11 +1335,20 @@ spec:
                                           instance.
                                         properties:
                                           additionalExtensions:
-                                            additionalProperties:
-                                              type: string
                                             description: AdditionalExtensions are
                                               certificate-extensions used for keyless
                                               signing.
+                                            properties:
+                                              githubWorkflowName:
+                                                type: string
+                                              githubWorkflowRef:
+                                                type: string
+                                              githubWorkflowRepository:
+                                                type: string
+                                              githubWorkflowSha:
+                                                type: string
+                                              githubWorkflowTrigger:
+                                                type: string
                                             type: object
                                           identities:
                                             description: Identities sets a list of
@@ -2586,10 +2604,19 @@ spec:
                             authority against a Fulcio instance.
                           properties:
                             additionalExtensions:
-                              additionalProperties:
-                                type: string
                               description: AdditionalExtensions are certificate-extensions
                                 used for keyless signing.
+                              properties:
+                                githubWorkflowName:
+                                  type: string
+                                githubWorkflowRef:
+                                  type: string
+                                githubWorkflowRepository:
+                                  type: string
+                                githubWorkflowSha:
+                                  type: string
+                                githubWorkflowTrigger:
+                                  type: string
                               type: object
                             identities:
                               description: Identities sets a list of identities.
@@ -3696,11 +3723,20 @@ spec:
                                           instance.
                                         properties:
                                           additionalExtensions:
-                                            additionalProperties:
-                                              type: string
                                             description: AdditionalExtensions are
                                               certificate-extensions used for keyless
                                               signing.
+                                            properties:
+                                              githubWorkflowName:
+                                                type: string
+                                              githubWorkflowRef:
+                                                type: string
+                                              githubWorkflowRepository:
+                                                type: string
+                                              githubWorkflowSha:
+                                                type: string
+                                              githubWorkflowTrigger:
+                                                type: string
                                             type: object
                                           identities:
                                             description: Identities sets a list of
