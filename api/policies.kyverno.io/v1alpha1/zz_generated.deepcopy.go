@@ -110,6 +110,11 @@ func (in *BackgroundConfiguration) DeepCopyInto(out *BackgroundConfiguration) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Interval != nil {
+		in, out := &in.Interval, &out.Interval
+		*out = new(v1.Duration)
+		**out = **in
+	}
 	return
 }
 
