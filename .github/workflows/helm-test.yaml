@@ -38,11 +38,11 @@ jobs:
           set -e
           export HELM=${{ steps.helm.outputs.helm-path }}
           make helm-install
-      # - name: Helm test
-      #   run: |
-      #     set -e
-      #     export HELM=${{ steps.helm.outputs.helm-path }}
-      #     make helm-test
+      - name: Helm test
+        run: |
+          set -e
+          export HELM=${{ steps.helm.outputs.helm-path }}
+          make helm-test
 
   linter-artifacthub:
     runs-on: ubuntu-latest
