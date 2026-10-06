@@ -32,6 +32,11 @@ func (p *PolicyException) IsExpired() bool {
 
 // PolicyExceptionSpec stores policy exception spec
 type PolicyExceptionSpec struct {
+	// Background controls if exceptions are applied to existing policies during a background scan.
+	// Optional. Default value is "true".
+	// +optional
+	Background *bool `json:"background,omitempty"`
+
 	// PolicyRefs identifies the policies to which the exception is applied.
 	PolicyRefs []PolicyRef `json:"policyRefs"`
 
@@ -82,6 +87,20 @@ type PolicyExceptionSpec struct {
 	// Evaluation mode denotes which controller is in charge of compiling and handling this exception.
 	// +optional
 	EvaluationMode EvaluationMode `json:"evaluationMode,omitempty"`
+}
+
+
+// BackgroundProcessingEnabled checks if background processing is enabled for this exception.
+func (p *PolicyExceptionSpec) BackgroundProcessingEnabled() bool {
+	if p.Background == nil {
+		return true
+	}
+	return *p.Background
+}
+
+// BackgroundProcessingEnabled checks if background processing is enabled for this exception.
+func (p *PolicyException) BackgroundProcessingEnabled() bool {
+	return p.Spec.BackgroundProcessingEnabled()
 }
 
 // Validate implements programmatic validation

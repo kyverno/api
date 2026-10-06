@@ -39,6 +39,12 @@ func (p *PolicyException) IsExpired() bool {
 	return time.Now().After(p.Spec.ExpiresAt.Time)
 }
 
+
+// BackgroundProcessingEnabled checks if background processing is enabled for this exception.
+func (p *PolicyException) BackgroundProcessingEnabled() bool {
+	return p.Spec.BackgroundProcessingEnabled()
+}
+
 // Validate implements programmatic validation
 func (p *PolicyException) Validate() (errs field.ErrorList) {
 	errs = append(errs, p.Spec.Validate(field.NewPath("spec"))...)
