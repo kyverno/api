@@ -159,3 +159,48 @@ func TestCELPolicyExceptionSpec_Properties(t *testing.T) {
 	assert.Equal(t, field.ErrorList(nil), policy.Validate())
 	assert.Equal(t, "alice,bob,carol", policy.Spec.Properties["approved-by"])
 }
+
+
+func TestCELPolicyException_BackgroundProcessingEnabled(t *testing.T) {
+	boolTrue := true
+	boolFalse := false
+
+	tests := []struct {
+		name     string
+		policy   *PolicyException
+		expected bool
+	}{
+		{
+			name: "background not set (nil) defaults to true",
+			policy: &PolicyException{
+				Spec: PolicyExceptionSpec{},
+			},
+			expected: true,
+		},
+		{
+			name: "background explicitly set to true",
+			policy: &PolicyException{
+				Spec: PolicyExceptionSpec{
+					Background: &boolTrue,
+				},
+			},
+			expected: true,
+		},
+		{
+			name: "background explicitly set to false",
+			policy: &PolicyException{
+				Spec: PolicyExceptionSpec{
+					Background: &boolFalse,
+				},
+			},
+			expected: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.expected, tt.policy.BackgroundProcessingEnabled())
+			assert.Equal(t, tt.expected, tt.policy.Spec.BackgroundProcessingEnabled())
+		})
+	}
+}
