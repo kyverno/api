@@ -51,7 +51,7 @@ type ImageValidatingPolicyList struct {
 }
 
 // CredentialsProvidersType provides the list of credential providers required.
-// +kubebuilder:validation:Enum=default;amazon;azure;google;github
+// +kubebuilder:validation:Enum=default;amazon;azure;google;github;alibabacloud
 type CredentialsProvidersType string
 
 const (
@@ -60,6 +60,7 @@ const (
 	ACR     CredentialsProvidersType = "azure"
 	GCP     CredentialsProvidersType = "google"
 	GHCR    CredentialsProvidersType = "github"
+	ALIBABA CredentialsProvidersType = "alibabacloud"
 )
 
 // ImageValidatingPolicySpec is the specification of the desired behavior of the ImageValidatingPolicy.
@@ -248,7 +249,7 @@ type Credentials struct {
 	AllowInsecureRegistry bool `json:"allowInsecureRegistry,omitempty"`
 
 	// Providers specifies a list of OCI Registry names, whose authentication providers are provided.
-	// It can be of one of these values: default,google,azure,amazon,github.
+	// It can be of one of these values: default,google,azure,amazon,github,alibabacloud.
 	// +optional
 	Providers []CredentialsProvidersType `json:"providers,omitempty"`
 
