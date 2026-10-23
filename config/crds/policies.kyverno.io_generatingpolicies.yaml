@@ -113,6 +113,15 @@ spec:
                           Optional. Default value is "true".
                         type: boolean
                     type: object
+                  downstreamOwnership:
+                    default: Trigger
+                    description: |-
+                      DownstreamOwnership controls which triggers can manage generated resources.
+                      Optional. Defaults to "Trigger" if not specified.
+                    enum:
+                    - Trigger
+                    - Policy
+                    type: string
                   generateExisting:
                     description: GenerateExisting defines the configuration for generating
                       resources for existing triggeres.
@@ -822,6 +831,15 @@ spec:
                           Optional. Default value is "true".
                         type: boolean
                     type: object
+                  downstreamOwnership:
+                    default: Trigger
+                    description: |-
+                      DownstreamOwnership controls which triggers can manage generated resources.
+                      Optional. Defaults to "Trigger" if not specified.
+                    enum:
+                    - Trigger
+                    - Policy
+                    type: string
                   generateExisting:
                     description: GenerateExisting defines the configuration for generating
                       resources for existing triggeres.
@@ -1530,6 +1548,15 @@ spec:
                           Optional. Default value is "true".
                         type: boolean
                     type: object
+                  downstreamOwnership:
+                    default: Trigger
+                    description: |-
+                      DownstreamOwnership controls which triggers can manage generated resources.
+                      Optional. Defaults to "Trigger" if not specified.
+                    enum:
+                    - Trigger
+                    - Policy
+                    type: string
                   generateExisting:
                     description: GenerateExisting defines the configuration for generating
                       resources for existing triggeres.

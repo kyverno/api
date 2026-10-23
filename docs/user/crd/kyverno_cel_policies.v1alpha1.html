@@ -4988,6 +4988,21 @@ Required.</p>
     </table>
   
 
+  <H3 id="policies-kyverno-io-v1alpha1-DownstreamOwnership">DownstreamOwnership
+    (<code>string</code> alias)</p></H3>
+
+  
+    <p>
+      (<em>Appears in:</em>
+        <a href="#policies-kyverno-io-v1alpha1-GeneratingPolicyEvaluationConfiguration">GeneratingPolicyEvaluationConfiguration</a>)
+    </p>
+  
+
+  <p><p>DownstreamOwnership controls which triggers can manage a generated resource.</p>
+</p>
+
+  
+
   <H3 id="policies-kyverno-io-v1alpha1-EvaluationConfiguration">EvaluationConfiguration
     </H3>
 
@@ -5301,6 +5316,36 @@ Optional. Defaults to &quot;false&quot; if not specified.</p>
           
 
           <p>Synchronization defines the configuration for the synchronization of generated resources.</p>
+
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+    
+    
+      <tr>
+        <td><code>downstreamOwnership</code>
+          
+          </br>
+
+          
+          
+            
+              <a href="#policies-kyverno-io-v1alpha1-DownstreamOwnership">
+                <span style="font-family: monospace">DownstreamOwnership</span>
+              </a>
+            
+          
+        </td>
+        <td>
+          
+
+          <p>DownstreamOwnership controls which triggers can manage generated resources.
+Optional. Defaults to &quot;Trigger&quot; if not specified.</p>
 
 
           

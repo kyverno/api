@@ -101,6 +101,16 @@ type GeneratingPolicySpec struct {
 	UseServerSideApply bool `json:"useServerSideApply,omitempty"`
 }
 
+// DownstreamOwnership controls which triggers can manage a generated resource.
+type DownstreamOwnership string
+
+const (
+	// DownstreamOwnershipTrigger restricts ownership to the trigger that created the resource.
+	DownstreamOwnershipTrigger DownstreamOwnership = "Trigger"
+	// DownstreamOwnershipPolicy allows any matching trigger of the policy to manage the resource.
+	DownstreamOwnershipPolicy DownstreamOwnership = "Policy"
+)
+
 type GeneratingPolicyEvaluationConfiguration struct {
 	// Admission controls policy evaluation during admission.
 	// +optional
@@ -113,6 +123,13 @@ type GeneratingPolicyEvaluationConfiguration struct {
 	// Synchronization defines the configuration for the synchronization of generated resources.
 	// +optional
 	SynchronizationConfiguration *SynchronizationConfiguration `json:"synchronize,omitempty"`
+
+	// DownstreamOwnership controls which triggers can manage generated resources.
+	// Optional. Defaults to "Trigger" if not specified.
+	// +kubebuilder:default=Trigger
+	// +optional
+	// +kubebuilder:validation:Enum=Trigger;Policy
+	DownstreamOwnership DownstreamOwnership `json:"downstreamOwnership,omitempty"`
 
 	// OrphanDownstreamOnPolicyDelete defines the configuration for orphaning downstream resources on policy delete.
 	OrphanDownstreamOnPolicyDelete *OrphanDownstreamOnPolicyDeleteConfiguration `json:"orphanDownstreamOnPolicyDelete,omitempty"`

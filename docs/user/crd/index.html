@@ -4885,6 +4885,15 @@ Kubernetes meta/v1.Time
 </tbody>
 </table>
 <hr />
+<h3 id="policies.kyverno.io/v1alpha1.DownstreamOwnership">DownstreamOwnership
+(<code>string</code> alias)</p></h3>
+<p>
+(<em>Appears on:</em>
+<a href="#policies.kyverno.io/v1alpha1.GeneratingPolicyEvaluationConfiguration">GeneratingPolicyEvaluationConfiguration</a>)
+</p>
+<p>
+<p>DownstreamOwnership controls which triggers can manage a generated resource.</p>
+</p>
 <h3 id="policies.kyverno.io/v1alpha1.EvaluationConfiguration">EvaluationConfiguration
 </h3>
 <p>
@@ -5036,6 +5045,21 @@ SynchronizationConfiguration
 <td>
 <em>(Optional)</em>
 <p>Synchronization defines the configuration for the synchronization of generated resources.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>downstreamOwnership</code><br/>
+<em>
+<a href="#policies.kyverno.io/v1alpha1.DownstreamOwnership">
+DownstreamOwnership
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>DownstreamOwnership controls which triggers can manage generated resources.
+Optional. Defaults to &ldquo;Trigger&rdquo; if not specified.</p>
 </td>
 </tr>
 <tr>
