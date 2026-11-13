@@ -2699,6 +2699,8 @@ GeneratingPolicyStatus
 </p>
 Resource Types:
 <ul><li>
+<a href="#policies.kyverno.io/v1alpha1.AuthorizingPolicy">AuthorizingPolicy</a>
+</li><li>
 <a href="#policies.kyverno.io/v1alpha1.DeletingPolicy">DeletingPolicy</a>
 </li><li>
 <a href="#policies.kyverno.io/v1alpha1.GeneratingPolicy">GeneratingPolicy</a>
@@ -2711,6 +2713,150 @@ Resource Types:
 </li><li>
 <a href="#policies.kyverno.io/v1alpha1.ValidatingPolicy">ValidatingPolicy</a>
 </li></ul>
+<hr />
+<h3 id="policies.kyverno.io/v1alpha1.AuthorizingPolicy">AuthorizingPolicy
+</h3>
+<p>
+<p>AuthorizingPolicy is an alpha, cluster-scoped policy that the Kyverno authorization webhook
+evaluates for SubjectAccessReview requests. Rules from all applicable AuthorizingPolicy
+objects are merged into one unordered set and combined with Deny &gt; NoOpinion &gt; Allow
+precedence. Rule expressions that depend on the request object are automatically turned
+into conditional decisions that Kubernetes enforces during admission.</p>
+<p>Creating or updating an AuthorizingPolicy is equivalent to holding cluster-admin
+permissions, because an Allow rule can grant any permission to any subject. Restrict
+write access to this resource to cluster administrators.</p>
+</p>
+<table class="table table-striped">
+<thead class="thead-dark">
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>apiVersion</code><br/>
+string</td>
+<td>
+<code>
+policies.kyverno.io/v1alpha1
+</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>kind</code><br/>
+string
+</td>
+<td><code>AuthorizingPolicy</code></td>
+</tr>
+<tr>
+<td>
+<code>metadata</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#objectmeta-v1-meta">
+Kubernetes meta/v1.ObjectMeta
+</a>
+</em>
+</td>
+<td>
+Refer to the Kubernetes API documentation for the fields of the
+<code>metadata</code> field.
+</td>
+</tr>
+<tr>
+<td>
+<code>spec</code><br/>
+<em>
+<a href="#policies.kyverno.io/v1alpha1.AuthorizingPolicySpec">
+AuthorizingPolicySpec
+</a>
+</em>
+</td>
+<td>
+<br/>
+<br/>
+<table class="table table-striped">
+<tr>
+<td>
+<code>matchSubjects</code><br/>
+<em>
+<a href="#policies.kyverno.io/v1alpha1.SubjectSelectorTerm">
+[]SubjectSelectorTerm
+</a>
+</em>
+</td>
+<td>
+<p>MatchSubjects selects the subjects (users, groups, and service accounts) this policy applies to.
+The policy applies to a request when ANY term matches. Enrollment is explicit: an empty or
+omitted list is invalid. To select every subject, use a term with the requirement
+<code>{key: user, operator: In, values: [&quot;*&quot;]}</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>matchResources</code><br/>
+<em>
+<a href="#policies.kyverno.io/v1alpha1.AuthorizingMatchResources">
+AuthorizingMatchResources
+</a>
+</em>
+</td>
+<td>
+<p>MatchResources selects the resource and non-resource requests this policy applies to.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>variables</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#variable-v1-admissionregistration">
+[]Kubernetes admissionregistration/v1.Variable
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Variables contain definitions of variables that can be used in composition of other expressions.
+Each variable is defined as a named CEL expression and is available under <code>variables</code> in rule
+expressions. The expression of a variable can refer to other variables defined earlier in the
+list but not those after.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>rules</code><br/>
+<em>
+<a href="#policies.kyverno.io/v1alpha1.AuthorizingRule">
+[]AuthorizingRule
+</a>
+</em>
+</td>
+<td>
+<p>Rules is an unordered set of authorization rules. Rule order has no effect: rules from all
+applicable policies are merged and combined with Deny &gt; NoOpinion &gt; Allow precedence.</p>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td>
+<code>status</code><br/>
+<em>
+<a href="#policies.kyverno.io/v1alpha1.AuthorizingPolicyStatus">
+AuthorizingPolicyStatus
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Status contains policy runtime data.</p>
+</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h3 id="policies.kyverno.io/v1alpha1.DeletingPolicy">DeletingPolicy
 </h3>
@@ -4286,6 +4432,548 @@ Notary
 </tbody>
 </table>
 <hr />
+<h3 id="policies.kyverno.io/v1alpha1.AuthorizationNonResourceAttributes">AuthorizationNonResourceAttributes
+</h3>
+<p>
+<p>AuthorizationNonResourceAttributes holds the non-resource attributes of an authorization request.</p>
+</p>
+<table class="table table-striped">
+<thead class="thead-dark">
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>Path</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>Verb</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="policies.kyverno.io/v1alpha1.AuthorizationResourceAttributes">AuthorizationResourceAttributes
+</h3>
+<p>
+<p>AuthorizationResourceAttributes holds the resource attributes of an authorization request.</p>
+</p>
+<table class="table table-striped">
+<thead class="thead-dark">
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>APIGroup</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>APIVersion</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>Resource</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>Subresource</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>Namespace</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>Name</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>Verb</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="policies.kyverno.io/v1alpha1.AuthorizationSubject">AuthorizationSubject
+</h3>
+<p>
+<p>AuthorizationSubject holds the subject attributes of an authorization request.</p>
+</p>
+<table class="table table-striped">
+<thead class="thead-dark">
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>User</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>Groups</code><br/>
+<em>
+[]string
+</em>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="policies.kyverno.io/v1alpha1.AuthorizingMatchResources">AuthorizingMatchResources
+</h3>
+<p>
+(<em>Appears on:</em>
+<a href="#policies.kyverno.io/v1alpha1.AuthorizingPolicySpec">AuthorizingPolicySpec</a>)
+</p>
+<p>
+<p>AuthorizingMatchResources selects the requests a policy applies to. A request matches when it
+matches ANY resource rule (resource requests) or ANY non-resource rule (non-resource requests).</p>
+</p>
+<table class="table table-striped">
+<thead class="thead-dark">
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>resourceRules</code><br/>
+<em>
+<a href="#policies.kyverno.io/v1alpha1.AuthorizingResourceRule">
+[]AuthorizingResourceRule
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>ResourceRules selects resource requests.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>nonResourceRules</code><br/>
+<em>
+<a href="#policies.kyverno.io/v1alpha1.AuthorizingNonResourceRule">
+[]AuthorizingNonResourceRule
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>NonResourceRules selects non-resource requests, such as /healthz or /metrics.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="policies.kyverno.io/v1alpha1.AuthorizingNonResourceRule">AuthorizingNonResourceRule
+</h3>
+<p>
+(<em>Appears on:</em>
+<a href="#policies.kyverno.io/v1alpha1.AuthorizingMatchResources">AuthorizingMatchResources</a>)
+</p>
+<p>
+<p>AuthorizingNonResourceRule selects non-resource requests. All fields must match.</p>
+</p>
+<table class="table table-striped">
+<thead class="thead-dark">
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>paths</code><br/>
+<em>
+[]string
+</em>
+</td>
+<td>
+<p>Paths is the list of non-resource URL paths. A path matches exactly, or a path ending in
+&ldquo;*&rdquo; matches every path with that prefix.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>verbs</code><br/>
+<em>
+[]string
+</em>
+</td>
+<td>
+<p>Verbs is the list of lowercase HTTP verbs, such as get, post, put, or delete. &ldquo;*&rdquo; matches all verbs.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="policies.kyverno.io/v1alpha1.AuthorizingPolicySpec">AuthorizingPolicySpec
+</h3>
+<p>
+(<em>Appears on:</em>
+<a href="#policies.kyverno.io/v1alpha1.AuthorizingPolicy">AuthorizingPolicy</a>)
+</p>
+<p>
+<p>AuthorizingPolicySpec is the specification of the desired behavior of the AuthorizingPolicy.</p>
+</p>
+<table class="table table-striped">
+<thead class="thead-dark">
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>matchSubjects</code><br/>
+<em>
+<a href="#policies.kyverno.io/v1alpha1.SubjectSelectorTerm">
+[]SubjectSelectorTerm
+</a>
+</em>
+</td>
+<td>
+<p>MatchSubjects selects the subjects (users, groups, and service accounts) this policy applies to.
+The policy applies to a request when ANY term matches. Enrollment is explicit: an empty or
+omitted list is invalid. To select every subject, use a term with the requirement
+<code>{key: user, operator: In, values: [&quot;*&quot;]}</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>matchResources</code><br/>
+<em>
+<a href="#policies.kyverno.io/v1alpha1.AuthorizingMatchResources">
+AuthorizingMatchResources
+</a>
+</em>
+</td>
+<td>
+<p>MatchResources selects the resource and non-resource requests this policy applies to.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>variables</code><br/>
+<em>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#variable-v1-admissionregistration">
+[]Kubernetes admissionregistration/v1.Variable
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Variables contain definitions of variables that can be used in composition of other expressions.
+Each variable is defined as a named CEL expression and is available under <code>variables</code> in rule
+expressions. The expression of a variable can refer to other variables defined earlier in the
+list but not those after.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>rules</code><br/>
+<em>
+<a href="#policies.kyverno.io/v1alpha1.AuthorizingRule">
+[]AuthorizingRule
+</a>
+</em>
+</td>
+<td>
+<p>Rules is an unordered set of authorization rules. Rule order has no effect: rules from all
+applicable policies are merged and combined with Deny &gt; NoOpinion &gt; Allow precedence.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="policies.kyverno.io/v1alpha1.AuthorizingPolicyStatus">AuthorizingPolicyStatus
+</h3>
+<p>
+(<em>Appears on:</em>
+<a href="#policies.kyverno.io/v1alpha1.AuthorizingPolicy">AuthorizingPolicy</a>)
+</p>
+<p>
+<p>AuthorizingPolicyStatus is the status of an AuthorizingPolicy.</p>
+</p>
+<table class="table table-striped">
+<thead class="thead-dark">
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>conditionStatus</code><br/>
+<em>
+<a href="#policies.kyverno.io/v1alpha1.ConditionStatus">
+ConditionStatus
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="policies.kyverno.io/v1alpha1.AuthorizingResourceRule">AuthorizingResourceRule
+</h3>
+<p>
+(<em>Appears on:</em>
+<a href="#policies.kyverno.io/v1alpha1.AuthorizingMatchResources">AuthorizingMatchResources</a>)
+</p>
+<p>
+<p>AuthorizingResourceRule selects resource requests. All set fields must match.</p>
+</p>
+<table class="table table-striped">
+<thead class="thead-dark">
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>apiGroups</code><br/>
+<em>
+[]string
+</em>
+</td>
+<td>
+<p>APIGroups is the list of API groups. &ldquo;&rdquo; is the core API group and &ldquo;*&rdquo; matches all groups.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>apiVersions</code><br/>
+<em>
+[]string
+</em>
+</td>
+<td>
+<p>APIVersions is the list of API versions. &ldquo;*&rdquo; matches all versions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>resources</code><br/>
+<em>
+[]string
+</em>
+</td>
+<td>
+<p>Resources is the list of resources, using the same syntax as admission rules:
+&ldquo;pods&rdquo; matches pods but not its subresources, &ldquo;pods/exec&rdquo; matches one subresource,
+&ldquo;pods/<em>&rdquo; matches pods and all of its subresources, &ldquo;</em>/scale&rdquo; matches the scale subresource
+of every resource, &ldquo;<em>&rdquo; matches every resource but no subresources, and &ldquo;</em>/*&rdquo; matches everything.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>verbs</code><br/>
+<em>
+[]string
+</em>
+</td>
+<td>
+<p>Verbs is the list of authorization verbs, such as get, list, watch, create, update, patch,
+delete, deletecollection, impersonate, bind, or escalate. &ldquo;*&rdquo; matches all verbs.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>namespaces</code><br/>
+<em>
+[]string
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Namespaces restricts the rule to requests in the listed namespaces. &ldquo;*&rdquo; matches any
+non-empty namespace. When omitted, the rule matches namespaced, cluster-scoped, and
+all-namespace requests. When set, cluster-scoped and all-namespace requests never match.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>resourceNames</code><br/>
+<em>
+[]string
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>ResourceNames restricts the rule to requests for the listed object names. When omitted,
+any name matches. When set, requests without a name (such as create, list, watch, or
+deletecollection) never match.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="policies.kyverno.io/v1alpha1.AuthorizingRule">AuthorizingRule
+</h3>
+<p>
+(<em>Appears on:</em>
+<a href="#policies.kyverno.io/v1alpha1.AuthorizingPolicySpec">AuthorizingPolicySpec</a>)
+</p>
+<p>
+<p>AuthorizingRule is one authorization rule.</p>
+<p>The expression has access to <code>request</code> (the SubjectAccessReview spec), <code>variables</code>, and
+<code>object</code> and <code>oldObject</code> (the admission objects). When the result depends on <code>object</code> or
+<code>oldObject</code>, Kyverno returns a conditional decision that Kubernetes evaluates during
+admission; users do not author separate authorization and admission conditions.</p>
+<p>When the expression evaluates to an error, Deny and NoOpinion rules take effect and Allow
+rules do not.</p>
+</p>
+<table class="table table-striped">
+<thead class="thead-dark">
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>name</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+<p>Name uniquely identifies the rule within the policy. It is a stable identifier used in
+decision reasons and condition IDs (<code>&lt;policy name&gt;/&lt;rule name&gt;</code>).</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>effect</code><br/>
+<em>
+<a href="#policies.kyverno.io/v1alpha1.AuthorizingRuleEffect">
+AuthorizingRuleEffect
+</a>
+</em>
+</td>
+<td>
+<p>Effect is the decision the rule contributes when its expression evaluates to true.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>expression</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+<p>Expression is a CEL expression that must evaluate to a bool.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>description</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Description is a human-readable explanation, returned with conditional decisions and used in reasons.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="policies.kyverno.io/v1alpha1.AuthorizingRuleEffect">AuthorizingRuleEffect
+(<code>string</code> alias)</p></h3>
+<p>
+(<em>Appears on:</em>
+<a href="#policies.kyverno.io/v1alpha1.AuthorizingRule">AuthorizingRule</a>)
+</p>
+<p>
+<p>AuthorizingRuleEffect is the effect of a rule whose expression evaluates to true.</p>
+</p>
 <h3 id="policies.kyverno.io/v1alpha1.BackgroundConfiguration">BackgroundConfiguration
 </h3>
 <p>
@@ -4468,6 +5156,7 @@ parent intermediate CA certificate of the signing certificate and end with the r
 </h3>
 <p>
 (<em>Appears on:</em>
+<a href="#policies.kyverno.io/v1alpha1.AuthorizingPolicyStatus">AuthorizingPolicyStatus</a>, 
 <a href="#policies.kyverno.io/v1alpha1.DeletingPolicyStatus">DeletingPolicyStatus</a>, 
 <a href="#policies.kyverno.io/v1alpha1.GeneratingPolicyStatus">GeneratingPolicyStatus</a>, 
 <a href="#policies.kyverno.io/v1alpha1.ImageValidatingPolicyStatus">ImageValidatingPolicyStatus</a>, 
@@ -7224,6 +7913,126 @@ string
 <td>
 <em>(Optional)</em>
 <p>Expression defines the a CEL expression input.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="policies.kyverno.io/v1alpha1.SubjectSelectorKey">SubjectSelectorKey
+(<code>string</code> alias)</p></h3>
+<p>
+(<em>Appears on:</em>
+<a href="#policies.kyverno.io/v1alpha1.SubjectSelectorRequirement">SubjectSelectorRequirement</a>)
+</p>
+<p>
+<p>SubjectSelectorKey is the subject attribute a requirement applies to.</p>
+</p>
+<h3 id="policies.kyverno.io/v1alpha1.SubjectSelectorOperator">SubjectSelectorOperator
+(<code>string</code> alias)</p></h3>
+<p>
+(<em>Appears on:</em>
+<a href="#policies.kyverno.io/v1alpha1.SubjectSelectorRequirement">SubjectSelectorRequirement</a>)
+</p>
+<p>
+<p>SubjectSelectorOperator is a set operator for subject requirements.</p>
+</p>
+<h3 id="policies.kyverno.io/v1alpha1.SubjectSelectorRequirement">SubjectSelectorRequirement
+</h3>
+<p>
+(<em>Appears on:</em>
+<a href="#policies.kyverno.io/v1alpha1.SubjectSelectorTerm">SubjectSelectorTerm</a>)
+</p>
+<p>
+<p>SubjectSelectorRequirement is a selector requirement over a subject attribute.</p>
+<p>Semantics by key:
+- user: In matches when the user name is in values; NotIn matches when it is not.
+Exists and DoesNotExist are invalid.
+- groups: In matches when the user is a member of ANY listed group; NotIn matches when the
+user is a member of NONE of the listed groups; Exists matches when the user has at least one
+group; DoesNotExist matches when the user has no groups.
+- serviceAccount: In matches a service account whose <code>&lt;namespace&gt;/&lt;name&gt;</code> is in values;
+NotIn matches a non-service-account user or a service account not in values; Exists matches
+any service account; DoesNotExist matches any user that is not a service account.</p>
+<p>The wildcard value &ldquo;*&rdquo; matches any value and is only valid as the single value of an In requirement.
+Matching is exact and case-sensitive.</p>
+</p>
+<table class="table table-striped">
+<thead class="thead-dark">
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>key</code><br/>
+<em>
+<a href="#policies.kyverno.io/v1alpha1.SubjectSelectorKey">
+SubjectSelectorKey
+</a>
+</em>
+</td>
+<td>
+<p>Key is the subject attribute: user, groups, or serviceAccount.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>operator</code><br/>
+<em>
+<a href="#policies.kyverno.io/v1alpha1.SubjectSelectorOperator">
+SubjectSelectorOperator
+</a>
+</em>
+</td>
+<td>
+<p>Operator is one of In, NotIn, Exists, or DoesNotExist.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>values</code><br/>
+<em>
+[]string
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Values is the set of values for In and NotIn. It must be empty for Exists and DoesNotExist.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="policies.kyverno.io/v1alpha1.SubjectSelectorTerm">SubjectSelectorTerm
+</h3>
+<p>
+(<em>Appears on:</em>
+<a href="#policies.kyverno.io/v1alpha1.AuthorizingPolicySpec">AuthorizingPolicySpec</a>)
+</p>
+<p>
+<p>SubjectSelectorTerm matches a subject when ALL of its requirements match.</p>
+</p>
+<table class="table table-striped">
+<thead class="thead-dark">
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>matchExpressions</code><br/>
+<em>
+<a href="#policies.kyverno.io/v1alpha1.SubjectSelectorRequirement">
+[]SubjectSelectorRequirement
+</a>
+</em>
+</td>
+<td>
+<p>MatchExpressions is a list of subject requirements that are ANDed.</p>
 </td>
 </tr>
 </tbody>

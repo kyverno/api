@@ -1,6 +1,7 @@
 package policieskyvernoio
 
 const (
+	AuthorizingPolicyKind     = "AuthorizingPolicy"
 	DeletingPolicyKind        = "DeletingPolicy"
 	GeneratingPolicyKind      = "GeneratingPolicy"
 	ImageValidatingPolicyKind = "ImageValidatingPolicy"
