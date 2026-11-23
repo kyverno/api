@@ -90,8 +90,43 @@ func TestCELPolicyExceptionSpec_Validate(t *testing.T) {
 			BadValue: "",
 			Detail:   "must specify policy name",
 		}},
+	}, {
+		name: "namespaced ref without namespaces",
+		policy: &PolicyException{
+			Spec: PolicyExceptionSpec{
+				PolicyRefs: []PolicyRef{{Name: "foo", Kind: "ValidatingPolicy"}, {Name: "bar", Kind: "NamespacedValidatingPolicy"}},
+			},
+		},
+		wantErrs: field.ErrorList{{
+			Type:     field.ErrorTypeRequired,
+			Field:    "spec.namespaces",
+			BadValue: "",
+			Detail:   "must be set when policyRefs[1] references a namespaced policy",
+		}},
+	}, {
+		name: "namespaced ref with namespaces",
+		policy: &PolicyException{
+			Spec: PolicyExceptionSpec{
+				Namespaces: []string{"tenant-a"},
+				PolicyRefs: []PolicyRef{{Name: "foo", Kind: "ValidatingPolicy"}, {Name: "bar", Kind: "NamespacedValidatingPolicy"}},
+			},
+		},
+		wantErrs: nil,
+	}, {
+		name: "invalid namespace entry",
+		policy: &PolicyException{
+			Spec: PolicyExceptionSpec{
+				Namespaces: []string{"*"},
+				PolicyRefs: []PolicyRef{{Name: "bar", Kind: "NamespacedValidatingPolicy"}},
+			},
+		},
+		wantErrs: field.ErrorList{{
+			Type:     field.ErrorTypeInvalid,
+			Field:    "spec.namespaces[0]",
+			BadValue: "*",
+			Detail:   "a lowercase RFC 1123 label must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character (e.g. 'my-name',  or '123-abc', regex used for validation is '[a-z0-9]([-a-z0-9]*[a-z0-9])?')",
+		}},
 	},
-	// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

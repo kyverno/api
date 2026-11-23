@@ -1460,6 +1460,11 @@ func (in *PolicyExceptionSpec) DeepCopyInto(out *PolicyExceptionSpec) {
 		*out = make([]PolicyRef, len(*in))
 		copy(*out, *in)
 	}
+	if in.Namespaces != nil {
+		in, out := &in.Namespaces, &out.Namespaces
+		*out = make([]string, len(*in))
+		copy(*out, *in)
+	}
 	if in.MatchConditions != nil {
 		in, out := &in.MatchConditions, &out.MatchConditions
 		*out = make([]admissionregistrationv1.MatchCondition, len(*in))
