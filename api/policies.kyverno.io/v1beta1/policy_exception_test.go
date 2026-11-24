@@ -19,7 +19,7 @@ func TestCELPolicyException_GetKind(t *testing.T) {
 		policy: &PolicyException{},
 		want:   "PolicyException",
 	}, {
-		name: "not set",
+		name: "kind overridden",
 		policy: &PolicyException{
 			TypeMeta: v1.TypeMeta{
 				Kind: "Foo",
@@ -90,9 +90,50 @@ func TestCELPolicyExceptionSpec_Validate(t *testing.T) {
 			BadValue: "",
 			Detail:   "must specify policy name",
 		}},
-	},
-	// TODO: Add test cases.
-	}
+	}, {
+		name: "ref no kind and name",
+		policy: &PolicyException{
+			Spec: PolicyExceptionSpec{
+				PolicyRefs: []PolicyRef{{}},
+			},
+		},
+		wantErrs: field.ErrorList{{
+			Type:     field.ErrorTypeInvalid,
+			Field:    "spec.policyRefs[0].name",
+			BadValue: "",
+			Detail:   "must specify policy name",
+		}, {
+			Type:     field.ErrorTypeInvalid,
+			Field:    "spec.policyRefs[0].kind",
+			BadValue: "",
+			Detail:   "must specify policy kind",
+		}},
+	}, {
+		name: "multiple refs with indexed errors",
+		policy: &PolicyException{
+			Spec: PolicyExceptionSpec{
+				PolicyRefs: []PolicyRef{{
+					Name: "foo",
+					Kind: "Foo",
+				}, {
+					Name: "bar",
+				}, {
+					Kind: "Baz",
+				}},
+			},
+		},
+		wantErrs: field.ErrorList{{
+			Type:     field.ErrorTypeInvalid,
+			Field:    "spec.policyRefs[1].kind",
+			BadValue: "",
+			Detail:   "must specify policy kind",
+		}, {
+			Type:     field.ErrorTypeInvalid,
+			Field:    "spec.policyRefs[2].name",
+			BadValue: "",
+			Detail:   "must specify policy name",
+		}},
+	}}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			gotErrs := tt.policy.Validate()
@@ -100,7 +141,6 @@ func TestCELPolicyExceptionSpec_Validate(t *testing.T) {
 		})
 	}
 }
-
 func TestCELPolicyException_IsExpired(t *testing.T) {
 	tests := []struct {
 		name     string
