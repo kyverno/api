@@ -19,7 +19,7 @@ func TestCELPolicyException_GetKind(t *testing.T) {
 		policy: &PolicyException{},
 		want:   "PolicyException",
 	}, {
-		name: "not set",
+		name: "kind overridden",
 		policy: &PolicyException{
 			TypeMeta: v1.TypeMeta{
 				Kind: "Foo",
@@ -91,6 +91,49 @@ func TestCELPolicyExceptionSpec_Validate(t *testing.T) {
 			Detail:   "must specify policy name",
 		}},
 	}, {
+		name: "ref no kind and name",
+		policy: &PolicyException{
+			Spec: PolicyExceptionSpec{
+				PolicyRefs: []PolicyRef{{}},
+			},
+		},
+		wantErrs: field.ErrorList{{
+			Type:     field.ErrorTypeInvalid,
+			Field:    "spec.policyRefs[0].name",
+			BadValue: "",
+			Detail:   "must specify policy name",
+		}, {
+			Type:     field.ErrorTypeInvalid,
+			Field:    "spec.policyRefs[0].kind",
+			BadValue: "",
+			Detail:   "must specify policy kind",
+		}},
+	}, {
+		name: "multiple refs with indexed errors",
+		policy: &PolicyException{
+			Spec: PolicyExceptionSpec{
+				PolicyRefs: []PolicyRef{{
+					Name: "foo",
+					Kind: "Foo",
+				}, {
+					Name: "bar",
+				}, {
+					Kind: "Baz",
+				}},
+			},
+		},
+		wantErrs: field.ErrorList{{
+			Type:     field.ErrorTypeInvalid,
+			Field:    "spec.policyRefs[1].kind",
+			BadValue: "",
+			Detail:   "must specify policy kind",
+		}, {
+			Type:     field.ErrorTypeInvalid,
+			Field:    "spec.policyRefs[2].name",
+			BadValue: "",
+			Detail:   "must specify policy name",
+		}},
+	}, {
 		name: "namespaced ref without namespaces",
 		policy: &PolicyException{
 			Spec: PolicyExceptionSpec{
@@ -126,8 +169,7 @@ func TestCELPolicyExceptionSpec_Validate(t *testing.T) {
 			BadValue: "*",
 			Detail:   "a lowercase RFC 1123 label must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character (e.g. 'my-name',  or '123-abc', regex used for validation is '[a-z0-9]([-a-z0-9]*[a-z0-9])?')",
 		}},
-	},
-	}
+	}}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			gotErrs := tt.policy.Validate()
@@ -135,7 +177,6 @@ func TestCELPolicyExceptionSpec_Validate(t *testing.T) {
 		})
 	}
 }
-
 func TestCELPolicyException_IsExpired(t *testing.T) {
 	tests := []struct {
 		name     string
