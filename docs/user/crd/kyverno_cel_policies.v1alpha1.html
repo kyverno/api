@@ -2539,6 +2539,35 @@ Required.</p>
     
     
       <tr>
+        <td><code>namespaces</code>
+          
+          </br>
+
+          
+          
+            
+              <span style="font-family: monospace">[]string</span>
+            
+          
+        </td>
+        <td>
+          
+
+          <p>Namespaces lists the namespaces of the namespaced policies this exception applies to.
+Required when any policyRef targets a namespaced policy kind; ignored for cluster-scoped policies.
+The exception must still be accepted by the exceptionNamespace setting, so this field only narrows its reach.</p>
+
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+    
+    
+      <tr>
         <td><code>matchConditions</code>
           
           </br>
@@ -8944,6 +8973,35 @@ Optional. Defaults to &quot;false&quot; if not specified.</p>
           
 
           <p>PolicyRefs identifies the policies to which the exception is applied.</p>
+
+
+          
+
+          
+        </td>
+      </tr>
+    
+  
+    
+    
+      <tr>
+        <td><code>namespaces</code>
+          
+          </br>
+
+          
+          
+            
+              <span style="font-family: monospace">[]string</span>
+            
+          
+        </td>
+        <td>
+          
+
+          <p>Namespaces lists the namespaces of the namespaced policies this exception applies to.
+Required when any policyRef targets a namespaced policy kind; ignored for cluster-scoped policies.
+The exception must still be accepted by the exceptionNamespace setting, so this field only narrows its reach.</p>
 
 
           

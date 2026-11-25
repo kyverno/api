@@ -1,10 +1,13 @@
 package v1alpha1
 
 import (
+	"strconv"
+	"strings"
 	"time"
 
 	admissionregistrationv1 "k8s.io/api/admissionregistration/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/util/validation"
 	"k8s.io/apimachinery/pkg/util/validation/field"
 )
 
@@ -34,6 +37,13 @@ func (p *PolicyException) IsExpired() bool {
 type PolicyExceptionSpec struct {
 	// PolicyRefs identifies the policies to which the exception is applied.
 	PolicyRefs []PolicyRef `json:"policyRefs"`
+
+	// Namespaces lists the namespaces of the namespaced policies this exception applies to.
+	// Required when any policyRef targets a namespaced policy kind; ignored for cluster-scoped policies.
+	// The exception must still be accepted by the exceptionNamespace setting, so this field only narrows its reach.
+	// +optional
+	// +listType=set
+	Namespaces []string `json:"namespaces,omitempty"`
 
 	// MatchConditions is a list of CEL expressions that must be met for a resource to be excluded.
 	// +optional
@@ -93,10 +103,23 @@ func (p *PolicyExceptionSpec) Validate(path *field.Path) (errs field.ErrorList) 
 			errs = append(errs, policyRef.Validate(path.Child("policyRefs").Index(i))...)
 		}
 	}
-	for i, validation := range p.Validations {
-		if validation.Expression == "" {
+	for i, ns := range p.Namespaces {
+		for _, msg := range validation.IsDNS1123Label(ns) {
+			errs = append(errs, field.Invalid(path.Child("namespaces").Index(i), ns, msg))
+		}
+	}
+	if len(p.Namespaces) == 0 {
+		for i, policyRef := range p.PolicyRefs {
+			if policyRef.IsNamespaced() {
+				errs = append(errs, field.Required(path.Child("namespaces"), "must be set when policyRefs["+strconv.Itoa(i)+"] references a namespaced policy"))
+				break
+			}
+		}
+	}
+	for i, v := range p.Validations {
+		if v.Expression == "" {
 			path := path.Child("validations").Index(i).Child("expression")
-			errs = append(errs, field.Invalid(path, validation.Expression, "must specify an expression"))
+			errs = append(errs, field.Invalid(path, v.Expression, "must specify an expression"))
 		}
 	}
 	return errs
@@ -108,6 +131,11 @@ type PolicyRef struct {
 
 	// Kind is the kind of the policy
 	Kind string `json:"kind"`
+}
+
+// IsNamespaced reports whether the referenced policy kind is namespace-scoped.
+func (p *PolicyRef) IsNamespaced() bool {
+	return strings.HasPrefix(p.Kind, "Namespaced")
 }
 
 func (p *PolicyRef) Validate(path *field.Path) (errs field.ErrorList) {
