@@ -1,6 +1,12 @@
 package v1alpha1
 
 type PodControllersGenerationConfiguration struct {
+	// Enabled specifies whether to generate pod controller rules.
+	// Optional. Defaults to "true" if not specified.
+	Enabled *bool `json:"enabled,omitempty"`
+	// Controllers specifies the list of pod controllers to generate rules for,
+	// for example DaemonSet, Deployment, Job, StatefulSet, ReplicaSet, ReplicationController, CronJob.
+	// Optional. Defaults to all supported pod controllers if not specified.
 	Controllers []string `json:"controllers,omitempty"`
 }
 
